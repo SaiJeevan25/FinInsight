@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function WelcomePage() {
   const [points, setPoints] = useState([]);
@@ -78,14 +79,21 @@ export default function WelcomePage() {
         </p>
         <div>
           <p className="flex flex-col justify-center items-center text-2xl text-indigo-500 font-extrabold">Get Started For Free</p>
-          <div className="flex py-6 gap-4">
-            <button className="border px-6 py-3 text-lg md:text-xl cursor-pointer rounded-xl font-extrabold text-indigo-500 hover:bg-indigo-500 hover:text-white transition">
-              Log In
-            </button>
-            <button className="border px-6 py-3 text-lg md:text-xl cursor-pointer rounded-xl font-extrabold text-indigo-500 hover:bg-indigo-500 hover:text-white transition">
-              Sign Up
-            </button>
-          </div>
+         <div className="flex py-6 gap-4">
+              <Link 
+                to="/login" 
+                className="border px-6 py-3 text-lg md:text-xl cursor-pointer rounded-xl font-extrabold text-indigo-500 hover:bg-indigo-500 hover:text-white transition"
+              >
+                Log In
+              </Link>
+
+              <Link 
+                to="/signup" 
+                className="border px-6 py-3 text-lg md:text-xl cursor-pointer rounded-xl font-extrabold text-indigo-500 hover:bg-indigo-500 hover:text-white transition"
+              >
+                Sign Up
+              </Link>
+         </div>
         </div>
       </div>
     </div>
