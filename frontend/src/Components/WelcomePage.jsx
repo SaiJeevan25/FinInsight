@@ -33,10 +33,10 @@ export default function WelcomePage() {
         onClick={() => setDarkMode(!darkMode)}
       >
         {darkMode ?
-          <i className="fa-solid fa-sun "> Light</i>
+          <i className="fa-solid fa-sun "></i>
           :
 
-          <i className="fa-solid fa-moon capitalize">  Dark</i>}
+          <i className="fa-solid fa-moon capitalize"></i>}
       </button>
 
       <div className="absolute inset-0 flex items-end justify-center gap-2 opacity-20">
