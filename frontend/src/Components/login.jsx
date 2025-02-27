@@ -11,9 +11,15 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    // <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div
+      className="flex flex-col items-center justify-center min-h-screen bg-gray-100 bg-cover bg-center"
+    >
       <h2 className="text-2xl font-bold mb-4">Login</h2>
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-80">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded-lg shadow-md w-80"
+      >
         <input
           type="email"
           placeholder="Email"
@@ -30,10 +36,15 @@ const Login = () => {
           className="w-full p-2 mb-3 border rounded"
           required
         />
-        <button className="w-full bg-blue-500 text-white p-2 rounded">Login</button>
+        <button className="w-full bg-blue-500 text-white p-2 rounded">
+          Login
+        </button>
       </form>
       <p className="mt-4">
-        Don't have an account? <Link to="/signup" className="text-blue-500">Sign up</Link>
+        Don't have an account?{" "}
+        <Link to="/signup" className="text-blue-500">
+          Sign up
+        </Link>
       </p>
     </div>
   );
