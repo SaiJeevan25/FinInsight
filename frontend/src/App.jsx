@@ -1,9 +1,13 @@
-import React from 'react'
-import WelcomePage from './Components/WelcomePage'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Welcomepage from "./Components/WelcomePage";
+
 export default function App() {
   return (
-    <div>
-      <WelcomePage />
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Welcomepage />} />
+      </Routes>
+    </Router>
+  );
 }
