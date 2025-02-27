@@ -5,28 +5,9 @@ import BarAnimation from "./Animations/BarAnimation";
 
 
 export default function WelcomePage() {
-  // const [points, setPoints] = useState([]);
-  // const [bars, setBars] = useState(new Array(20).fill(50));
+
   const [darkMode, setDarkMode] = useState(false);
 
-
-  // useEffect(() => {
-  //     const generatePoints = () => { 
-  //       const newPoints = Array.from({ length: 25 }, (_, i) => ({
-  //         x: i * 4 + 5,
-  //         y: Math.random() * 50 + 20,
-  //         delay: i * 0.2,
-  //       }));
-  //       setPoints(newPoints);
-  //     };
-  //     generatePoints();
-  
-  //     const interval = setInterval(() => {
-  //       setBars(bars.map(() => Math.random() * 70 + 20));
-  //     }, 900);
-  //     return () => clearInterval(interval);
-  //   }, [bars]);
-  
 
   return (
     <div className={`relative flex flex-col lg:flex-row justify-center items-center h-screen overflow-hidden duration-300 px-6 ${darkMode ? 'bg-black text-white' : 'bg-white text-gray-900'}`}>
@@ -41,31 +22,6 @@ export default function WelcomePage() {
 
           <i className="fa-solid fa-moon capitalize"> </i>}
       </button>
-
-      {/* <div className="absolute inset-0 flex items-end justify-center gap-2 opacity-20">
-        {bars.map((height, index) => (
-          <motion.div
-            key={index}
-            className={`w-2  md:mx-3 md:w-6 rounded ${darkMode ? 'bg-indigo-300' : 'bg-indigo-900'}`}
-            animate={{ height: `${height}%` }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-          />
-        ))}
-      </div>
-
-
-      <div className="absolute inset-0">
-        {points.map((point, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-indigo-400 rounded-full shadow-lg"
-            style={{ left: `${point.x}%`, bottom: `${point.y}%` }}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1.2 }}
-            transition={{ duration: 1, delay: point.delay, repeat: Infinity, repeatType: "reverse" }}
-          />
-        ))}
-      </div> */}
 
       <BarAnimation darkMode={darkMode} />
 
