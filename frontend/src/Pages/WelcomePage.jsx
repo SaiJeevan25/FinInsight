@@ -7,7 +7,7 @@ export default function WelcomePage() {
   const { darkMode, setDarkMode } = useTheme();
 
   return (
-    <div className={`relative flex flex-col lg:flex-row justify-center items-center h-screen overflow-hidden duration-300 px-6 ${darkMode ? 'bg-black text-white' : 'bg-white text-gray-900'}`}>
+    <div className={`relative flex flex-col lg:flex-row justify-center items-center h-screen overflow-hidden duration-300 px-6 ${darkMode ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white' : 'bg-white text-gray-900'}`}>
       <Logo />
       <BarAnimation />
 
