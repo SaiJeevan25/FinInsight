@@ -1,10 +1,11 @@
 import React from 'react'
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useTheme } from '../context/ThemeContext';
 
-export default function BarAnimation(props) {
+export default function BarAnimation() {
     const [points, setPoints] = useState([]);
-    const { darkMode } = props;
+    const { darkMode, setDarkMode } = useTheme();
     const [bars, setBars] = useState(new Array(20).fill(50));
 
 
@@ -12,7 +13,7 @@ export default function BarAnimation(props) {
         const generatePoints = () => {
             const newPoints = Array.from({ length: 25 }, (_, i) => ({
                 x: i * 4 + 5,
-                y: Math.random() * 50 + 20,
+                y: Math.random() * 80 + 10,
                 delay: i * 0.2,
             }));
             setPoints(newPoints);
