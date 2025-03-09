@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WelcomePage from './Components/WelcomePage';
 import SignUp from './Components/SignUp';
 import Login from './Components/Login';
-import NotFound from './Components/NotFound'; // Add this file if not present
+import NotFound from './Components/NotFound';
 
 export default function App() {
   return (
