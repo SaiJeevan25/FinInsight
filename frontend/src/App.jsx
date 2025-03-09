@@ -1,19 +1,22 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import WelcomePage from './Components/WelcomePage';
-import SignUp from './Components/SignUp';
-import Login from './Components/Login';
-import NotFound from './Components/NotFound';
+import WelcomePage from "./Pages/WelcomePage";
+import Login from "./Pages/Login";
+import SignUp from "./Pages/SignUp";
+import NotFound from './Pages/NotFound';
+import { ThemeProvider } from "./Components/ThemeContext";
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }

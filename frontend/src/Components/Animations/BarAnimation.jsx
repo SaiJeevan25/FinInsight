@@ -1,10 +1,11 @@
 import React from 'react'
+import { useTheme } from '../ThemeContext';
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function BarAnimation(props) {
     const [points, setPoints] = useState([]);
-    const { darkMode } = props;
+    const { darkMode } = useTheme();
     const [bars, setBars] = useState(new Array(20).fill(50));
 
 
@@ -32,7 +33,7 @@ export default function BarAnimation(props) {
                 {bars.map((height, index) => (
                     <motion.div
                         key={index}
-                        className={`w-2  md:mx-3 md:w-6 rounded ${darkMode ? 'bg-indigo-300' : 'bg-indigo-900'}`}
+                        className={`w-2 hidden md:block  md:mx-3 md:w-6 rounded ${darkMode ? 'bg-gray-100' : 'bg-gray-900'}`}
                         animate={{ height: `${height}%` }}
                         transition={{ duration: 0.8, ease: "easeInOut" }}
                     />
@@ -44,7 +45,7 @@ export default function BarAnimation(props) {
                 {points.map((point, i) => (
                     <motion.div
                         key={i}
-                        className="absolute w-2 h-2 bg-indigo-400 rounded-full shadow-lg"
+                        className="absolute w-2 h-2 bg-indigo-600 rounded-full shadow-lg"
                         style={{ left: `${point.x}%`, bottom: `${point.y}%` }}
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1.2 }}

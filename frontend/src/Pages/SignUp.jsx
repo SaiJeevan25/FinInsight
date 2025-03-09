@@ -1,0 +1,69 @@
+import React from 'react';
+import { useTheme } from '../Components/ThemeContext';
+import BarAnimation from '../Components/Animations/barAnimation';
+import Logo from '../Components/Logo';
+import Button from '../Components/Button';
+
+export default function SignUp() {
+  const { darkMode } = useTheme();
+  return (
+    <div className={`relative h-screen flex items-center justify-center font-poppins 
+      ${darkMode ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white'
+            : 'bg-gradient-to-br from-gray-200 via-gray-300 to-white text-black'}`}>
+              <Logo />
+    
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+    
+            <BarAnimation />
+          </div>
+
+      <div className={`relative z-10  w-full max-w-md p-8  bg-opacity-90 rounded-xl shadow-2xl ${darkMode ? 'bg-gray-400 text-gray-900' : 'bg-gray-800 text-gray-300'}`}>
+        <h2 className="text-3xl font-semibold text-center ">Create an Account</h2>
+        <form action="/signup" method="POST" className="mt-6">
+          <label htmlFor="name" className="block text-sm font-medium  ">Full Name:</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            required 
+            className="w-full px-4 py-2 mt-2 bg-gray-600 text-white border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
+
+          <label htmlFor="email" className="block text-sm font-medium   mt-4">Email:</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required 
+            className="w-full px-4 py-2 mt-2 bg-gray-600 text-white border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
+
+          <label htmlFor="password" className="block text-sm font-medium   mt-4">Password:</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            required 
+            className="w-full px-4 py-2 mt-2 bg-gray-600 text-white border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
+
+          <label htmlFor="confirmPassword" className="block text-sm font-medium   mt-4">Confirm Password:</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            name="confirmPassword" 
+            required 
+            className="w-full px-4 py-2 mt-2 bg-gray-600 text-white border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
+
+          <Button func={() => (null)} text='Sign Up' style="w-full mt-8 " />
+
+          <p className="text-center text-white mt-4">
+            Already have an account? 
+            <a href="/login" className="text-indigo-500 hover:underline"> Login</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+}
