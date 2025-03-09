@@ -1,15 +1,18 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Welcomepage from "./Components/WelcomePage";
-import SignUp from './Components/SignUp'
-import Login from './Components/Login'
+import WelcomePage from './Components/WelcomePage';
+import SignUp from './Components/SignUp';
+import Login from './Components/Login';
+import NotFound from './Components/NotFound'; // Add this file if not present
+
 export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Welcomepage />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Signup" element={<SignUp />} />
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
