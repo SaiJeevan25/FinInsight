@@ -11,7 +11,7 @@ export default function Login() {
   ${darkMode ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white'
         : 'bg-gradient-to-br from-gray-200 via-gray-300 to-white text-black'}`}>
           <Logo />
-      {/* Background Animation */}
+
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
 
         <BarAnimation />

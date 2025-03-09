@@ -33,7 +33,7 @@ export default function BarAnimation(props) {
                 {bars.map((height, index) => (
                     <motion.div
                         key={index}
-                        className={`w-2  md:mx-3 md:w-6 rounded ${darkMode ? 'bg-gray-100' : 'bg-gray-900'}`}
+                        className={`w-2 hidden md:block  md:mx-3 md:w-6 rounded ${darkMode ? 'bg-gray-100' : 'bg-gray-900'}`}
                         animate={{ height: `${height}%` }}
                         transition={{ duration: 0.8, ease: "easeInOut" }}
                     />
