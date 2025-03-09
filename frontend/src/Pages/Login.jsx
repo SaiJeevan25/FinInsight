@@ -1,5 +1,5 @@
 import React from 'react';
-import BarAnimation from './Animations/barAnimation';
+import BarAnimation from '../Components/Animations/barAnimation';
 
 export default function Login() {
   return (
