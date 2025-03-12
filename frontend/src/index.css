@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+* {
+}
+
 .indigoShadow{
     box-shadow: 3px 3px 0 0 #6366F1;
   }
