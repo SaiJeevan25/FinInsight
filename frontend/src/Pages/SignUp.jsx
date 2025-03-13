@@ -8,13 +8,15 @@ export default function SignUp() {
   const { darkMode } = useTheme();
 
   return (
-    <div className={`h-screen flex flex-col md:grid md:grid-cols-2 font-poppins
+    <div className={`relative h-full md:h-screen flex flex-col md:grid md:grid-cols-2 font-poppins
       ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-200 text-black'}`}>
       <Logo />
-
-      <div className="hidden md:flex flex-col justify-center items-center text-center p-12 overflow-hidden">
+      <div className='hidden md:block absolute  w-2xl h-full'>
         <BarAnimation />
-        <div className={`backdrop-blur-2xl  p-6 rounded-2xl shadow-lg shadow-indigo-500 border-b-2  ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
+      </div>
+      <div className="hidden md:flex flex-col justify-center items-center text-center p-12 overflow-hidden">
+
+        <div className={`backdrop-blur-2xl  p-6 rounded-2xl shadow-lg shadow-indigo-500   ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
           <div className="text-center pb-4">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-indigo-500">
               Fin<span className={`${darkMode ? 'text-gray-400' : "text-gray-700"}`}>Insight</span>
@@ -35,7 +37,7 @@ export default function SignUp() {
       </div>
 
       {/* Right Side - Signup Form */}
-      <div className="relative flex flex-col items-center h-screen mt-10 md:mt-0  shadow justify-center px-2 md:px-8 ">
+      <div className="relative flex flex-col items-center h-screen mt-10 md:mt-0  shadow justify-center px-3 pt-10 md:px-8 ">
 
 
         <div className={`relative w-full max-w-md p-8 bg-opacity-90 rounded-xl shadow-lg shadow-indigo-500
