@@ -10,10 +10,12 @@ export default function SignIn() {
   return (
     <div className={`h-screen flex flex-col md:grid md:grid-cols-2 font-poppins
       ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-200 text-black'}`}>
-        <Logo />
+      <Logo />
+      <div className='hidden md:block absolute  w-2xl h-full'>
+        <BarAnimation />
+      </div>
       {/* Left Side - Branding & Message */}
       <div className="hidden md:flex flex-col justify-center items-center text-center p-12 overflow-hidden">
-        <BarAnimation />
         <div className={`backdrop-blur-2xl p-6 rounded-2xl shadow-lg shadow-indigo-500 border-b-2 
           ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-indigo-500">
@@ -36,7 +38,7 @@ export default function SignIn() {
 
       {/* Right Side - Log In Form */}
       <div className="relative h-screen flex flex-col items-center shadow justify-center px-4 md:px-8">
-        
+
         <div className={`relative w-full max-w-md p-8 bg-opacity-90 rounded-xl shadow-lg shadow-indigo-500
           ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
           <h2 className="text-3xl font-semibold text-center">Log In to Your Account</h2>
