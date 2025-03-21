@@ -2,19 +2,59 @@ import React from 'react';
 import { useTheme } from '../Components/ThemeContext';
 import BarAnimation from '../Components/Animations/barAnimation';
 import Logo from '../Components/Logo';
+import { useState } from 'react';
 import Button from '../Components/Button';
+import BgToggle from '../Components/BgToggle';
 
 export default function SignIn() {
   const { darkMode } = useTheme();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState('');
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await fetch('http://localhost:8000/api/auth/login/', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ email, password }),
+  //     });
+      
+  //     const data = await response.json();
+      
+  //     if (!response.ok) {
+  //       throw new Error(data.error || 'Login failed');
+  //     }
+      
+  //     // Store token or session info
+  //     localStorage.setItem('token', data.token);
+      
+  //     // Redirect to dashboard or home page
+  //     window.location.href = '/dashboard';
+  //   } catch (err) {
+  //     setError(err.message);
+  //   }
+  // };
 
   return (
+
     <div className={`h-screen flex flex-col md:grid md:grid-cols-2 font-poppins
       ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-200 text-black'}`}>
-      <Logo />
+      <div className='absolute z-20 top-4 w-full flex items-center justify-between px-4'>
+            {/* Left-aligned Title */}
+            <Logo />
+
+            {/* Right-aligned Button */}
+            <BgToggle />
+        </div>
+
       <div className='hidden md:block absolute  w-2xl h-full'>
         <BarAnimation />
       </div>
-      {/* Left Side - Branding & Message */}
+
       <div className="hidden md:flex flex-col justify-center items-center text-center p-12 overflow-hidden">
         <div className={`backdrop-blur-2xl p-6 rounded-2xl shadow-lg shadow-indigo-500 border-b-2 
           ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
@@ -36,26 +76,33 @@ export default function SignIn() {
         </div>
       </div>
 
-      {/* Right Side - Log In Form */}
       <div className="relative h-screen flex flex-col items-center shadow justify-center px-4 md:px-8">
 
         <div className={`relative w-full max-w-md p-8 bg-opacity-90 rounded-xl shadow-lg shadow-indigo-500
           ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
+            {error && <p className="text-red-500 text-lg mt-4">{error}</p>}
           <h2 className="text-3xl font-semibold text-center">Log In to Your Account</h2>
-          <form action="/login" method="POST" className="mt-6">
+
+          <form  className="mt-6">
             <label htmlFor="email" className="block text-sm font-medium">Email:</label>
             <input
-              type="email" id="email" name="email" required
+              type="email" id="email" name="email"
+              value = {email}
+              onChange = {(e) => setEmail(e.value)}
+              required
               className="w-full px-4 py-2 mt-2 bg-gray-600 text-white rounded-md focus:ring-2 focus:ring-indigo-400"
             />
 
             <label htmlFor="password" className="block text-sm font-medium mt-4">Password:</label>
             <input
+            
               type="password" id="password" name="password" required
+              value = {password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 mt-2 bg-gray-600 text-white rounded-md focus:ring-2 focus:ring-indigo-400"
             />
 
-            <Button func={() => (null)} text='Log In' style="w-full mt-8" />
+            <Button func={() => ('/')} text='Log In' style="w-full mt-8" />
 
             <p className="text-center mt-4">
               Don't have an account?
