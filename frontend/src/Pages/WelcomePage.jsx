@@ -1,14 +1,22 @@
 import { useTheme } from "../Components/ThemeContext";
-import Logo from "../Components/Logo";
+
 import Button from "../Components/Button";
 import BarAnimation from "../Components/Animations/barAnimation";
+import Logo from "../Components/Logo";
+import BgToggle from "../Components/BgToggle";
 
 export default function WelcomePage() {
   const { darkMode, setDarkMode } = useTheme();
 
   return (
     <div className={`relative flex flex-col lg:flex-row justify-center items-center h-screen overflow-hidden duration-300 px-6 ${darkMode ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white' : 'bg-white text-gray-900'}`}>
-      <Logo />
+      <div className='absolute z-20 top-4 w-full flex items-center justify-between px-4'>
+            {/* Left-aligned Title */}
+            <Logo />
+
+            {/* Right-aligned Button */}
+            <BgToggle />
+        </div>
       <BarAnimation />
 
       <div className={`flex flex-col gap-10 items-center justify-center mt-7 backdrop-blur-md p-6 rounded-xl bg-gray-100 shadow-xl   ${darkMode ? 'bg-gray-800 text-white shadow-gray-600' : 'bg-white shadow-black text-gray-900'}`}>
