@@ -164,10 +164,11 @@ export default function TransactionsPage() {
         </button>
 
         {/* Sidebar */}
-        <div className={`fixed md:relative left-4 md:top-[1.5rem] h-[17rem] md:h-[22rem] mr-5 transition-all duration-300 z-20 ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'} 
-          w-56 p-5 rounded-lg shadow-md flex flex-col justify-between 
-          ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} 
-          lg:translate-x-0`}
+        <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-64'} 
+  fixed md:sticky md:top-0 left-0 w-56 p-5 rounded-lg shadow-md 
+  flex flex-col justify-between h-auto min-h-[22rem]
+  ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} 
+  transition-all duration-300 z-20 md:translate-x-0 my-4 mx-4`}
         >
           <div>
             {/* Month Navigator */}
