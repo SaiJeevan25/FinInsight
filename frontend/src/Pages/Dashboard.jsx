@@ -10,7 +10,7 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("Transactions");
 
   return (
-    <div className={`relative flex flex-col h-full min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+    <div className={`relative flex flex-col  min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
       <NavBar activeTab = {activeTab} setActiveTab={setActiveTab}/>
       {activeTab === "Transactions" && <TransactionsPage/>}
       {activeTab === "Stats" && <StatsPage/>}
