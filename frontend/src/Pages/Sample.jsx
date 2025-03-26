@@ -1,14 +1,11 @@
 import React from 'react'
 
-export default function Sample() {
-    return (
-        <div>
-            <div class="relative w-64 bg-gray-600">
-                <input type="date"
-                    class="w-full  px-4 py-2 pr-10 border rounded-lg " />
-
-            </div>
-
+export default function  sample() {
+  return (
+    <div className='bg-gray-900 flex items-center h-screen justify-center'>
+        <div className='p-10 bg-[#495e34] text-white text-2xl shadow-md shadow-gray-200' >
+            <p>Sample Code</p>
         </div>
-    )
+    </div>
+  )
 }

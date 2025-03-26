@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
-import Button from "./Button";
-import { useTheme } from "./ThemeContext";
+import Button from "../../Components/Button";
+import { useTheme } from "../../Components/ThemeContext";
 
 const TransactionModal = ({ isOpen, onClose, onSave }) => {
   const { darkMode } = useTheme();
@@ -142,8 +142,9 @@ const TransactionModal = ({ isOpen, onClose, onSave }) => {
               value={transactionData.category}
               onChange={handleChange}
               className={`w-full p-2 border rounded-md ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
-            >
+            ><option disabled selected>Select Category</option>
               {transactionData.type === "expense" ? (
+                  
                 expenseCategories.map(category => (
                   <option key={category} value={category}>{category}</option>
                 ))
@@ -162,6 +163,7 @@ const TransactionModal = ({ isOpen, onClose, onSave }) => {
               name="date"
               value={transactionData.date}
               onChange={handleChange}
+              max={new Date().toISOString().split('T')[0]}
               className={`w-full p-2 border rounded-md ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
               required
             />
