@@ -23,7 +23,7 @@ export default function Sidebar({
           <FiChevronLeft className="cursor-pointer text-xl hover:text-indigo-500" onClick={handlePrev} />
           <div className="flex items-center gap-1">
             <FiCalendar className="text-indigo-500" />
-            <p className="text-sm md:text-md lg:text-lg text-center font-semibold">
+            <p style={{ userSelect: "none" }} className="text-sm md:text-md lg:text-lg text-center  font-semibold">
               {viewMode === "Daily"
                 ? `${currentDate} ${monthNames[currentMonthIndex]} ${currentYear}`
                 : viewMode === "Month"
@@ -35,7 +35,7 @@ export default function Sidebar({
         </div>
 
         {/* View Mode Options */}
-        <ul className="space-y-3 text-lg font-medium">
+        <ul className="space-y-3 text-lg font-medium " style={{ userSelect: "none" }} >
           {["Daily", "Month", "Year"].map(mode => (
             <li
               key={mode}
@@ -49,7 +49,7 @@ export default function Sidebar({
       </div>
 
       {/* Add Transaction Button */}
-      <div className="hidden md:block">
+      <div className="hidden md:block " >
         <Button text="+ Add Transaction" func={() => setIsAddModalOpen(true)} className="w-full mt-2" />
       </div>
     </div>

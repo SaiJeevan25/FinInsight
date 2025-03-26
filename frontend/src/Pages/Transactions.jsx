@@ -184,7 +184,7 @@ export default function TransactionsPage() {
   };
 
   return (
-    <div className="flex flex-col h-full mt-20 overflow-hidden">
+    <div className="flex flex-col h-full mt-20 overflow-hidden" >
 
       <SummaryCards
         incomeTotal={incomeTotal}
