@@ -5,14 +5,7 @@ import { useState, useEffect } from "react";
 import TransactionModal from "./TransactionsPage/TransactionModel";
 import {
   FiPlus,
-  FiChevronLeft,
-  FiChevronRight,
   FiMenu,
-  FiCalendar,
-  FiArrowUp,
-  FiArrowDown,
-  FiFilter,
-  FiSearch,
   FiDollarSign,
   FiCoffee,
   FiShoppingBag,
@@ -39,6 +32,7 @@ export default function TransactionsPage() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const [incomeTotal, setIncomeTotal] = useState(0);
   const [expenseTotal, setExpenseTotal] = useState(0);
@@ -56,9 +50,7 @@ export default function TransactionsPage() {
     let expense = 0;
 
     transactions.forEach(transaction => {
-      // Remove currency symbol and convert to number
       const amount = parseFloat(transaction.amount.replace(/[^\d.-]/g, ''));
-
       if (transaction.type === 'income') {
         income += amount;
       } else {
@@ -84,7 +76,7 @@ export default function TransactionsPage() {
   const handleNextMonth = () => {
     setCurrentMonthIndex((prev) => {
       if (prev === 11) {
-        setCurrentYear(year => year );
+        setCurrentYear(year => year);
         return 0;
       }
       return prev + 1;
@@ -105,19 +97,28 @@ export default function TransactionsPage() {
   };
 
   // Filter transactions based on searchTerm and filterType
+
+
   const filteredTransactions = transactions.filter(transaction => {
-    const matchesSearch = transaction.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      transaction.category.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = transaction.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      transaction.category?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = filterType === "all" || transaction.type === filterType;
-    return matchesSearch && matchesFilter;
+    const matchesCategory = selectedCategory === "All" || selectedCategory === "" || transaction.category === selectedCategory;
+
+    console.log(`Transaction: ${transaction.title} | Category: ${transaction.category}`);
+    console.log(`Matches Search: ${matchesSearch}, Matches Filter: ${matchesFilter}, Matches Category: ${matchesCategory}`);
+
+    return matchesSearch && matchesFilter && matchesCategory;
   });
+
+
 
   const onSave = (newTransaction) => {
     // This would be replaced with an API call to your backend
 
     // Format date for display
     const date = new Date(newTransaction.date);
-    const formattedDate = `${date.getDate()} ${monthNames[date.getMonth()].slice(0, 3)}`;
+    const formattedDate = `${date.getDate()} ${monthNames[date.getMonth()].slice(0, 3)} ${date.getFullYear()}`;
 
     // Format amount with currency
     const formattedAmount = `₹${parseFloat(newTransaction.amount).toLocaleString('en-IN', {
@@ -130,7 +131,7 @@ export default function TransactionsPage() {
 
     // Create transaction object (backend will provide ID)
     const finalTransaction = {
-      id: Date.now(), // Temporary ID until backend provides one
+      id: Date.now(),
       date: formattedDate,
       type: newTransaction.type,
       category: newTransaction.category,
@@ -167,10 +168,10 @@ export default function TransactionsPage() {
   return (
     <div className="flex flex-col h-full mt-20 overflow-hidden">
 
-      <SummaryCards 
-        incomeTotal={incomeTotal} 
-        expenseTotal={expenseTotal} 
-        savingsTotal={savingsTotal} 
+      <SummaryCards
+        incomeTotal={incomeTotal}
+        expenseTotal={expenseTotal}
+        savingsTotal={savingsTotal}
         darkMode={darkMode}
       />
 
@@ -184,34 +185,37 @@ export default function TransactionsPage() {
         </button>
 
         {/* Sidebar */}
-        <Sidebar 
+        <Sidebar
           sidebarOpen={sidebarOpen}
-          currentMonthIndex={currentMonthIndex} 
-          currentYear={currentYear} 
-          handlePrevMonth={handlePrevMonth} 
-          handleNextMonth={handleNextMonth} 
-          viewMode={viewMode} 
-          handleViewModeChange={handleViewModeChange} 
-          darkMode={darkMode} 
+          currentMonthIndex={currentMonthIndex}
+          currentYear={currentYear}
+          handlePrevMonth={handlePrevMonth}
+          handleNextMonth={handleNextMonth}
+          viewMode={viewMode}
+          handleViewModeChange={handleViewModeChange}
+          darkMode={darkMode}
           setIsAddModalOpen={setIsAddModalOpen}
         />
-        
+
 
         {/* Main Content */}
         <div className={`flex-1 p-4 md:p-6 ${sidebarOpen ? 'ml-0 lg:ml-10' : 'ml-0'} transition-all duration-300 overflow-y-auto`}>
 
           {/* Search and Filter Bar */}
-          <SearchFilterBar 
-            searchTerm={searchTerm}  
-            handleSearch={handleSearch} 
-            filterType={filterType} 
-            setFilter={setFilter} 
-            isFilterMenuOpen={isFilterMenuOpen} 
-            toggleFilterMenu={toggleFilterMenu} 
-            darkMode={darkMode} 
+          <SearchFilterBar
+            searchTerm={searchTerm}
+            handleSearch={handleSearch}
+            filterType={filterType}
+            setFilter={setFilter}
+            selectedCategory={selectedCategory}
+            setCategory={setSelectedCategory}
+            isFilterMenuOpen={isFilterMenuOpen}
+            toggleFilterMenu={toggleFilterMenu}
+            darkMode={darkMode}
           />
-          
+
           {/* Transactions List */}
+          {console.log(filteredTransactions)}
           {filteredTransactions.length > 0 ? (
             <div className="space-y-3 overflow-x-clip">
               {filteredTransactions.map((transaction) => (

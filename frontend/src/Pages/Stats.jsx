@@ -18,10 +18,7 @@ import {
   FiFileText
 } from "react-icons/fi";
 
-const monthNames = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+const monthNames = ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Sept", "October", "Nov", "Dec"];
 
 // Helper to format currency
 const formatCurrency = (amount) => {

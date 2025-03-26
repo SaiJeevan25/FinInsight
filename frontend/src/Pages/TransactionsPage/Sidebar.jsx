@@ -2,7 +2,7 @@ import { FiChevronLeft, FiChevronRight, FiCalendar } from "react-icons/fi";
 import Button from "../../Components/Button";
 
 export default function Sidebar({sidebarOpen, currentMonthIndex, currentYear, handlePrevMonth, handleNextMonth, viewMode, handleViewModeChange, darkMode, setIsAddModalOpen }) {
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "Sept", "October", "November", "December"];
+  const monthNames = ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Sept", "October", "Nov", "Dec"];
 
   return (
     <div className={` ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'} fixed md:sticky md:top-0 left-0 w-56 p-5 rounded-lg shadow-md flex flex-col justify-between h-auto min-h-[22rem] ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} transition-all duration-300 z-20 md:translate-x-0 my-4 mx-4`}>
