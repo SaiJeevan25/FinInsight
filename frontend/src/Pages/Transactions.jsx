@@ -104,10 +104,6 @@ export default function TransactionsPage() {
       transaction.category?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = filterType === "all" || transaction.type === filterType;
     const matchesCategory = selectedCategory === "All" || selectedCategory === "" || transaction.category === selectedCategory;
-
-    console.log(`Transaction: ${transaction.title} | Category: ${transaction.category}`);
-    console.log(`Matches Search: ${matchesSearch}, Matches Filter: ${matchesFilter}, Matches Category: ${matchesCategory}`);
-
     return matchesSearch && matchesFilter && matchesCategory;
   });
 
@@ -133,9 +129,9 @@ export default function TransactionsPage() {
     const finalTransaction = {
       id: Date.now(),
       date: formattedDate,
+      title:newTransaction.title,
       type: newTransaction.type,
       category: newTransaction.category,
-      title: newTransaction.note || newTransaction.category,
       amount: formattedAmount,
       icon
     };
@@ -199,7 +195,7 @@ export default function TransactionsPage() {
 
 
         {/* Main Content */}
-        <div className={`flex-1 p-4 md:p-6 ${sidebarOpen ? 'ml-0 lg:ml-10' : 'ml-0'} transition-all duration-300 overflow-y-auto`}>
+        <div className={`flex-1 p-4 md:p-6 ${sidebarOpen ? 'ml-0 lg:ml-10' : 'ml-0'} transition-all duration-300 overflow-y-auto ] `}>
 
           {/* Search and Filter Bar */}
           <SearchFilterBar
@@ -215,9 +211,8 @@ export default function TransactionsPage() {
           />
 
           {/* Transactions List */}
-          {console.log(filteredTransactions)}
           {filteredTransactions.length > 0 ? (
-            <div className="space-y-3 overflow-x-clip">
+            <div className="space-y-3 ">
               {filteredTransactions.map((transaction) => (
                 <div
                   key={transaction.id}

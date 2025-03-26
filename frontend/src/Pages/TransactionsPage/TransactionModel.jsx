@@ -142,8 +142,9 @@ const TransactionModal = ({ isOpen, onClose, onSave }) => {
               value={transactionData.category}
               onChange={handleChange}
               className={`w-full p-2 border rounded-md ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
-            >
+            ><option disabled selected>Select Category</option>
               {transactionData.type === "expense" ? (
+                  
                 expenseCategories.map(category => (
                   <option key={category} value={category}>{category}</option>
                 ))
