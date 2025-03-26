@@ -162,6 +162,7 @@ const TransactionModal = ({ isOpen, onClose, onSave }) => {
               name="date"
               value={transactionData.date}
               onChange={handleChange}
+              max={new Date().toISOString().split('T')[0]}
               className={`w-full p-2 border rounded-md ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
               required
             />
