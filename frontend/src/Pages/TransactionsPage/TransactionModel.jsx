@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiX } from "react-icons/fi";
-import Button from "./Button";
-import { useTheme } from "./ThemeContext";
+import Button from "../../Components/Button";
+import { useTheme } from "../../Components/ThemeContext";
 
 const TransactionModal = ({ isOpen, onClose, onSave }) => {
   const { darkMode } = useTheme();
