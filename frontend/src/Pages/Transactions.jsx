@@ -23,9 +23,10 @@ const monthNames = [
 ];
 
 export default function TransactionsPage() {
-  const { darkMode } = useTheme();
+  const { darkMode } = useTheme();;
+  const [currentDate, setCurrentDate] = useState(new Date().getDate());
   const [currentMonthIndex, setCurrentMonthIndex] = useState(new Date().getMonth());
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear() - 1);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [transactions, setTransactions] = useState([]);
   const [viewMode, setViewMode] = useState("Daily");
@@ -63,25 +64,46 @@ export default function TransactionsPage() {
     setSavingsTotal(income - expense);
   }, [transactions]);
 
-  const handlePrevMonth = () => {
-    setCurrentMonthIndex((prev) => {
-      if (prev === 0) {
-        setCurrentYear(year => year);
-        return 11;
+  const handlePrev = () => {
+    if (viewMode === "Daily") {
+      setCurrentDate((prev) => {
+        const newDate = new Date(currentYear, currentMonthIndex, prev - 1);
+        setCurrentMonthIndex(newDate.getMonth());
+        setCurrentYear(newDate.getFullYear());
+        return newDate.getDate();
+      });
+    } else if (viewMode === "Month") {
+      if (currentMonthIndex === 0) {
+        setCurrentYear((prevYear) => prevYear - 1); 
+        setCurrentMonthIndex(11); 
+      } else {
+        setCurrentMonthIndex((prev) => prev - 1);
       }
-      return prev - 1;
-    });
+    } else if (viewMode === "Year") {
+      setCurrentYear((prev) => prev - 1);
+    }
   };
 
-  const handleNextMonth = () => {
-    setCurrentMonthIndex((prev) => {
-      if (prev === 11) {
-        setCurrentYear(year => year);
-        return 0;
+  const handleNext = () => {
+    if (viewMode === "Daily") {
+      setCurrentDate((prev) => {
+        const newDate = new Date(currentYear, currentMonthIndex, prev + 1);
+        setCurrentMonthIndex(newDate.getMonth());
+        setCurrentYear(newDate.getFullYear());
+        return newDate.getDate();
+      });
+    } else if (viewMode === "Month") {
+      if (currentMonthIndex === 11) {
+        setCurrentYear((prevYear) => prevYear + 1); 
+        setCurrentMonthIndex(0); 
+      } else {
+        setCurrentMonthIndex((prev) => prev + 1);
       }
-      return prev + 1;
-    });
+    } else if (viewMode === "Year") {
+      setCurrentYear((prev) => prev + 1);
+    }
   };
+
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -129,7 +151,7 @@ export default function TransactionsPage() {
     const finalTransaction = {
       id: Date.now(),
       date: formattedDate,
-      title:newTransaction.title,
+      title: newTransaction.title,
       type: newTransaction.type,
       category: newTransaction.category,
       amount: formattedAmount,
@@ -185,10 +207,11 @@ export default function TransactionsPage() {
           sidebarOpen={sidebarOpen}
           currentMonthIndex={currentMonthIndex}
           currentYear={currentYear}
-          handlePrevMonth={handlePrevMonth}
-          handleNextMonth={handleNextMonth}
+          currentDate={currentDate}
+          handlePrev={handlePrev}
+          handleNext={handleNext}
           viewMode={viewMode}
-          handleViewModeChange={handleViewModeChange}
+          handleViewModeChange={setViewMode}
           darkMode={darkMode}
           setIsAddModalOpen={setIsAddModalOpen}
         />
