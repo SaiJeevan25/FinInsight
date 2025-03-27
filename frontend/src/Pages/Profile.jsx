@@ -14,7 +14,7 @@ export default function ProfilePage() {
   const [phoneNumber, setPhoneNumber] = useState("9948021183");
   const [occupation, setOccupation] = useState("NA");
 
-  const handleSave = () => {
+  const handleSave = () => {zz
     setIsEditing(false);
     // Here you would typically save the data to your backend
   };
