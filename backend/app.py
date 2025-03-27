@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 import os
+import re  # Added missing import
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -12,7 +13,27 @@ load_dotenv()
 
 # Initialize Flask application
 app = Flask(__name__)
-CORS(app)
+
+# Configure CORS
+CORS(app, resources={
+    r"/api/*": {
+        "origins": ["http://localhost:5173", "http://127.0.0.1:5173"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True,
+        "expose_headers": ["Content-Type"]
+    }
+})
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    response.headers.add('Access-Control-Expose-Headers', 'Content-Type')
+    return response
+
 
 # Configure JWT
 app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'your-secret-key-change-in-production')
@@ -27,6 +48,11 @@ users_collection = db['users_auth']
 # Create unique index for email
 users_collection.create_index('email', unique=True)
 
+def get_user_transactions_collection(email):
+    """Get or create a transactions collection for a specific user"""
+    # Sanitize email to create a valid collection name
+    collection_name = re.sub(r'[^a-zA-Z0-9_]', '_', email)
+    return db[collection_name]
 # Registration endpoint
 @app.route('/api/auth/signup', methods=['POST'])
 def signup():
@@ -112,6 +138,76 @@ def profile():
         return jsonify({"error": "User not found"}), 404
     
     return jsonify(user), 200
+@app.route('/api/transactions', methods=['GET'])
+@jwt_required()
+def get_transactions():
+    try:
+        current_user_email = get_jwt_identity()
+        transactions_collection = get_user_transactions_collection(current_user_email)
+        
+        # Get and validate parameters
+        day = request.args.get('day', type=int)
+        month = request.args.get('month', type=int)
+        year = request.args.get('year', type=int)
+        
+        if not year:
+            return jsonify({"error": "Year is required"}), 400
+        
+        # Build date query
+        date_query = {}
+        try:
+            if day and month:
+                date_query["date"] = {"$regex": f"^{year}-{month:02d}-{day:02d}"}
+            elif month:
+                date_query["date"] = {"$regex": f"^{year}-{month:02d}-"}
+            else:
+                date_query["date"] = {"$regex": f"^{year}-"}
+        except Exception as e:
+            return jsonify({"error": f"Invalid date parameters: {str(e)}"}), 400
+        
+        # Execute query
+        transactions_cursor = transactions_collection.find(date_query, {"_id": 0})
+        
+        # Convert cursor to list and handle potential decoding errors
+        try:
+            transactions = list(transactions_cursor)
+        except Exception as e:
+            return jsonify({"error": f"Error decoding transactions: {str(e)}"}), 500
+        
+        return jsonify(transactions), 200
+        
+    except Exception as e:
+        app.logger.error(f"Error in get_transactions: {str(e)}")
+        return jsonify({
+            "error": "Internal server error",
+            "details": str(e)
+        }), 500
+
+@app.route('/api/transactions', methods=['POST'])
+@jwt_required()
+def add_transaction():
+    current_user_email = get_jwt_identity()
+    transactions_collection = get_user_transactions_collection(current_user_email)
+    data = request.get_json()
+
+    required_fields = ['title', 'amount', 'category', 'type', 'date']
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Missing transaction fields"}), 400
+
+    try:
+        transaction = {
+            "title": data['title'],
+            "amount": float(data['amount']),
+            "category": data['category'],
+            "type": data['type'],
+            "date": data['date'],  # Expected format: YYYY-MM-DD
+            "created_at": datetime.datetime.now()
+        }
+
+        transactions_collection.insert_one(transaction)
+        return jsonify({"message": "Transaction saved successfully"}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    app.run(debug=True, host='0.0.0.0', port=8000)  

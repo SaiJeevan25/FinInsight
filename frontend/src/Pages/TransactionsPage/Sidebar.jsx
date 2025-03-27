@@ -16,16 +16,16 @@ export default function Sidebar({
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   return (
-    <div className={` ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'} fixed md:sticky md:top-0 left-0 w-56 p-5 rounded-lg shadow-md flex flex-col justify-between h-auto min-h-[22rem] ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} transition-all duration-300 z-20 md:translate-x-0 my-4 mx-4`}>
+    <div className={` ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'} fixed md:sticky md:top-0 left-0 w-56 p-5 rounded-lg shadow-md flex flex-col justify-between max-h-[calc(7rem+4.5rem)] min-h-[22rem] ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} transition-all duration-300 z-20 md:translate-x-0 my-4 mx-4`}>
       <div>
         {/* Date/Month/Year Navigator */}
         <div className="flex items-center justify-between mb-6">
           <FiChevronLeft className="cursor-pointer text-xl hover:text-indigo-500" onClick={handlePrev} />
           <div className="flex items-center gap-1">
             <FiCalendar className="text-indigo-500" />
-            <p className="text-sm md:text-md lg:text-lg text-center font-semibold">
+            <p style={{ }} className="text-sm md:text-md lg:text-lg text-center  font-semibold">
               {viewMode === "Daily"
-                ? `${currentDate} ${monthNames[currentMonthIndex]} ${currentYear}`
+                ? `${currentDate.getDate()} ${monthNames[currentMonthIndex]} ${currentYear}`
                 : viewMode === "Month"
                 ? `${monthNames[currentMonthIndex]} ${currentYear}`
                 : `${currentYear}`}
@@ -35,7 +35,7 @@ export default function Sidebar({
         </div>
 
         {/* View Mode Options */}
-        <ul className="space-y-3 text-lg font-medium">
+        <ul className="space-y-3 text-lg font-medium " style={{}} >
           {["Daily", "Month", "Year"].map(mode => (
             <li
               key={mode}
@@ -49,7 +49,7 @@ export default function Sidebar({
       </div>
 
       {/* Add Transaction Button */}
-      <div className="hidden md:block">
+      <div className="hidden md:block " >
         <Button text="+ Add Transaction" func={() => setIsAddModalOpen(true)} className="w-full mt-2" />
       </div>
     </div>
