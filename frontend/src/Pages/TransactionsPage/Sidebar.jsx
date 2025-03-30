@@ -16,7 +16,7 @@ export default function Sidebar({
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   return (
-    <div className={` ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'} fixed md:sticky md:top-0 left-0 w-56 p-5 rounded-lg shadow-md flex flex-col justify-between max-h-[calc(7rem+4.5rem)] min-h-[22rem] ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} transition-all duration-300 z-20 md:translate-x-0 my-4 mx-4`}>
+    <div className={` ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'} fixed md:sticky md:top-0 left-0 w-56 p-5 rounded-lg shadow-md flex flex-col justify-between max-h-[calc(7rem+4.5rem)] min-h-[22rem] ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} transition-all duration-300 z-20 md:translate-x-0 my-[1.43rem] mx-4`}>
       <div>
         {/* Date/Month/Year Navigator */}
         <div className="flex items-center justify-between mb-6">

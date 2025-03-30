@@ -47,7 +47,7 @@ export default function TransactionsPage() {
   const [savingsTotal, setSavingsTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [order, setOrder] = useState(false); // false indicates Ascending order
-  const [dateVisibility, setDateVisibility] = useState(true)
+  const [dateVisibility, setDateVisibility] = useState(false)
 
   // Fetch transactions from backend
   const fetchTransactions = async () => {
@@ -274,7 +274,7 @@ export default function TransactionsPage() {
         darkMode={darkMode}
       />
 
-      <div className="flex flex-1 mt-2 relative">
+      <div className="flex flex-1 relative">
         {/* Mobile Toggle Sidebar Button */}
         <button
           className="fixed top-[22rem] left-4 p-2 bg-indigo-500 text-white rounded-lg shadow-md lg:hidden z-30"
@@ -299,7 +299,7 @@ export default function TransactionsPage() {
         />
 
         {/* Main Content */}
-        <div className={`flex-1 p-4 md:p-6 ${sidebarOpen ? 'ml-0 lg:ml-10' : 'ml-0'} transition-all duration-300 overflow-y-auto`}>
+        <div className={`flex-1 p-10 md:p-6 ${sidebarOpen ? 'ml-0 lg:ml-10' : 'ml-0'} transition-all duration-300 overflow-y-auto`}>
           {/* Search and Filter Bar */}
           <SearchFilterBar
             searchTerm={searchTerm}
