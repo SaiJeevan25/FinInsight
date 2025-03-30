@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { FiSearch, FiFilter } from "react-icons/fi";
+import { FiSearch, FiFilter, FiArrowUp, FiArrowDown } from "react-icons/fi";
 import CategoryFilter from "./CategoryFilter";
 
 export default function SearchFilterBar({
   searchTerm, handleSearch, filterType, setFilter,
-  selectedCategory, setCategory, darkMode, order, setOrder
+  selectedCategory, setCategory, darkMode, order, setOrder, dateVisibility,
 }) {
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const filterMenuRef = useRef(null);
@@ -47,8 +47,6 @@ export default function SearchFilterBar({
           <span>{filterType === "all" ? "All" : filterType === "income" ? "Income" : "Expenses"}</span>
         </button>
 
-        {/* Ascending and Descending Order */}
-
         {/* Dropdown Menu */}
         {isFilterMenuOpen && (
           <div className={`absolute right-0 mt-2 w-40 rounded-lg shadow-lg z-10 
@@ -72,8 +70,6 @@ export default function SearchFilterBar({
           </div>
         )}
       </div>
-
-      {/* Category Filter (Only show if not "All") */}
       {filterType !== "all" && (
         <CategoryFilter
           selectedCategory={selectedCategory}
@@ -84,14 +80,17 @@ export default function SearchFilterBar({
           setIsFilterMenuOpen={setIsFilterMenuOpen}
         />
       )}
-
+      { dateVisibility &&
       <div>
-        <button
-          onClick={() => setOrder(prevOrder => !prevOrder)}
-          className={`px-4 py-3 rounded-lg flex items-center gap-2 
-              ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'}`}
-        >Date {order ? <i class="fa-solid fa-sort-up"></i> : <i class="fa-solid fa-sort-down"></i>}</button>
-      </div>
+          <button
+            onClick={() => setOrder(prevOrder => !prevOrder)}
+            className={`px-4 py-3 rounded-lg flex items-center gap-2 
+                ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'}`}
+          >
+            Date {order ? <FiArrowDown /> : <FiArrowUp />}
+          </button>
+      </div> 
+      }
     </div>
   );
-}
+} 

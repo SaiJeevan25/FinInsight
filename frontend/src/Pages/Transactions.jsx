@@ -47,6 +47,7 @@ export default function TransactionsPage() {
   const [savingsTotal, setSavingsTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [order, setOrder] = useState(false); // false indicates Ascending order
+  const [dateVisibility, setDateVisibility] = useState(true)
 
   // Fetch transactions from backend
   const fetchTransactions = async () => {
@@ -150,8 +151,13 @@ export default function TransactionsPage() {
     setIsFilterMenuOpen(!isFilterMenuOpen);
   };
 
+  // Modified setFilter function to reset category when switching to "all"
   const setFilter = (type) => {
     setFilterType(type);
+    // Reset category selection when switching to "all"
+    if (type === "all") {
+      setSelectedCategory("");
+    }
     setIsFilterMenuOpen(false);
   };
 
@@ -167,8 +173,6 @@ export default function TransactionsPage() {
       })
       .sort((a, b) => order ? (new Date(b.date) - new Date(a.date)) : (new Date(a.date) - new Date(b.date)));
   }, [transactions, searchTerm, filterType, selectedCategory, order]);
-  // Sorting by date in descending order
-
 
   // Function to add a new transaction
   const addTransaction = async (newTransaction) => {
@@ -196,6 +200,11 @@ export default function TransactionsPage() {
 
   // Function to handle view mode change
   const handleViewModeChange = (mode) => {
+    if (mode === "Daily") {
+      setDateVisibility(false);
+    } else {
+      setDateVisibility(true);
+    }
     setViewMode(mode);
   };
 
@@ -304,6 +313,7 @@ export default function TransactionsPage() {
             order={order}
             setOrder={setOrder}
             darkMode={darkMode}
+            dateVisibility={dateVisibility}
           />
 
           {/* Transactions List with Loading State */}
