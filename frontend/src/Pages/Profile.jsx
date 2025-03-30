@@ -2,6 +2,7 @@ import { useTheme } from "../Components/ThemeContext";
 import { useState } from "react";
 import { FiEdit2, FiSave, FiUser, FiMail, FiDollarSign, FiPhone, FiPieChart, FiBriefcase } from "react-icons/fi";
 import Button from "../Components/Button";
+import ProfilePopUp from "../Components/ProfilePopUp";
 
 export default function ProfilePage(user) {
   console.log(user)
@@ -12,6 +13,7 @@ export default function ProfilePage(user) {
   const [email, setEmail] = useState(user.user.email);
   const [phone, setPhone] = useState(user.user.phone);
   const [occupation, setOccupation] = useState(user.user.occupation);
+  const [message, setMessage] = useState("");
   const [totalIncome, setTotalIncome] = useState("₹1,50,000.00");
   const [totalExpenses, setTotalExpenses] = useState("₹50,000.00");
   const [totalSavings, setTotalSavings] = useState("₹1,00,000.00");
@@ -39,20 +41,20 @@ export default function ProfilePage(user) {
       const result = await response.json();
 
       if (response.ok) {
-        alert("Profile updated successfully!");
+        setMessage("Profile updated successfully!")
       } else {
-        alert(`Error: ${result.error}`);
+        setMessage(result.error)
       }
     } catch (error) {
-      console.error("Update failed", error);
-      alert("Failed to update profile. Try again later.");
+        setMessage("Update failed" + error)
     }
   };
 
 
   return (
     <div className="flex flex-col h-full p-4 md:p-6 gap-6 mt-30">
-
+      {/* Show ProfilePopUp only when a message exists */}
+      {message && <ProfilePopUp message={message} setMessage={setMessage}/>}
 
       {/* Main Profile Content */}
       <div className="flex flex-col lg:flex-row gap-6">
@@ -144,9 +146,9 @@ export default function ProfilePage(user) {
                     className={`flex-1 p-2 rounded-lg ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} border`}
                   />
                 </div>
-                  ) : (
-                  <span className="flex-1">+91 {phone}</span>
-                
+              ) : (
+                <span className="flex-1">+91 {phone}</span>
+
               )}
             </div>
 

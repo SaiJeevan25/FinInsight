@@ -2,7 +2,7 @@ import { FiArrowUp, FiArrowDown } from "react-icons/fi";
 
 export default function SummaryCards({ incomeTotal, expenseTotal, savingsTotal, darkMode }) {
   return (
-    <div className={`flex flex-col md:flex-row justify-evenly p-4 mt-2 mx-4 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-gray-200'}`}>
+    <div className={`flex flex-col md:flex-row justify-evenly p-1 mt-3 mx-4 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-gray-200'}`}>
       <div className="text-center p-4">
         <p className="text-lg font-bold text-blue-500 flex items-center justify-center gap-2">
           <FiArrowDown /> Income
