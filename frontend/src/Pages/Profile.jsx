@@ -138,7 +138,7 @@ export default function ProfilePage(user) {
               </div>
               {isEditing ? (
                 <div className="flex">
-                  <p className='w-2/8 px-3 py-1 mt-1  text-white rounded-md'>+91</p>
+                  <p className='w-2/8 px-3 py-1 mt-1  text-black rounded-md'>+91</p>
                   <input
                     type="text"
                     value={phone}

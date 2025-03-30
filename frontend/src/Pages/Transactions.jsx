@@ -1,6 +1,6 @@
 import { useTheme } from "../Components/ThemeContext";
 import Button from "../Components/Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import TransactionModal from "./TransactionsPage/TransactionModel";
 import {
   FiPlus,
@@ -17,7 +17,8 @@ import {
   FiArrowUp,
   FiArrowDown,
   FiFilter,
-  FiSearch
+  FiSearch,
+  FiLoader
 } from "react-icons/fi";
 import Sidebar from "./TransactionsPage/Sidebar";
 import SummaryCards from "./TransactionsPage/SummaryCards";
@@ -44,12 +45,15 @@ export default function TransactionsPage() {
   const [incomeTotal, setIncomeTotal] = useState(0);
   const [expenseTotal, setExpenseTotal] = useState(0);
   const [savingsTotal, setSavingsTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [order, setOrder] = useState(false); // false indicates Ascending order
 
   // Fetch transactions from backend
   const fetchTransactions = async () => {
+    setIsLoading(true);
     try {
       let url = `http://localhost:8000/api/transactions`;
-      
+
       if (viewMode === "Daily") {
         const day = currentDate.getDate();
         const month = currentDate.getMonth() + 1;
@@ -70,12 +74,18 @@ export default function TransactionsPage() {
       setTransactions(data);
     } catch (error) {
       console.error("Failed to fetch transactions:", error);
+    } finally {
+      // Add a small delay to make the loading animation visible even on fast connections
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
     }
   };
 
   useEffect(() => {
     fetchTransactions();
-  }, [currentMonthIndex, currentYear, viewMode, currentDate]);
+  }, [currentMonthIndex, currentYear, viewMode, currentDate, searchTerm, filterType, selectedCategory]);
+
 
   // Calculate totals whenever transactions change
   useEffect(() => {
@@ -146,15 +156,18 @@ export default function TransactionsPage() {
   };
 
   // Filter transactions based on searchTerm and filterType
-  const filteredTransactions = transactions
-  .filter(transaction => {
-    const matchesSearch = transaction.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      transaction.category?.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filterType === "all" || transaction.type === filterType;
-    const matchesCategory = selectedCategory === "All" || selectedCategory === "" || transaction.category === selectedCategory;
-    return matchesSearch && matchesFilter && matchesCategory;
-  })
-  .sort((a, b) => new Date(a.date) - new Date(b.date)); // Sorting by date in descending order
+  const filteredTransactions = useMemo(() => {
+    return transactions
+      .filter(transaction => {
+        const matchesSearch = transaction.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          transaction.category?.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesFilter = filterType === "all" || transaction.type === filterType;
+        const matchesCategory = selectedCategory === "All" || selectedCategory === "" || transaction.category === selectedCategory;
+        return matchesSearch && matchesFilter && matchesCategory;
+      })
+      .sort((a, b) => order ? (new Date(b.date) - new Date(a.date)) : (new Date(a.date) - new Date(b.date)));
+  }, [transactions, searchTerm, filterType, selectedCategory, order]);
+  // Sorting by date in descending order
 
 
   // Function to add a new transaction
@@ -218,6 +231,31 @@ export default function TransactionsPage() {
     }
   };
 
+  // Loading skeleton for transactions
+  const TransactionSkeleton = () => (
+    <div className="space-y-3">
+      {[1, 2, 3].map((item) => (
+        <div
+          key={item}
+          className={`p-4 rounded-lg shadow-md animate-pulse
+            ${darkMode ? 'bg-gray-800' : 'bg-white'}
+            border-l-4 ${item % 2 === 0 ? 'border-blue-500' : 'border-red-500'}`}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className={`h-12 w-12 rounded-full ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+              <div>
+                <div className={`h-4 w-24 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+                <div className={`h-3 w-32 rounded mt-2 ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+              </div>
+            </div>
+            <div className={`h-6 w-16 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <div className="flex flex-col h-full mt-20 overflow-hidden">
       <SummaryCards
@@ -263,11 +301,15 @@ export default function TransactionsPage() {
             setCategory={setSelectedCategory}
             isFilterMenuOpen={isFilterMenuOpen}
             toggleFilterMenu={toggleFilterMenu}
+            order={order}
+            setOrder={setOrder}
             darkMode={darkMode}
           />
 
-          {/* Transactions List */}
-          {filteredTransactions.length > 0 ? (
+          {/* Transactions List with Loading State */}
+          {isLoading ? (
+            <TransactionSkeleton />
+          ) : filteredTransactions.length > 0 ? (
             <div className="space-y-3">
               {filteredTransactions.map((transaction) => (
                 <div
