@@ -3,25 +3,56 @@ import { useState } from "react";
 import { FiEdit2, FiSave, FiUser, FiMail, FiDollarSign, FiPhone, FiPieChart, FiBriefcase } from "react-icons/fi";
 import Button from "../Components/Button";
 
-export default function ProfilePage() {
+export default function ProfilePage(user) {
+  console.log(user)
   const { darkMode } = useTheme();
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState("Jeevan");
-  const [email, setEmail] = useState("saijevan@gmail.com");
+  const [firstName, setFirstName] = useState(user.user.firstName);
+  const [lastName, setLastName] = useState(user.user.lastName);
+  const [email, setEmail] = useState(user.user.email);
+  const [phone, setPhone] = useState(user.user.phone);
+  const [occupation, setOccupation] = useState(user.user.occupation);
   const [totalIncome, setTotalIncome] = useState("₹1,50,000.00");
   const [totalExpenses, setTotalExpenses] = useState("₹50,000.00");
   const [totalSavings, setTotalSavings] = useState("₹1,00,000.00");
-  const [phoneNumber, setPhoneNumber] = useState("9948021183");
-  const [occupation, setOccupation] = useState("NA");
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsEditing(false);
-    // Here you would typically save the data to your backend
+
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch("http://localhost:8000/api/user/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          phone,
+          occupation,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Profile updated successfully!");
+      } else {
+        alert(`Error: ${result.error}`);
+      }
+    } catch (error) {
+      console.error("Update failed", error);
+      alert("Failed to update profile. Try again later.");
+    }
   };
+
 
   return (
     <div className="flex flex-col h-full p-4 md:p-6 gap-6 mt-30">
-     
+
 
       {/* Main Profile Content */}
       <div className="flex flex-col lg:flex-row gap-6">
@@ -49,17 +80,34 @@ export default function ProfilePage() {
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
               <div className="flex items-center gap-2 w-32">
                 <FiUser className="text-indigo-500" />
-                <label className="font-semibold">Name:</label>
+                <label className="font-semibold">First Name:</label>
               </div>
               {isEditing ? (
                 <input
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   className={`flex-1 p-2 rounded-lg ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} border`}
                 />
               ) : (
-                <span className="flex-1">{name}</span>
+                <span className="flex-1">{firstName}</span>
+              )}
+            </div>
+
+            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+              <div className="flex items-center gap-2 w-32">
+                <FiUser className="text-indigo-500" />
+                <label className="font-semibold">Last Name:</label>
+              </div>
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className={`flex-1 p-2 rounded-lg ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} border`}
+                />
+              ) : (
+                <span className="flex-1">{lastName}</span>
               )}
             </div>
 
@@ -68,7 +116,8 @@ export default function ProfilePage() {
                 <FiMail className="text-indigo-500" />
                 <label className="font-semibold">Email:</label>
               </div>
-              {isEditing ? (
+              <span className="flex-1">{email}</span>
+              {/* {isEditing ? (
                 <input
                   type="email"
                   value={email}
@@ -77,7 +126,7 @@ export default function ProfilePage() {
                 />
               ) : (
                 <span className="flex-1">{email}</span>
-              )}
+              )} */}
             </div>
 
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
@@ -86,14 +135,18 @@ export default function ProfilePage() {
                 <label className="font-semibold">Number:</label>
               </div>
               {isEditing ? (
-                <input
-                  type="text"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  className={`flex-1 p-2 rounded-lg ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} border`}
-                />
-              ) : (
-                <span className="flex-1">{phoneNumber}</span>
+                <div className="flex">
+                  <p className='w-2/8 px-3 py-1 mt-1  text-white rounded-md'>+91</p>
+                  <input
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className={`flex-1 p-2 rounded-lg ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} border`}
+                  />
+                </div>
+                  ) : (
+                  <span className="flex-1">+91 {phone}</span>
+                
               )}
             </div>
 
@@ -122,7 +175,7 @@ export default function ProfilePage() {
             <FiPieChart className="text-indigo-500" />
             Financial Summary
           </h2>
-          
+
           <div className="space-y-6">
             <div className="relative pt-1">
               <div className="flex mb-2 items-center justify-between">
@@ -141,7 +194,7 @@ export default function ProfilePage() {
                 <div style={{ width: "100%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
               </div>
             </div>
-            
+
             <div className="relative pt-1">
               <div className="flex mb-2 items-center justify-between">
                 <div>
@@ -159,7 +212,7 @@ export default function ProfilePage() {
                 <div style={{ width: "33%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"></div>
               </div>
             </div>
-            
+
             <div className="relative pt-1">
               <div className="flex mb-2 items-center justify-between">
                 <div>
@@ -178,7 +231,7 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
-          
+
           <div className="mt-6">
             <Button text="View Detailed Report" />
           </div>

@@ -59,12 +59,9 @@ def signup():
     data = request.get_json()
     
     # Validate required fields
-    if not all(k in data for k in ['name', 'email', 'password']):
+    if not all(k in data for k in ['firstName','lastName','phone', 'email','occupation', 'password']):
         return jsonify({"error": "Missing required fields"}), 400
     
-    # Check if passwords match
-    if data.get('password') != data.get('confirmPassword'):
-        return jsonify({"error": "Passwords do not match"}), 400
     
     # Check if email is valid format (simple check)
     if '@' not in data['email'] or '.' not in data['email']:
@@ -76,8 +73,11 @@ def signup():
     
     # Create new user
     new_user = {
-        "name": data['name'],
+        "firstName": data['firstName'],
+        "lastName": data['lastName'],
         "email": data['email'],
+        "phone": data['phone'],
+        "occupation": data['occupation'],
         "password": generate_password_hash(data['password']),
         "created_at": datetime.datetime.now()
     }
@@ -118,8 +118,12 @@ def login():
         "message": "Login successful",
         "token": access_token,
         "user": {
-            "name": user['name'],
-            "email": user['email']
+            "fistName": user['firstName'],
+            "lastName": user['lastName'],
+            "email": user['email'],
+            "phone": user['phone'],
+            "occupation": user['occupation'],
+            "created_at": user['created_at'].strftime("%Y-%m-%d %H:%M:%S"),
         }
     }), 200
 
@@ -138,6 +142,35 @@ def profile():
         return jsonify({"error": "User not found"}), 404
     
     return jsonify(user), 200
+
+# ✅ Update User Profile (Protected)
+@app.route('/api/user/profile', methods=['PUT'])
+@jwt_required()
+def update_profile():
+    current_user_email = get_jwt_identity()
+    data = request.get_json()
+
+    update_data = {}
+
+    if "firstName" in data:
+        update_data["firstName"] = data["firstName"]
+    if "lastName" in data:
+        update_data["lastName"] = data["lastName"]
+    if "phone" in data:
+        update_data["phone"] = data["phone"]
+    if "occupation" in data:
+        update_data["occupation"] = data["occupation"]
+
+    if not update_data:
+        return jsonify({"error": "No data to update"}), 400
+
+    result = users_collection.update_one({"email": current_user_email}, {"$set": update_data})
+
+    if result.modified_count == 0:
+        return jsonify({"error": "No changes made"}), 400
+
+    return jsonify({"message": "Profile updated successfully"}), 200
+
 @app.route('/api/transactions', methods=['GET'])
 @jwt_required()
 def get_transactions():
@@ -208,6 +241,8 @@ def add_transaction():
         return jsonify({"message": "Transaction saved successfully"}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)  

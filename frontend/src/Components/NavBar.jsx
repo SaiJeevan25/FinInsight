@@ -6,7 +6,7 @@ import { FiMenu, FiX, FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../utils/auth";
 
-export default function NavBar({ activeTab, setActiveTab, username = "Jeevan" }) { 
+export default function NavBar({ activeTab, setActiveTab, userName }) { 
   const { darkMode } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function NavBar({ activeTab, setActiveTab, username = "Jeevan" })
       
       <div className="flex items-center gap-4">
         <Logo />
-        <p className="text-md font-medium">({username})</p>
+        <p className="text-md font-medium">({userName})</p>
       </div>
 
       <div className="hidden md:flex gap-6">
