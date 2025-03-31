@@ -6,7 +6,7 @@ import { FiMenu, FiX, FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../utils/auth";
 
-export default function NavBar({ activeTab, setActiveTab, username = "Jeevan" }) { 
+export default function NavBar({ activeTab, setActiveTab, userName }) { 
   const { darkMode } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,11 +24,11 @@ export default function NavBar({ activeTab, setActiveTab, username = "Jeevan" })
   };
 
   return (
-    <div className={`fixed top-2 left-4 right-4 rounded-xl flex items-center justify-between px-6 py-3 shadow-sm shadow-indigo-500 z-50 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} transition-all duration-300`}>
+    <div className={`fixed top-3 left-4 right-4 rounded-xl flex items-center justify-between px-6 py-3 shadow-sm shadow-indigo-500 z-50 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} transition-all duration-300`}>
       
       <div className="flex items-center gap-4">
         <Logo />
-        <p className="text-md font-medium">({username})</p>
+        <p className="text-md font-medium">({userName})</p>
       </div>
 
       <div className="hidden md:flex gap-6">
@@ -52,7 +52,7 @@ export default function NavBar({ activeTab, setActiveTab, username = "Jeevan" })
         <button 
           onClick={handleLogout}
           disabled={loading}
-          className="flex cursor-pointer items-center gap-2 text-red-500 hover:text-red-600 transition-colors duration-300"
+          className="flex cursor-pointe p-2 rounded-md cursor-pointer hover:bg-red-700 hover:text-white items-center gap-2 text-red-500 transition-colors duration-300"
         >
           <FiLogOut className="hidden md:block text-lg" />
           <span className="hidden sm:inline">{loading ? 'Logging out...' : 'Logout'}</span>

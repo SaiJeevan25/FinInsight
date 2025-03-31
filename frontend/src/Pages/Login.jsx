@@ -85,7 +85,7 @@ export default function Login() {
       <div className="relative h-screen flex flex-col items-center shadow justify-center px-4 md:px-8">
         <div className={`relative w-full max-w-md p-8 bg-opacity-90 rounded-xl shadow-lg shadow-indigo-500
           ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
-          {error && <p className="text-red-500 text-lg text-center mb-3">{error}</p>}
+          
           <h2 className="text-3xl font-semibold text-center">Log In to Your Account</h2>
 
           <form onSubmit={handleSubmit} className="mt-6">
@@ -105,12 +105,14 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 mt-2 bg-gray-600 text-white rounded-md focus:ring-2 focus:ring-indigo-400"
             />
-
-            <Button type="submit" text={loading ? 'Logging in...' : 'Log In'} style="w-full mt-8" disabled={loading} />
-
+            <Button type="submit" text={loading ? 'Logging in...' : 'Log In'} style="w-full mt-3" disabled={loading} />
+            {error && <p className="text-red-500 text-lg text-center my-2">{error}</p>}
             <p className="text-center mt-4">
-              Don't have an account?
-              <a href="/signup" className="text-indigo-500 hover:underline"> Sign Up</a>
+              <a href="/forgot-password" className="text-indigo-500 hover:underline">Forgot Password ?</a>
+            </p>
+            <p className="text-center mt-2">
+              Don't have an account?<span> </span>
+              <a href="/signup" className="text-indigo-500 hover:underline">Sign Up</a>
             </p>
           </form>
         </div>

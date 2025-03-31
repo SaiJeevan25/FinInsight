@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { FiSearch, FiFilter } from "react-icons/fi";
+import { FiSearch, FiFilter, FiArrowUp, FiArrowDown } from "react-icons/fi";
 import CategoryFilter from "./CategoryFilter";
 
-export default function SearchFilterBar({ 
-  searchTerm, handleSearch, filterType, setFilter, 
-  selectedCategory, setCategory, darkMode 
+export default function SearchFilterBar({
+  searchTerm, handleSearch, filterType, setFilter,
+  selectedCategory, setCategory, darkMode, order, setOrder, dateVisibility,
 }) {
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const filterMenuRef = useRef(null);
@@ -36,10 +36,10 @@ export default function SearchFilterBar({
 
       {/* Filter by Type */}
       <div className="relative" ref={filterMenuRef}>
-        <button 
+        <button
           onClick={() => {
             setIsFilterMenuOpen(!isFilterMenuOpen);
-          }} 
+          }}
           className={`px-4 py-3 rounded-lg flex items-center gap-2 
           ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'}`}
         >
@@ -54,10 +54,10 @@ export default function SearchFilterBar({
           max-h-[200px] overflow-y-auto border border-gray-300 dark:border-gray-600`}>
             <ul>
               {["all", "income", "expense"].map(type => (
-                <li 
-                  key={type} 
+                <li
+                  key={type}
                   className={`px-4 py-2 cursor-pointer capitalize rounded-lg 
-                  ${filterType === type ? `${darkMode ? 'bg-indigo-600' : 'bg-indigo-500'} text-white` : 'hover:bg-gray-400 hover:text-black'}`} 
+                  ${filterType === type ? `${darkMode ? 'bg-indigo-600' : 'bg-indigo-500'} text-white` : 'hover:bg-gray-400 hover:text-black'}`}
                   onClick={() => {
                     setFilter(type);
                     setIsFilterMenuOpen(false);
@@ -70,18 +70,27 @@ export default function SearchFilterBar({
           </div>
         )}
       </div>
-
-      {/* Category Filter (Only show if not "All") */}
       {filterType !== "all" && (
-        <CategoryFilter 
-          selectedCategory={selectedCategory} 
-          setCategory={setCategory} 
-          filterType={filterType} 
-          darkMode={darkMode} 
-          isFilterMenuOpen={isFilterMenuOpen} 
-          setIsFilterMenuOpen={setIsFilterMenuOpen} 
+        <CategoryFilter
+          selectedCategory={selectedCategory}
+          setCategory={setCategory}
+          filterType={filterType}
+          darkMode={darkMode}
+          isFilterMenuOpen={isFilterMenuOpen}
+          setIsFilterMenuOpen={setIsFilterMenuOpen}
         />
       )}
+      { dateVisibility &&
+      <div>
+          <button
+            onClick={() => setOrder(prevOrder => !prevOrder)}
+            className={`px-4 py-3 rounded-lg flex items-center gap-2 
+                ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'}`}
+          >
+            Date {order ? <FiArrowDown /> : <FiArrowUp />}
+          </button>
+      </div> 
+      }
     </div>
   );
-}
+} 
