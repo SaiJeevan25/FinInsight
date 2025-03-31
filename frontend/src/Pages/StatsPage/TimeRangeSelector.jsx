@@ -18,7 +18,7 @@ export default function TimeRangeSelector({
           <button
             key={range}
             onClick={() => setTimeRange(range)}
-            className={`px-4 py-2 rounded-lg capitalize ${
+            className={`px-4 py-2 cursor-pointer rounded-lg capitalize ${
               timeRange === range
                 ? `bg-indigo-500 text-white`
                 : `${darkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-200 text-gray-700'}`
