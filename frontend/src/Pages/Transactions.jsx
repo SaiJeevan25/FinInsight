@@ -22,7 +22,7 @@ import {
 } from "react-icons/fi";
 import Sidebar from "./TransactionsPage/Sidebar";
 import SummaryCards from "./TransactionsPage/SummaryCards";
-import SearchFilterBar from "./TransactionsPage/SearchFilterbar";
+import SearchFilterBar from "./TransactionsPage/SearchFilterBar";
 
 const monthNames = [
   "January", "February", "March", "April", "May", "June",
@@ -266,7 +266,7 @@ export default function TransactionsPage() {
   );
 
   return (
-    <div className="flex flex-col h-full mt-20 overflow-hidden">
+    <div className="flex flex-col h-full mt- overflow-hidden">
       <SummaryCards
         incomeTotal={incomeTotal}
         expenseTotal={expenseTotal}
@@ -299,7 +299,7 @@ export default function TransactionsPage() {
         />
 
         {/* Main Content */}
-        <div className={`flex-1 p-10 md:p-6 ${sidebarOpen ? 'ml-0 lg:ml-10' : 'ml-0'} transition-all duration-300 overflow-y-auto`}>
+        <div className={`flex-1 p-4 md:p-6 ${sidebarOpen ? 'ml-0 lg:ml-10' : 'ml-0'} transition-all duration-300 overflow-y-auto`}>
           {/* Search and Filter Bar */}
           <SearchFilterBar
             searchTerm={searchTerm}
