@@ -52,7 +52,7 @@ export default function ProfilePage(user) {
 
 
   return (
-    <div className="flex flex-col h-full p-4 md:p-6 gap-6 mt-30">
+    <div className="flex flex-col h-full p-4 md:p-6 gap-6 mt-4">
       {/* Show ProfilePopUp only when a message exists */}
       {message && <ProfilePopUp message={message} setMessage={setMessage}/>}
 

@@ -13,7 +13,7 @@ export default function SummaryCards({ summary, trends, darkMode }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       {/* Income Card */}
-      <div className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <div className={`p-6 rounded-lg shadow-md shadow-black ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="flex justify-between items-start">
           <div>
             <p className="text-gray-500 text-sm">Total Income</p>
@@ -40,7 +40,7 @@ export default function SummaryCards({ summary, trends, darkMode }) {
       </div>
 
       {/* Expenses Card */}
-      <div className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <div className={`p-6 rounded-lg shadow-md shadow-black ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="flex justify-between items-start">
           <div>
             <p className="text-gray-500 text-sm">Total Expenses</p>
@@ -67,7 +67,7 @@ export default function SummaryCards({ summary, trends, darkMode }) {
       </div>
 
       {/* Savings Card */}
-      <div className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <div className={`p-6 rounded-lg shadow-md shadow-black ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="flex justify-between items-start">
           <div>
             <p className="text-gray-500 text-sm">Total Savings</p>
@@ -94,7 +94,7 @@ export default function SummaryCards({ summary, trends, darkMode }) {
       </div>
 
       {/* Savings Rate Card */}
-      <div className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <div className={`p-6 rounded-lg shadow-md shadow-black ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="flex justify-between items-start">
           <div>
             <p className="text-gray-500 text-sm">Savings Rate</p>

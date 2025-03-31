@@ -2,22 +2,22 @@ import { FiArrowUp, FiArrowDown } from "react-icons/fi";
 
 export default function SummaryCards({ incomeTotal, expenseTotal, savingsTotal, darkMode }) {
   return (
-    <div className={`flex flex-col md:flex-row justify-evenly p-1 mt-4 mx-4 rounded-lg shadow-md ${darkMode ? 'bg-gray-800' : 'bg-gray-200'}`}>
+    <div className={`flex flex-row shadow-black justify-evenly mt-4 md:mt-4 mx-1 md:mx-4 rounded-lg shadow-sm ${darkMode ? 'bg-gray-800' : 'bg-gray-200'}`}>
       <div className="text-center p-4">
-        <p className="text-lg font-bold text-blue-500 flex items-center justify-center gap-2">
+        <p className="text-xs md:text-lg font-bold text-blue-500 flex items-center justify-center gap-2">
           <FiArrowDown /> Income
         </p>
-        <p className="text-xl font-extrabold">₹{incomeTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p className="text-sm md:text-xl font-extrabold">₹{incomeTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
       </div>
       <div className="text-center p-4">
-        <p className="text-lg font-bold text-red-500 flex items-center justify-center gap-2">
+        <p className="text-xs md:text-lg font-bold text-red-500 flex items-center justify-center gap-2">
           <FiArrowUp /> Expenses
         </p>
-        <p className="text-xl font-extrabold">₹{expenseTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p className="text-sm md:text-xl font-extrabold">₹{expenseTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
       </div>
       <div className="text-center p-4">
-        <p className="text-lg font-bold flex items-center justify-center gap-2">Total</p>
-        <p className="text-xl font-extrabold">₹{savingsTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p className="text-xs md:text-lg font-bold flex items-center justify-center gap-2">Total</p>
+        <p className="text-sm md:text-xl font-extrabold">₹{savingsTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
       </div>
     </div>
   );

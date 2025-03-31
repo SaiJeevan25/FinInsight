@@ -24,11 +24,11 @@ export default function NavBar({ activeTab, setActiveTab, userName }) {
   };
 
   return (
-    <div className={`fixed top-3 left-4 right-4 rounded-xl flex items-center justify-between px-6 py-3 shadow-sm shadow-indigo-500 z-50 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} transition-all duration-300`}>
+    <div className={`sticky top-0 z-50 mx-2 mt-3 bg-opacity-95 backdrop-blur-sm hover:shadow-lg  left-4 right-4 rounded-xl flex items-center justify-between px-6 py-3 shadow-sm shadow-indigo-500  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} transition-all duration-300`}>
       
       <div className="flex items-center gap-4">
         <Logo />
-        <p className="text-md font-medium">({userName})</p>
+        <p className="text-sm md:text-md font-medium">({userName})</p>
       </div>
 
       <div className="hidden md:flex gap-6">

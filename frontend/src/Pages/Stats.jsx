@@ -2,10 +2,10 @@ import { useTheme } from "../Components/ThemeContext";
 import { useState, useEffect } from "react";
 import TimeRangeSelector from "./StatsPage/TimeRangeSelector";
 import SummaryCards from "./StatsPage/SummaryCards";
-import ExpenseBreakdown from "./StatsPage/ExpenseBreakdown";
 import DynamicTrends from "./StatsPage/DynamicTrends";
 import AIInsights from "./StatsPage/AIInsights";
-
+import DashboardViewToggle from "./StatsPage/DashboardViewToggle";
+import Breakdown from "./StatsPage/Breakdown";
 const monthNames = ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Sept", "October", "Nov", "Dec"];
 
 export default function StatsPage() {
@@ -13,6 +13,7 @@ export default function StatsPage() {
   const [currentMonthIndex, setCurrentMonthIndex] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [timeRange, setTimeRange] = useState("month"); // "month", "quarter", "year"
+  const [activeView, setActiveView] = useState("summary"); // "summary", "expenses", "trends", "insights"
   const [statsData, setStatsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [aiInsights, setAiInsights] = useState(null);
@@ -117,17 +118,61 @@ export default function StatsPage() {
     }
   };
 
+  const renderActiveView = () => {
+    if (!statsData) return null;
+
+    switch (activeView) {
+      case "summary":
+        return (
+          <SummaryCards
+            summary={statsData.summary}
+            trends={statsData.trends}
+            darkMode={darkMode}
+          />
+        );
+      case "breakdown":
+        return (
+          <div className="mx-auto">
+            <Breakdown
+              categoryBreakdown={statsData.categoryBreakdown}
+              darkMode={darkMode}
+            />
+          </div>
+        );
+      case "trends":
+        return (
+          <div className="w-full max-w-4xl mx-auto">
+            <DynamicTrends
+              monthlyData={statsData.monthlyData}
+              timeRange={timeRange}
+              darkMode={darkMode}
+            />
+          </div>
+        );
+      case "insights":
+        return (
+          <div className="w-full max-w-3xl mx-auto">
+            <AIInsights
+              insights={aiInsights}
+              darkMode={darkMode}
+            />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-[25rem]">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-full mt-20 px-4 py-6 md:px-8">
-      {/* Time Range Selector */}
+    <div className="flex flex-col h-full mt-0 px-4 py-6 md:px-8">
       <TimeRangeSelector
         timeRange={timeRange}
         setTimeRange={setTimeRange}
@@ -139,33 +184,14 @@ export default function StatsPage() {
         darkMode={darkMode}
       />
 
-      {/* Summary Cards */}
-      <SummaryCards
-        summary={statsData.summary}
-        trends={statsData.trends}
-        darkMode={darkMode}
+      <DashboardViewToggle 
+        activeView={activeView} 
+        setActiveView={setActiveView} 
+        darkMode={darkMode} 
       />
 
-      {/* Main Content Area */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Expense Categories Breakdown */}
-        <ExpenseBreakdown
-          categoryBreakdown={statsData.categoryBreakdown}
-          darkMode={darkMode}
-        />
-
-        {/* Monthly Trends Chart */}
-        <DynamicTrends
-          monthlyData={statsData.monthlyData}
-          timeRange={timeRange}
-          darkMode={darkMode}
-        />
-
-        {/* AI Insights Column */}
-        <AIInsights
-          insights={aiInsights}
-          darkMode={darkMode}
-        />
+      <div className="mt-4">
+        {renderActiveView()}
       </div>
     </div>
   );

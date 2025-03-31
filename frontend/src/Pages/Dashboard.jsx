@@ -51,7 +51,7 @@ export default function Dashboard() {
   if (loading) return <LoadingSpinner />; 
   if (error) return <div className="text-center text-red-500 mt-10">{error}</div>;
   return (
-    <div className={`relative flex flex-col min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+    <div className={`relative flex  flex-col min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
       <NavBar activeTab={activeTab} setActiveTab={setActiveTab} userName={user.firstName} />
       {activeTab === "Transactions" && <TransactionsPage user={user} />}
       {activeTab === "Stats" && <StatsPage user={user} />}
