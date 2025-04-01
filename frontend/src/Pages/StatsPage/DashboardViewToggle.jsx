@@ -3,7 +3,6 @@ import { FiPieChart, FiBarChart2, FiZap, FiTrendingUp } from "react-icons/fi";
 
 export default function DashboardViewToggle({ activeView, setActiveView, darkMode }) {
   const views = [
-    { id: 'summary', label: 'Summary', icon: <FiBarChart2 className="mr-2" /> },
     { id: 'breakdown', label: 'Breakdown', icon: <FiPieChart className="mr-2" /> },
     { id: 'trends', label: 'Trends', icon: <FiTrendingUp className="mr-2" /> },
     { id: 'insights', label: 'AI Insights', icon: <FiZap className="mr-2" /> }
