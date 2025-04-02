@@ -82,7 +82,7 @@ export default function Breakdown({
   return (
     <div className={`flex flex-col md:flex-row justify-evenly items-center md:items-stretch  gap-5 md:gap-0`}>
       {/* Expense Breakdown */}
-      <div className={`p-6 rounded-lg w-[20rem] md:w-[35rem] shadow-md ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-800'}`}>
+      <div className={`p-6 rounded-lg w-[20rem] md:w-[35rem] shadow-md shadow-black ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-800'}`}>
         <div className="flex justify-between items-center mb-6">
           <h3 className="font-bold text-lg">Expense Breakdown</h3>
           <FiPieChart className="text-indigo-500" />
@@ -115,7 +115,7 @@ export default function Breakdown({
       </div>
       
       {/* Income Breakdown */}
-      <div className={`p-6 rounded-lg shadow-md w-[20rem] md:w-[35rem]  ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-800'}`}>
+      <div className={`p-6 rounded-lg shadow-md shadow-black w-[20rem] md:w-[35rem]  ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-800'}`}>
         <div className="flex justify-between items-center mb-6">
           <h3 className="font-bold text-lg">Income Breakdown</h3>
           <FiDollarSign className="text-green-500" />
@@ -125,7 +125,7 @@ export default function Breakdown({
           {incomeWithPercentage.length > 0 ? (
             incomeWithPercentage.map((category, index) => (
               <div key={index}>
-                <div className="flex justify-between items-center mb-1">
+                <div className="flex justify-between items-center  mb-1">
                   <span className="text-sm">{category.category}</span>
                   <span className="text-sm font-semibold">{formatCurrency(category.amount)}</span>
                 </div>
