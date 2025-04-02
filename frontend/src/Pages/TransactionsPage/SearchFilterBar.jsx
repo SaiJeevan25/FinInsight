@@ -21,7 +21,7 @@ export default function SearchFilterBar({
   }, []);
 
   return (
-    <div className="mb-5 flex gap-1.5 md:gap-3 text-xs md:text-lg items-center  rounded-xl">
+    <div className="mb-5 flex gap-1.5 md:gap-3 text-xs md:text-lg items-center ml-6 md:ml-0  rounded-xl">
       {/* Search Bar */}
       <div className={`relative flex-grow rounded-lg overflow-hidden shadow-sm shadow-black ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}>
         <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
@@ -49,14 +49,14 @@ export default function SearchFilterBar({
 
         {/* Dropdown Menu */}
         {isFilterMenuOpen && (
-          <div className={`absolute shadow-lg shadow-black  right-0 mt-2 w-40 rounded-lg  z-10 
+          <div className={`absolute shadow-lg pt-1 px-1  shadow-black  right-0 mt-2 w-40 rounded-lg  z-10 
           ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-200 text-gray-900'} 
           max-h-[200px] overflow-y-auto  border-gray-300 dark:border-gray-600`}>
             <ul>
               {["all", "income", "expense"].map(type => (
                 <li
                   key={type}
-                  className={`px-4 py-2 cursor-pointer capitalize rounded-lg 
+                  className={`px-4 py-2 mt-0.5 mb-0.5 cursor-pointer capitalize rounded-lg 
                   ${filterType === type ? `${darkMode ? 'bg-indigo-600' : 'bg-indigo-500'} text-white` : 'hover:bg-gray-400 hover:text-black'}`}
                   onClick={() => {
                     setFilter(type);
