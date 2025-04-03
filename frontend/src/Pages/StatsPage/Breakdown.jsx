@@ -100,12 +100,12 @@ export default function Breakdown({
                   <div 
                     className="h-2 rounded-full" 
                     style={{ 
-                      width: `${category.percentage}%`,
+                      width: `${category.percentage.toFixed(2)}%`,
                       backgroundColor: getColorForCategory(index)
                     }}
                   ></div>
                 </div>
-                <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'} mt-1`}>{category.percentage}% of total expenses</p>
+                <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'} mt-1`}>{category.percentage.toFixed(2)}% of total expenses</p>
               </div>
             ))
           ) : (
@@ -133,12 +133,12 @@ export default function Breakdown({
                   <div 
                     className="h-2 rounded-full" 
                     style={{ 
-                      width: `${category.percentage}%`,
+                      width: `${category.percentage.toFixed(2)}%`,
                       backgroundColor: getColorForCategory(index, true)
                     }}
                   ></div>
                 </div>
-                <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'} mt-1`}>{category.percentage}% of total income</p>
+                <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'} mt-1`}>{category.percentage.toFixed(2)}% of total income</p>
               </div>
             ))
           ) : (

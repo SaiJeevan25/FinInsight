@@ -14,7 +14,7 @@ export default function StatsPage() {
   const [currentMonthIndex, setCurrentMonthIndex] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [timeRange, setTimeRange] = useState("month");
-  const [activeView, setActiveView] = useState("summary");
+  const [activeView, setActiveView] = useState("breakdown");
   const [statsData, setStatsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [aiInsights, setAiInsights] = useState([]);
@@ -93,7 +93,7 @@ export default function StatsPage() {
         }
 
         const data = await response.json();
-        
+
         setStatsData({
           summary: {
             income: data.summary?.income || 0,
@@ -114,7 +114,7 @@ export default function StatsPage() {
             savings: Array(timeRange === "quarter" ? 3 : 12).fill(0)
           }
         });
-        
+
         setAiInsights(data.aiInsights || []);
       } catch (error) {
         console.error('Error fetching stats:', error);
@@ -153,21 +153,30 @@ export default function StatsPage() {
     if (!statsData) return null;
 
     switch (activeView) {
-      case "summary":
-        return <SummaryCards summary={statsData.summary} trends={statsData.trends} darkMode={darkMode} />;
       case "breakdown":
         return (
-          <div className="mx-auto">
-            <Breakdown 
-            categoryBreakdown={statsData.categoryBreakdown} 
-            incomeBreakdown={statsData.incomeBreakdown}
-            darkMode={darkMode} />
+          <div>
+            <div>
+              <SummaryCards summary={statsData.summary} trends={statsData.trends} darkMode={darkMode} />
+            </div>
+            <div className="mx-auto">
+              <Breakdown
+                categoryBreakdown={statsData.categoryBreakdown}
+                incomeBreakdown={statsData.incomeBreakdown}
+                darkMode={darkMode} />
+            </div>
           </div>
         );
       case "trends":
         return (
           <div className="w-full max-w-4xl mx-auto">
-            <DynamicTrends monthlyData={statsData.monthlyData} timeRange={timeRange} darkMode={darkMode} />
+            <DynamicTrends 
+              monthlyData={statsData.monthlyData} 
+              timeRange={timeRange} 
+              darkMode={darkMode}
+              categoryBreakdown={statsData.categoryBreakdown || []}
+              incomeBreakdown={statsData.incomeBreakdown || []}
+            />
           </div>
         );
       case "insights":
@@ -210,10 +219,10 @@ export default function StatsPage() {
         darkMode={darkMode}
       />
 
-      <DashboardViewToggle 
-        activeView={activeView} 
-        setActiveView={setActiveView} 
-        darkMode={darkMode} 
+      <DashboardViewToggle
+        activeView={activeView}
+        setActiveView={setActiveView}
+        darkMode={darkMode}
       />
 
       <div className="mt-4">
