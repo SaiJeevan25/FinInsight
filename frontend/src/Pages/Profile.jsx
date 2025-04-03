@@ -1,11 +1,10 @@
 import { useTheme } from "../Components/ThemeContext";
-import { useState } from "react";
-import { FiEdit2, FiSave, FiUser, FiMail, FiDollarSign, FiPhone, FiPieChart, FiBriefcase } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { FiEdit2, FiSave, FiUser, FiMail, FiPhone, FiPieChart, FiBriefcase } from "react-icons/fi";
 import Button from "../Components/Button";
 import ProfilePopUp from "../Components/ProfilePopUp";
 
 export default function ProfilePage(user) {
-  console.log(user)
   const { darkMode } = useTheme();
   const [isEditing, setIsEditing] = useState(false);
   const [firstName, setFirstName] = useState(user.user.firstName);
@@ -14,16 +13,46 @@ export default function ProfilePage(user) {
   const [phone, setPhone] = useState(user.user.phone);
   const [occupation, setOccupation] = useState(user.user.occupation);
   const [message, setMessage] = useState("");
-  const [totalIncome, setTotalIncome] = useState("₹1,50,000.00");
-  const [totalExpenses, setTotalExpenses] = useState("₹50,000.00");
-  const [totalSavings, setTotalSavings] = useState("₹1,00,000.00");
+  const [isLoading, setIsLoading] = useState(false);
+  const [timePeriod, setTimePeriod] = useState("all"); // 'month' or 'all'
+  const [totalIncome, setTotalIncome] = useState("$0.00");
+  const [totalExpenses, setTotalExpenses] = useState("₹0.00");
+  const [totalSavings, setTotalSavings] = useState("₹0.00");
+
+  useEffect(() => {
+    const fetchFinancialSummary = async () => {
+      setIsLoading(true);
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          `http://localhost:8000/api/user/financial-summary?period=${timePeriod}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          setTotalIncome(data.income);
+          setTotalExpenses(data.expenses);
+          setTotalSavings(data.savings);
+        }
+      } catch (error) {
+        console.error("Error fetching financial summary:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFinancialSummary();
+  }, [timePeriod]);
 
   const handleSave = async () => {
     setIsEditing(false);
-
     try {
       const token = localStorage.getItem("token");
-
       const response = await fetch("http://localhost:8000/api/user/profile", {
         method: "PUT",
         headers: {
@@ -39,14 +68,13 @@ export default function ProfilePage(user) {
       });
 
       const result = await response.json();
-
       if (response.ok) {
         setMessage("Profile updated successfully!")
       } else {
         setMessage(result.error)
       }
     } catch (error) {
-        setMessage("Update failed" + error)
+      setMessage("Update failed" + error)
     }
   };
 
@@ -54,17 +82,25 @@ export default function ProfilePage(user) {
   return (
     <div className="flex flex-col h-full p-4 md:p-6 gap-6 mt-4">
       {/* Show ProfilePopUp only when a message exists */}
-      {message && <ProfilePopUp message={message} setMessage={setMessage}/>}
+      {message && <ProfilePopUp message={message} setMessage={setMessage} />}
 
       {/* Main Profile Content */}
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Profile Details Card */}
-        <div className={`flex-1 p-6 rounded-lg shadow-md shadow-gray-600 ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
+        <div
+          className={`flex-1 p-6 rounded-lg shadow-md shadow-gray-600 ${
+            darkMode ? "bg-gray-800" : "bg-gray-100"
+          }`}
+        >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">Profile Details</h2>
             <button
-              onClick={() => isEditing ? handleSave() : setIsEditing(true)}
-              className={`px-4 py-2 rounded-lg flex items-center gap-2 transition ${darkMode ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-indigo-500 hover:bg-indigo-600'} text-white`}
+              onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
+              className={`px-4 py-2 rounded-lg flex items-center gap-2 transition ${
+                darkMode
+                  ? "bg-indigo-600 hover:bg-indigo-700"
+                  : "bg-indigo-500 hover:bg-indigo-600"
+              } text-white`}
             >
               {isEditing ? (
                 <>
@@ -89,7 +125,11 @@ export default function ProfilePage(user) {
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className={`flex-1 p-2 rounded-lg ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} border`}
+                  className={`flex-1 p-2 rounded-lg ${
+                    darkMode
+                      ? "bg-gray-700 border-gray-600"
+                      : "bg-white border-gray-300"
+                  } border`}
                 />
               ) : (
                 <span className="flex-1">{firstName}</span>
@@ -106,7 +146,11 @@ export default function ProfilePage(user) {
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className={`flex-1 p-2 rounded-lg ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} border`}
+                  className={`flex-1 p-2 rounded-lg ${
+                    darkMode
+                      ? "bg-gray-700 border-gray-600"
+                      : "bg-white border-gray-300"
+                  } border`}
                 />
               ) : (
                 <span className="flex-1">{lastName}</span>
@@ -138,17 +182,26 @@ export default function ProfilePage(user) {
               </div>
               {isEditing ? (
                 <div className="flex">
-                  <p className={`w-2/8 px-3 py-1 mt-1 ${darkMode ? 'text-white': 'text-black'} rounded-md`}>+91</p>
+                  <p
+                    className={`w-2/8 px-3 py-1 mt-1 ${
+                      darkMode ? "text-white" : "text-black"
+                    } rounded-md`}
+                  >
+                    +91
+                  </p>
                   <input
                     type="text"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className={`flex-1 p-2 rounded-lg ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} border`}
+                    className={`flex-1 p-2 rounded-lg ${
+                      darkMode
+                        ? "bg-gray-700 border-gray-600"
+                        : "bg-white border-gray-300"
+                    } border`}
                   />
                 </div>
               ) : (
                 <span className="flex-1">+91 {phone}</span>
-
               )}
             </div>
 
@@ -162,7 +215,11 @@ export default function ProfilePage(user) {
                   type="text"
                   value={occupation}
                   onChange={(e) => setOccupation(e.target.value)}
-                  className={`flex-1 p-2 rounded-lg ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} border`}
+                  className={`flex-1 p-2 rounded-lg ${
+                    darkMode
+                      ? "bg-gray-700 border-gray-600"
+                      : "bg-white border-gray-300"
+                  } border`}
                 />
               ) : (
                 <span className="flex-1">{occupation}</span>
@@ -171,68 +228,103 @@ export default function ProfilePage(user) {
           </div>
         </div>
 
+        
         {/* Financial Summary Card */}
         <div className={`flex-1 p-6 rounded-lg shadow-md shadow-gray-600 ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
-          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <FiPieChart className="text-indigo-500" />
-            Financial Summary
-          </h2>
-
-          <div className="space-y-6">
-            <div className="relative pt-1">
-              <div className="flex mb-2 items-center justify-between">
-                <div>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200">
-                    Income
-                  </span>
-                </div>
-                <div className="text-right">
-                  <span className="text-xs font-semibold inline-block text-blue-600">
-                    {totalIncome}
-                  </span>
-                </div>
-              </div>
-              <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
-                <div style={{ width: "100%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
-              </div>
-            </div>
-
-            <div className="relative pt-1">
-              <div className="flex mb-2 items-center justify-between">
-                <div>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-red-600 bg-red-200">
-                    Expenses
-                  </span>
-                </div>
-                <div className="text-right">
-                  <span className="text-xs font-semibold inline-block text-red-600">
-                    {totalExpenses}
-                  </span>
-                </div>
-              </div>
-              <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-red-200">
-                <div style={{ width: "33%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"></div>
-              </div>
-            </div>
-
-            <div className="relative pt-1">
-              <div className="flex mb-2 items-center justify-between">
-                <div>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200">
-                    Savings
-                  </span>
-                </div>
-                <div className="text-right">
-                  <span className="text-xs font-semibold inline-block text-green-600">
-                    {totalSavings}
-                  </span>
-                </div>
-              </div>
-              <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-200">
-                <div style={{ width: "67%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
-              </div>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <FiPieChart className="text-indigo-500" />
+              Financial Summary
+            </h2>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setTimePeriod('month')}
+                className={`px-3 py-1 text-sm rounded-lg ${
+                  timePeriod === 'month'
+                    ? 'bg-indigo-500 text-white'
+                    : darkMode
+                    ? 'bg-gray-700 text-gray-300'
+                    : 'bg-gray-200 text-gray-700'
+                }`}
+              >
+                This Month
+              </button>
+              <button
+                onClick={() => setTimePeriod('all')}
+                className={`px-3 py-1 text-sm rounded-lg ${
+                  timePeriod === 'all'
+                    ? 'bg-indigo-500 text-white'
+                    : darkMode
+                    ? 'bg-gray-700 text-gray-300'
+                    : 'bg-gray-200 text-gray-700'
+                }`}
+              >
+                All Time
+              </button>
             </div>
           </div>
+
+          {isLoading ? (
+            <div className="flex justify-center items-center h-32">
+              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500"></div>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              <div className="relative pt-1">
+                <div className="flex mb-2 items-center justify-between">
+                  <div>
+                    <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200">
+                      Income
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xs font-semibold inline-block text-blue-600">
+                      {totalIncome}
+                    </span>
+                  </div>
+                </div>
+                <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
+                  <div style={{ width: "100%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
+                </div>
+              </div>
+
+              <div className="relative pt-1">
+                <div className="flex mb-2 items-center justify-between">
+                  <div>
+                    <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-red-600 bg-red-200">
+                      Expenses
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xs font-semibold inline-block text-red-600">
+                      {totalExpenses}
+                    </span>
+                  </div>
+                </div>
+                <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-red-200">
+                  <div style={{ width: "33%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"></div>
+                </div>
+              </div>
+
+              <div className="relative pt-1">
+                <div className="flex mb-2 items-center justify-between">
+                  <div>
+                    <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200">
+                      Savings
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xs font-semibold inline-block text-green-600">
+                      {totalSavings}
+                    </span>
+                  </div>
+                </div>
+                <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-200">
+                  <div style={{ width: "67%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="mt-6">
             <Button text="View Detailed Report" />
