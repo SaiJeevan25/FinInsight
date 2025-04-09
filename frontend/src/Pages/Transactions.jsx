@@ -24,10 +24,7 @@ import Sidebar from "./TransactionsPage/Sidebar";
 import SummaryCards from "./TransactionsPage/SummaryCards";
 import SearchFilterBar from "./TransactionsPage/SearchFilterBar";
 
-const monthNames = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 export default function TransactionsPage() {
   const { darkMode } = useTheme();
@@ -111,7 +108,9 @@ export default function TransactionsPage() {
     if (viewMode === "Daily") {
       const newDate = new Date(currentDate);
       newDate.setDate(newDate.getDate() - 1);
+      console.log(newDate)
       setCurrentDate(newDate);
+
     } else if (viewMode === "Month") {
       setCurrentMonthIndex((prev) => {
         if (prev === 0) {
@@ -120,6 +119,9 @@ export default function TransactionsPage() {
         }
         return prev - 1;
       });
+      const newdate = new Date(currentDate)
+      newdate.setMonth(newdate.getMonth() - 1)
+      setCurrentDate(newdate)
     } else if (viewMode === "Year") {
       setCurrentYear((year) => year - 1);
     }
@@ -138,6 +140,9 @@ export default function TransactionsPage() {
         }
         return prev + 1;
       });
+      const newdate = new Date(currentDate)
+      newdate.setMonth(newdate.getMonth() + 1)
+      setCurrentDate(newdate)
     } else if (viewMode === "Year") {
       setCurrentYear((year) => year + 1);
     }
@@ -277,7 +282,7 @@ export default function TransactionsPage() {
       <div className="flex flex-1 relative">
         {/* Mobile Toggle Sidebar Button */}
         <button
-          className="fixed top-[22rem] left-4 p-2 bg-indigo-500 text-white rounded-lg shadow-md lg:hidden z-30"
+          className="fixed top-[11.2rem] left-0 p-2 bg-indigo-500 text-white rounded-lg shadow-md lg:hidden z-30"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           <FiMenu className="text-xl" />
@@ -359,7 +364,7 @@ export default function TransactionsPage() {
 
       {/* Mobile Add Button */}
       <button
-        className="fixed bottom-6 right-6 bg-indigo-500 text-white p-4 rounded-full shadow-lg md:hidden z-30"
+        className="fixed bottom-6 right-6 bg-indigo-500 text-white p-4 rounded-full shadow-lg lg:hidden z-30"
         onClick={() => setIsAddModalOpen(true)}
       >
         <FiPlus className="text-2xl" />
