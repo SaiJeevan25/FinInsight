@@ -170,7 +170,13 @@ export default function StatsPage() {
       case "trends":
         return (
           <div className="w-full max-w-4xl mx-auto">
-            <DynamicTrends monthlyData={statsData.monthlyData} timeRange={timeRange} darkMode={darkMode} />
+            <DynamicTrends 
+              monthlyData={statsData.monthlyData} 
+              timeRange={timeRange} 
+              darkMode={darkMode}
+              categoryBreakdown={statsData.categoryBreakdown || []}
+              incomeBreakdown={statsData.incomeBreakdown || []}
+            />
           </div>
         );
       case "insights":

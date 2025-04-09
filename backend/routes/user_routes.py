@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from database import users_collection
+from database import users_collection, get_user_transactions_collection
+from datetime import datetime
+
 
 user_bp = Blueprint('user', __name__)
 
@@ -32,3 +34,33 @@ def update_profile():
         return jsonify({"error": "No changes made"}), 400
 
     return jsonify({"message": "Profile updated successfully"}), 200
+@user_bp.route('/api/user/financial-summary', methods=['GET'])
+@jwt_required()
+def financial_summary():
+    current_user_email = get_jwt_identity()
+    transactions_collection = get_user_transactions_collection(current_user_email)
+    
+    # Get period parameter (default to 'all')
+    period = request.args.get('period', 'all')
+    
+    # Create query based on period
+    query = {}
+    if period == 'month':
+        now = datetime.now()
+        current_year = now.year
+        current_month = now.month
+        query = {"date": {"$regex": f"^{current_year}-{current_month:02d}-"}}
+    
+    transactions = list(transactions_collection.find(query))
+    
+    # Calculate totals
+    total_income = sum(t['amount'] for t in transactions if t['type'] == 'income')
+    total_expenses = sum(t['amount'] for t in transactions if t['type'] == 'expense')
+    total_savings = total_income - total_expenses
+    
+    return jsonify({
+        "income": f"${total_income:,.2f}",
+        "expenses": f"₹{total_expenses:,.2f}", 
+        "savings": f"₹{total_savings:,.2f}",
+        "period": period
+    }), 200
