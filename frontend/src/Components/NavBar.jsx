@@ -2,7 +2,7 @@ import { useTheme } from "../Components/ThemeContext";
 import Logo from "../Components/Logo";
 import BgToggle from "../Components/BgToggle";
 import { useState } from "react";
-import { FiMenu, FiX, FiLogOut } from "react-icons/fi";
+import { FiMenu, FiX, FiLogOut, FiActivity, FiBarChart2, FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../utils/auth";
 
@@ -10,8 +10,13 @@ export default function NavBar({ activeTab, setActiveTab, userName }) {
   const { darkMode } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navItems = ["Transactions", "Stats", "Profile"]; 
   const navigate = useNavigate();
+  
+  const navItems = [
+    { name: "Transactions", icon: <FiActivity /> },
+    { name: "Stats", icon: <FiBarChart2 /> },
+    { name: "Profile", icon: <FiUser /> }
+  ];
 
   const handleLogout = async () => {
     try {
@@ -24,27 +29,36 @@ export default function NavBar({ activeTab, setActiveTab, userName }) {
   };
 
   return (
-    <div className={`sticky top-0 z-50 mx-2 mt-3 bg-opacity-95 backdrop-blur-sm hover:shadow-lg  left-4 right-4 rounded-xl flex items-center justify-between px-6 py-3 shadow-sm shadow-indigo-500  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} transition-all duration-300`}>
+    <div className={`sticky top-0 z-50 mx-2 mt-3 bg-opacity-95 backdrop-blur-sm hover:shadow-lg left-4 right-4 rounded-xl flex items-center justify-between px-6 py-3 shadow-sm shadow-indigo-500 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} transition-all duration-300`}>
       
       <div className="flex items-center gap-4">
         <Logo />
         <p className="text-sm md:text-md font-medium">({userName})</p>
       </div>
-
-      <div className="hidden md:flex gap-6">
+      
+      <div className="hidden text-lg md:flex gap-6">
         {navItems.map((item) => (
-          <p
-            key={item}
-            className={`cursor-pointer text-lg hover:text-indigo-500 ${
-              activeTab === item ? 'font-extrabold text-indigo-500 underline' : 'font-medium'
-            }`}
+          <div
+            key={item.name}
+            className={`relative cursor-pointer group`}
             onClick={() => {
-              console.log("Switching to:", item); 
-              setActiveTab(item); 
+              setActiveTab(item.name); 
             }}
           >
-            {item}
-          </p>
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-opacity-10 hover:">
+             
+              <span className={`${
+                activeTab === item.name 
+                  ? 'font-bold text-indigo-500 '
+                  : 'font-medium'
+              }`}>
+                {item.name}
+              </span>
+            </div>
+            <div className={`absolute bottom-0 left-0 h-0.5 bg-indigo-500 transition-all duration-300 ${
+              activeTab === item.name ? 'w-full' : 'w-0 group-hover:w-full '
+            }`}></div>
+          </div>
         ))}
       </div>
 
@@ -52,7 +66,7 @@ export default function NavBar({ activeTab, setActiveTab, userName }) {
         <button 
           onClick={handleLogout}
           disabled={loading}
-          className="flex cursor-pointe p-2 rounded-md cursor-pointer hover:bg-red-900 hover:text-gray-200 items-center gap-2 text-red-500 transition-colors duration-300"
+          className="flex cursor-pointer p-2 rounded-md hover:bg-red-900 hover:text-gray-200 items-center gap-2 text-red-500 transition-colors duration-300"
         >
           <FiLogOut className="hidden md:block text-lg" />
           <span className="hidden sm:inline">{loading ? 'Logging out...' : 'Logout'}</span>
@@ -67,23 +81,36 @@ export default function NavBar({ activeTab, setActiveTab, userName }) {
       {menuOpen && (
         <div className={`absolute top-16 left-0 w-full bg-opacity-90 shadow-md ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} flex flex-col items-center py-4 gap-4 md:hidden rounded-b-xl`}>
           {navItems.map((item) => (
-            <p
-              key={item}
-              className={`cursor-pointer text-lg transition-all duration-300 hover:text-indigo-500 ${
-                activeTab === item ? 'font-extrabold text-indigo-500' : 'font-medium'
+            <div
+              key={item.name}
+              className={`flex items-center gap-2 w-4/5 px-4 py-3 rounded-lg cursor-pointer transition-all duration-300 ${
+                activeTab === item.name 
+                  ? darkMode 
+                    ? 'bg-gray-700 text-indigo-400' 
+                    : 'bg-indigo-50 text-indigo-600'
+                  : darkMode
+                    ? 'hover:bg-gray-700' 
+                    : 'hover:bg-gray-100'
               }`}
               onClick={() => {
-                console.log("Switching to:", item); 
-                setActiveTab(item);
+                console.log("Switching to:", item.name); 
+                setActiveTab(item.name);
                 setMenuOpen(false); 
               }}
             >
-              {item}
-            </p>
+              <span className={`text-lg ${activeTab === item.name ? 'text-indigo-500' : ''}`}>
+                {item.icon}
+              </span>
+              <span className={`${
+                activeTab === item.name ? 'font-bold' : 'font-medium'
+              }`}>
+                {item.name}
+              </span>
+            </div>
           ))}
           
           <button
-            className="cursor-pointer text-lg border-none text-red-500 hover:text-red-600 transition-colors duration-300"
+            className="flex items-center gap-2 w-4/5 px-4 py-3 rounded-lg cursor-pointer transition-all duration-300 text-red-500 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900 dark:hover:bg-opacity-20"
             onClick={() => {
               if (!loading) {
                 handleLogout();
@@ -91,7 +118,8 @@ export default function NavBar({ activeTab, setActiveTab, userName }) {
               }
             }}
           >
-            {loading ? 'Logging out...' : 'Logout'}
+            <FiLogOut className="text-lg" />
+            <span>{loading ? 'Logging out...' : 'Logout'}</span>
           </button>
         </div>
       )}
