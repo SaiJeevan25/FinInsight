@@ -4,7 +4,6 @@ import WelcomePage from "./Pages/WelcomePage";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 import Dashboard from "./Pages/Dashboard";
-import Sample from "./Pages/sample";
 import ForgotPassword from "./Pages/ForgotPassword";
 import NotFound from './Pages/NotFound';
 import { ThemeProvider } from "./Components/ThemeContext";
@@ -20,7 +19,6 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/sample" element={<Sample />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

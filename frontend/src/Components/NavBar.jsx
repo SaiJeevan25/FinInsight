@@ -52,7 +52,7 @@ export default function NavBar({ activeTab, setActiveTab, userName }) {
         <button 
           onClick={handleLogout}
           disabled={loading}
-          className="flex cursor-pointe p-2 rounded-md cursor-pointer hover:bg-red-700 hover:text-white items-center gap-2 text-red-500 transition-colors duration-300"
+          className="flex cursor-pointe p-2 rounded-md cursor-pointer hover:bg-red-900 hover:text-gray-200 items-center gap-2 text-red-500 transition-colors duration-300"
         >
           <FiLogOut className="hidden md:block text-lg" />
           <span className="hidden sm:inline">{loading ? 'Logging out...' : 'Logout'}</span>

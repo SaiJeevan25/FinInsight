@@ -1,5 +1,7 @@
 import React from 'react'
 import { useTheme } from './ThemeContext'
+import { FiSun } from 'react-icons/fi'
+import { FiMoon } from 'react-icons/fi'
 
 export default function BgToggle() {
     const { darkMode, setDarkMode } = useTheme()
@@ -7,13 +9,13 @@ export default function BgToggle() {
     return (
         <div>
             <button
-                className={`px-4 py-2 text-md md:text-lg font-bold cursor-pointer rounded-lg border shadow-sm transition ${darkMode ? 'bg-gray-900 shadow-gray-400 border-gray-400' : 'bg-gray-200 shadow-gray-900 border-gray-900'}`}
+                className={`px-3 py-3 text-md md:text-xl font-bold cursor-pointer rounded-lg border shadow-sm transition ${darkMode ? 'bg-gray-900 shadow-gray-400 border-gray-400' : 'bg-gray-200 shadow-gray-900 border-gray-900'}`}
                 onClick={() => setDarkMode(!darkMode)}
             >
                 {darkMode ?
-                    <i className="fa-solid fa-sun"></i>
+                    <FiSun />
                     :
-                    <i className="fa-solid fa-moon"></i>
+                    <FiMoon />
                 }
             </button>
         </div>

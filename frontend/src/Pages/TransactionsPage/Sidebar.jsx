@@ -25,9 +25,9 @@ export default function Sidebar({
             <FiCalendar className="text-indigo-500" />
             <p style={{ }} className="text-sm md:text-md lg:text-lg text-center  font-semibold">
               {viewMode === "Daily"
-                ? `${currentDate.getDate()} ${monthNames[currentMonthIndex]} ${currentYear}`
+                ? `${currentDate.getDate()} ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`
                 : viewMode === "Month"
-                ? `${monthNames[currentMonthIndex]} ${currentYear}`
+                ? `${monthNames[currentDate.getMonth()]} ${currentYear}`
                 : `${currentYear}`}
             </p>
           </div>

@@ -26,6 +26,7 @@ import SearchFilterBar from "./TransactionsPage/SearchFilterBar";
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+
 export default function TransactionsPage() {
   const { darkMode } = useTheme();
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -73,7 +74,6 @@ export default function TransactionsPage() {
     } catch (error) {
       console.error("Failed to fetch transactions:", error);
     } finally {
-      // Add a small delay to make the loading animation visible even on fast connections
       setTimeout(() => {
         setIsLoading(false);
       }, 500);
@@ -110,7 +110,7 @@ export default function TransactionsPage() {
       newDate.setDate(newDate.getDate() - 1);
       console.log(newDate)
       setCurrentDate(newDate);
-
+      
     } else if (viewMode === "Month") {
       setCurrentMonthIndex((prev) => {
         if (prev === 0) {
@@ -156,17 +156,14 @@ export default function TransactionsPage() {
     setIsFilterMenuOpen(!isFilterMenuOpen);
   };
 
-  // Modified setFilter function to reset category when switching to "all"
   const setFilter = (type) => {
     setFilterType(type);
-    // Reset category selection when switching to "all"
     if (type === "all") {
       setSelectedCategory("");
     }
     setIsFilterMenuOpen(false);
   };
 
-  // Filter transactions based on searchTerm and filterType
   const filteredTransactions = useMemo(() => {
     return transactions
       .filter(transaction => {
@@ -229,21 +226,6 @@ export default function TransactionsPage() {
     }
   };
 
-  // Format date for display
-  const formatDateDisplay = () => {
-    if (viewMode === "Daily") {
-      return currentDate.toLocaleDateString("en-US", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      });
-    } else if (viewMode === "Month") {
-      return `${monthNames[currentMonthIndex]} ${currentYear}`;
-    } else {
-      return `${currentYear}`;
-    }
-  };
 
   // Loading skeleton for transactions
   const TransactionSkeleton = () => (
@@ -300,7 +282,6 @@ export default function TransactionsPage() {
           handleViewModeChange={handleViewModeChange}
           darkMode={darkMode}
           setIsAddModalOpen={setIsAddModalOpen}
-          formatDateDisplay={formatDateDisplay}
         />
 
         {/* Main Content */}
