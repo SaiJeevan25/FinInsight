@@ -325,10 +325,6 @@ export default function ProfilePage(user) {
               </div>
             </div>
           )}
-
-          <div className="mt-6">
-            <Button text="View Detailed Report" />
-          </div>
         </div>
       </div>
     </div>
