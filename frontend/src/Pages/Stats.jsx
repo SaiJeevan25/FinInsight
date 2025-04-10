@@ -216,10 +216,6 @@ export default function StatsPage() {
         handlePrevMonth={handlePrevMonth}
         handleNextMonth={handleNextMonth}
         getTimeRangeText={getTimeRangeText}
-        darkMode={darkMode}
-      />
-
-      <DashboardViewToggle
         activeView={activeView}
         setActiveView={setActiveView}
         darkMode={darkMode}
