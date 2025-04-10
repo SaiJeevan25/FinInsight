@@ -140,7 +140,7 @@ export default function AIInsights({ insights, darkMode }) {
   }, [activeView]);
 
   return (
-    <div className={`p-6 rounded-lg shadow-md transition-all duration-300 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+    <div className={`p-6 rounded-lg shadow-md shadow-black transition-all duration-300 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
       
       <div className={`relative mb-8 rounded-full p-1 ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
         <div

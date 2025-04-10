@@ -11,18 +11,13 @@ import {
   FiHome,
   FiTruck,
   FiMonitor,
-  FiChevronLeft,
-  FiChevronRight,
-  FiCalendar,
-  FiArrowUp,
-  FiArrowDown,
-  FiFilter,
-  FiSearch,
-  FiLoader
+  FiEdit,
+  FiTrash2
 } from "react-icons/fi";
 import Sidebar from "./TransactionsPage/Sidebar";
 import SummaryCards from "./TransactionsPage/SummaryCards";
 import SearchFilterBar from "./TransactionsPage/SearchFilterBar";
+import DeleteConfirmation from "./TransactionsPage/DeleteConfirmation";
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -36,6 +31,8 @@ export default function TransactionsPage() {
   const [transactions, setTransactions] = useState([]);
   const [viewMode, setViewMode] = useState("Daily");
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [currentTransaction, setCurrentTransaction] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -45,23 +42,24 @@ export default function TransactionsPage() {
   const [savingsTotal, setSavingsTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [order, setOrder] = useState(false); // false indicates Ascending order
-  const [dateVisibility, setDateVisibility] = useState(false)
+  const [dateVisibility, setDateVisibility] = useState(false);
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const [transactionToDelete, setTransactionToDelete] = useState(null);
 
   // Fetch transactions from backend
   const fetchTransactions = async () => {
     setIsLoading(true);
     try {
       let url = `http://localhost:8000/api/transactions`;
-
+      const day = currentDate.getDate();
+      const month = currentDate.getMonth() + 1;
+      const year = currentDate.getFullYear();
       if (viewMode === "Daily") {
-        const day = currentDate.getDate();
-        const month = currentDate.getMonth() + 1;
-        const year = currentDate.getFullYear();
         url += `?day=${day}&month=${month}&year=${year}`;
       } else if (viewMode === "Month") {
-        url += `?month=${currentMonthIndex + 1}&year=${currentYear}`;
+        url += `?month=${month}&year=${year}`;
       } else if (viewMode === "Year") {
-        url += `?year=${currentYear}`;
+        url += `?year=${year}`;
       }
 
       const res = await fetch(url, {
@@ -82,7 +80,7 @@ export default function TransactionsPage() {
 
   useEffect(() => {
     fetchTransactions();
-  }, [currentMonthIndex, currentYear, viewMode, currentDate, searchTerm, filterType, selectedCategory]);
+  }, [viewMode, currentDate, searchTerm, filterType, selectedCategory]);
 
 
   // Calculate totals whenever transactions change
@@ -105,46 +103,34 @@ export default function TransactionsPage() {
   }, [transactions]);
 
   const handlePrev = () => {
+    const newDate = new Date(currentDate)
     if (viewMode === "Daily") {
-      const newDate = new Date(currentDate);
       newDate.setDate(newDate.getDate() - 1);
-      console.log(newDate)
       setCurrentDate(newDate);
-      
+
     } else if (viewMode === "Month") {
-      setCurrentMonthIndex((prev) => {
-        if (prev === 0) {
-          setCurrentYear((year) => year - 1);
-          return 11; // December
-        }
-        return prev - 1;
-      });
-      const newdate = new Date(currentDate)
-      newdate.setMonth(newdate.getMonth() - 1)
-      setCurrentDate(newdate)
+      newDate.setMonth(newDate.getMonth() - 1)
+      setCurrentDate(newDate)
+
     } else if (viewMode === "Year") {
-      setCurrentYear((year) => year - 1);
+      newDate.setFullYear(newDate.getFullYear() - 1)
+      setCurrentDate(newDate)
     }
   };
 
   const handleNext = () => {
+    const newDate = new Date(currentDate)
     if (viewMode === "Daily") {
-      const newDate = new Date(currentDate);
       newDate.setDate(newDate.getDate() + 1);
       setCurrentDate(newDate);
+
     } else if (viewMode === "Month") {
-      setCurrentMonthIndex((prev) => {
-        if (prev === 11) {
-          setCurrentYear((year) => year + 1);
-          return 0; // January
-        }
-        return prev + 1;
-      });
-      const newdate = new Date(currentDate)
-      newdate.setMonth(newdate.getMonth() + 1)
-      setCurrentDate(newdate)
+      newDate.setMonth(newDate.getMonth() + 1)
+      setCurrentDate(newDate)
+
     } else if (viewMode === "Year") {
-      setCurrentYear((year) => year + 1);
+      newDate.setFullYear(newDate.getFullYear() + 1)
+      setCurrentDate(newDate)
     }
   };
 
@@ -200,6 +186,79 @@ export default function TransactionsPage() {
     }
   };
 
+  // Function to edit a transaction
+  const editTransaction = async (updatedTransaction) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/transactions/${updatedTransaction.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(updatedTransaction),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update transaction");
+      }
+
+      const result = await response.json();
+      console.log("Transaction updated:", result);
+      fetchTransactions(); // Refresh the transactions list
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error("Error updating transaction:", error);
+    }
+  };
+
+  // Function to delete a transaction
+  const deleteTransaction = async (id) => {
+    try {
+      // Show some loading state if needed
+      // setIsLoading(true);
+      console.log(id)
+      const response = await fetch(`http://localhost:8000/api/transactions/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to delete transaction");
+      }
+  
+      console.log("Transaction deleted:", id);
+      
+      setIsDeleteConfirmOpen(false);
+      setTransactionToDelete(null);
+      
+      // Refresh the transactions list
+      await fetchTransactions();
+      
+    } catch (error) {
+      console.error("Error deleting transaction:", error);
+      alert("Failed to delete transaction: " + error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Function to handle edit button click
+  const handleEditClick = (transaction) => {
+    setCurrentTransaction(transaction);
+    console.log(transaction)
+    setIsEditModalOpen(true);
+  };
+
+  // Function to handle delete button click
+  const handleDeleteClick = (transaction) => {
+    setTransactionToDelete(transaction);
+    console.log(transaction)
+    setIsDeleteConfirmOpen(true);
+  };
+
   // Function to handle view mode change
   const handleViewModeChange = (mode) => {
     if (mode === "Daily") {
@@ -227,7 +286,6 @@ export default function TransactionsPage() {
   };
 
 
-  // Loading skeleton for transactions
   const TransactionSkeleton = () => (
     <div className="space-y-3">
       {[1, 2, 3].map((item) => (
@@ -251,6 +309,9 @@ export default function TransactionsPage() {
       ))}
     </div>
   );
+
+  // Delete Confirmation Modal
+  
 
   return (
     <div className="flex flex-col h-full mt- overflow-hidden">
@@ -326,9 +387,33 @@ export default function TransactionsPage() {
                         <p className="text-sm text-gray-500">{transaction.category} • {transaction.date}</p>
                       </div>
                     </div>
-                    <div className={`font-bold ${transaction.type === 'income' ? 'text-blue-500' : 'text-red-500'}`}>
-                      {transaction.type === 'income' ? '+' : '-'} ₹
-                      {String(transaction.amount).replace(/[^\d.-]/g, '')}
+                    <div className="flex items-center gap-3">
+                      <div className={`font-bold ${transaction.type === 'income' ? 'text-blue-500' : 'text-red-500'}`}>
+                        {transaction.type === 'income' ? '+' : '-'} ₹
+                        {String(transaction.amount).replace(/[^\d.-]/g, '')}
+                      </div>
+                      <div className="flex gap-2">
+                        <button 
+                          onClick={() => handleEditClick(transaction)}
+                          className={`p-2 rounded-full transition-colors ${
+                            darkMode 
+                              ? 'hover:bg-gray-700 text-gray-300 hover:text-white' 
+                              : 'hover:bg-gray-200 text-gray-500 hover:text-gray-700'
+                          }`}
+                        >
+                          <FiEdit className="text-lg" />
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteClick(transaction)}
+                          className={`p-2 rounded-full transition-colors ${
+                            darkMode
+                              ? 'hover:bg-red-900 text-gray-300 hover:text-red-300'
+                              : 'hover:bg-red-100 text-gray-500 hover:text-red-600'
+                          }`}
+                        >
+                          <FiTrash2 className="text-lg" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -359,6 +444,28 @@ export default function TransactionsPage() {
           onSave={addTransaction}
         />
       )}
+
+      {/* Edit Transaction Modal */}
+      {isEditModalOpen && currentTransaction && (
+        <TransactionModal
+          isOpen={isEditModalOpen}
+          onClose={() => {
+            setIsEditModalOpen(false);
+            setCurrentTransaction(null);
+          }}
+          onSave={editTransaction}
+          transaction={currentTransaction}
+          isEditing={true}
+        />
+      )}
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmation
+        isOpen={isDeleteConfirmOpen}
+        onClose={() => setIsDeleteConfirmOpen(false)}
+        onConfirm={deleteTransaction}
+        transaction={transactionToDelete}
+      />
     </div>
   );
 }

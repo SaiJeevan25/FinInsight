@@ -2,9 +2,7 @@ import { FiChevronLeft, FiChevronRight, FiCalendar } from "react-icons/fi";
 import Button from "../../Components/Button";
 
 export default function Sidebar({ 
-  sidebarOpen, 
-  currentMonthIndex, 
-  currentYear, 
+  sidebarOpen,  
   currentDate,
   handlePrev, 
   handleNext, 
@@ -27,8 +25,8 @@ export default function Sidebar({
               {viewMode === "Daily"
                 ? `${currentDate.getDate()} ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`
                 : viewMode === "Month"
-                ? `${monthNames[currentDate.getMonth()]} ${currentYear}`
-                : `${currentYear}`}
+                ? `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`
+                : `${currentDate.getFullYear()}`}
             </p>
           </div>
           <FiChevronRight className="cursor-pointer text-xl hover:text-indigo-500" onClick={handleNext} />
