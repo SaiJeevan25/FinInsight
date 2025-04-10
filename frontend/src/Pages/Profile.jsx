@@ -15,7 +15,7 @@ export default function ProfilePage(user) {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [timePeriod, setTimePeriod] = useState("all"); // 'month' or 'all'
-  const [totalIncome, setTotalIncome] = useState("$0.00");
+  const [totalIncome, setTotalIncome] = useState("₹0.00");
   const [totalExpenses, setTotalExpenses] = useState("₹0.00");
   const [totalSavings, setTotalSavings] = useState("₹0.00");
 

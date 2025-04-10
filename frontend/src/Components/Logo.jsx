@@ -6,10 +6,10 @@ export default function () {
     return (
         <div>
             <button onClick={() => windows.location.href = "/"} className='border-none'>
-                <p className="text-md md:text-xl font-extrabold text-indigo-500 cursor-pointer">
+                <p className="text-md md:text-2xl font-extrabold text-indigo-500 cursor-pointer">
                     Fin<span className={`${darkMode ? 'text-gray-400' : "text-gray-700"}`}>Insight</span>
                 </p>
             </button>
-        </div>
+        </div>  
     )
 }
