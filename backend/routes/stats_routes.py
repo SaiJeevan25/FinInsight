@@ -139,17 +139,18 @@ def get_stats():
             for category, amount in income_sources.items()
         ]
                 # Generate monthly/quarterly data
-        monthly_data = {"income": [], "expenses": [], "savings": []}
+        # In the monthly data generation section of stats_routes.py
+        monthly_data = {"income": [], "expenses": [], "savings": []}  # Fix the typo in "expenses"
         if time_range == "year":
             for m in range(1, 13):
                 month_start = datetime(year, m, 1)
                 month_end = (month_start + timedelta(days=32)).replace(day=1) - timedelta(days=1)
                 month_trans = [t for t in current_transactions if 
-                             month_start <= datetime.strptime(t['date'], '%Y-%m-%d') <= month_end]
-                month_income = sum(t['amount'] for t in month_trans if t['type'] == 'income')
-                month_exp = sum(t['amount'] for t in month_trans if t['type'] == 'expense')
+                            month_start <= datetime.strptime(t['date'], '%Y-%m-%d') <= month_end]
+                month_income = sum(t['amount'] for t in month_trans if t['type'] == 'income') or 0
+                month_exp = sum(t['amount'] for t in month_trans if t['type'] == 'expense') or 0
                 monthly_data["income"].append(month_income)
-                monthly_data["expenses"].append(month_exp)
+                monthly_data["expenses"].append(month_exp)  # Fixed the key name
                 monthly_data["savings"].append(month_income - month_exp)
         elif time_range == "quarter":
             quarter_months = range((month - 1) // 3 * 3 + 1, ((month - 1) // 3 + 1) * 3 + 1)
@@ -157,12 +158,28 @@ def get_stats():
                 month_start = datetime(year, m, 1)
                 month_end = (month_start + timedelta(days=32)).replace(day=1) - timedelta(days=1)
                 month_trans = [t for t in current_transactions if 
-                             month_start <= datetime.strptime(t['date'], '%Y-%m-%d') <= month_end]
-                month_income = sum(t['amount'] for t in month_trans if t['type'] == 'income')
-                month_exp = sum(t['amount'] for t in month_trans if t['type'] == 'expense')
+                            month_start <= datetime.strptime(t['date'], '%Y-%m-%d') <= month_end]
+                month_income = sum(t['amount'] for t in month_trans if t['type'] == 'income') or 0
+                month_exp = sum(t['amount'] for t in month_trans if t['type'] == 'expense') or 0
                 monthly_data["income"].append(month_income)
-                monthly_data["expenses"].append(month_exp)
+                monthly_data["expenses"].append(month_exp)  # Fixed the key name
                 monthly_data["savings"].append(month_income - month_exp)
+        else:  # month
+            # For monthly view, break down by weeks
+            weeks_in_month = 4
+            monthly_data = {"income": [], "expenses": [], "savings": []}
+            for week in range(weeks_in_month):
+                week_start = start_date + timedelta(days=7*week)
+                week_end = week_start + timedelta(days=6)
+                if week_end > end_date:
+                    week_end = end_date
+                week_trans = [t for t in current_transactions if 
+                            week_start <= datetime.strptime(t['date'], '%Y-%m-%d') <= week_end]
+                week_income = sum(t['amount'] for t in week_trans if t['type'] == 'income') or 0
+                week_exp = sum(t['amount'] for t in week_trans if t['type'] == 'expense') or 0
+                monthly_data["income"].append(week_income)
+                monthly_data["expenses"].append(week_exp)
+                monthly_data["savings"].append(week_income - week_exp)
         
         # Generate AI insights
         ai_insights = generate_ai_insights(

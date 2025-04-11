@@ -59,7 +59,7 @@ def financial_summary():
     total_savings = total_income - total_expenses
     
     return jsonify({
-        "income": f"${total_income:,.2f}",
+        "income": f"₹{total_income:,.2f}",
         "expenses": f"₹{total_expenses:,.2f}", 
         "savings": f"₹{total_savings:,.2f}",
         "period": period
