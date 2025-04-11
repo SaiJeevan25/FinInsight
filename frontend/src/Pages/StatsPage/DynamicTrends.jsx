@@ -1,58 +1,105 @@
 import React, { useState } from 'react';
-import { FiDollarSign, FiCreditCard } from 'react-icons/fi';
+import { FiTrendingUp, FiPieChart } from 'react-icons/fi';
+import LineChartComponent from './LineChartComponent';
 import PieChartComponent from './PieChartComponent';
 
 export default function DynamicTrends({ 
   darkMode,
   incomeBreakdown = [], 
-  categoryBreakdown = [] 
+  categoryBreakdown = [],
+  monthlyData,
+  timeRange
 }) {
-  const [activeTab, setActiveTab] = useState('income');
+  const [activeTab, setActiveTab] = useState('trends'); // 'trends' or 'breakdown'
+  const [breakdownType, setBreakdownType] = useState('income'); // 'income' or 'expense'
 
   return (
     <div className={`p-4 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} rounded-lg`}>
-      {/* Toggle Buttons */}
-      <div className="flex justify-center gap-4 mb-8">
+      {/* Main Toggle Buttons */}
+      <div className="flex justify-center gap-4 mb-6">
         <button
-          onClick={() => setActiveTab('income')}
+          onClick={() => setActiveTab('trends')}
           className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all ${
-            activeTab === 'income'
+            activeTab === 'trends'
               ? `${darkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white shadow-md'}`
               : `${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`
           }`}
         >
-          <FiDollarSign className="text-lg" />
-          Income
+          <FiTrendingUp className="text-lg" />
+          Trends Overview
         </button>
         <button
-          onClick={() => setActiveTab('expense')}
+          onClick={() => {
+            setActiveTab('breakdown');
+            setBreakdownType('income'); // Default to income when switching
+          }}
           className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all ${
-            activeTab === 'expense'
-              ? `${darkMode ? 'bg-red-600 text-white' : 'bg-red-500 text-white shadow-md'}`
+            activeTab === 'breakdown'
+              ? `${darkMode ? 'bg-purple-600 text-white' : 'bg-purple-500 text-white shadow-md'}`
               : `${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`
           }`}
         >
-          <FiCreditCard className="text-lg" />
-          Expenses
+          <FiPieChart className="text-lg" />
+          Financial Breakdown
         </button>
       </div>
 
-      {/* Pie Chart Display */}
+      {/* Breakdown Type Selector (shown only when breakdown tab is active) */}
+      {activeTab === 'breakdown' && (
+        <div className="flex justify-center gap-4 mb-6">
+          <button
+            onClick={() => setBreakdownType('income')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium transition-all ${
+              breakdownType === 'income'
+                ? `${darkMode ? 'bg-green-600 text-white' : 'bg-green-500 text-white shadow-md'}`
+                : `${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`
+            }`}
+          >
+            Income Sources
+          </button>
+          <button
+            onClick={() => setBreakdownType('expense')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium transition-all ${
+              breakdownType === 'expense'
+                ? `${darkMode ? 'bg-red-600 text-white' : 'bg-red-500 text-white shadow-md'}`
+                : `${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'}`
+            }`}
+          >
+            Expense Categories
+          </button>
+        </div>
+      )}
+
+      {/* Chart Display */}
       <div className={`p-6 rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-sm`}>
-        {activeTab === 'income' ? (
-          <PieChartComponent 
-            data={incomeBreakdown} 
-            title="Income Sources" 
-            darkMode={darkMode}
-            colorScheme="blue"
-          />
+        {activeTab === 'trends' ? (
+          monthlyData?.income?.length > 0 ? (
+            <LineChartComponent 
+              data={monthlyData} 
+              timeRange={timeRange}
+              darkMode={darkMode}
+            />
+          ) : (
+            <div className={`text-center py-8 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+              No trend data available
+            </div>
+          )
         ) : (
-          <PieChartComponent 
-            data={categoryBreakdown} 
-            title="Expense Categories" 
-            darkMode={darkMode}
-            colorScheme="red"
-          />
+          breakdownType === 'income' ? (
+            <PieChartComponent 
+              data={incomeBreakdown} 
+              title="Income Sources" 
+              darkMode={darkMode}
+              colorScheme="green"
+            />
+          ) : (
+            <PieChartComponent 
+              data={categoryBreakdown} 
+              title="Expense Categories" 
+              darkMode={darkMode}
+              colorScheme="red"
+            />
+          )
         )}
       </div>
     </div>
