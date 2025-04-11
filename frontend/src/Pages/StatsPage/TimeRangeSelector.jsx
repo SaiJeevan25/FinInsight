@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiCalendar, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import DashboardViewToggle from "./DashboardViewToggle";
 
 export default function TimeRangeSelector({
   timeRange,
@@ -9,11 +10,12 @@ export default function TimeRangeSelector({
   handlePrevMonth,
   handleNextMonth,
   getTimeRangeText,
-  darkMode
+  darkMode,
+  activeView,
+  setActiveView
 }) {
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-3">
-      {/* Time Range Buttons */}
+    <div className="flex flex-col sm:flex-row justify-between gap-4 items-center mb-4">
       <div className="flex space-x-4 w-full sm:w-auto">
         {["month", "quarter", "year"].map((range) => (
           <button
@@ -29,29 +31,41 @@ export default function TimeRangeSelector({
           </button>
         ))}
       </div>
-      
-      {/* Month/Period Selector */}
-      <div className="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-end">
-        <button 
-          onClick={handlePrevMonth}
-          className={`p-2 rounded-full ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
-          aria-label="Previous period"
-        >
-          <FiChevronLeft className="text-xl" />
-        </button>
-        
-        <div className="flex items-center min-w-24 justify-center">
-          <FiCalendar className="mr-2 text-indigo-500" />
-          <span className="font-semibold text-sm sm:text-base">{getTimeRangeText()}</span>
+      <div className='hidden md:block'>
+        <DashboardViewToggle 
+        activeView={activeView}
+        setActiveView={setActiveView}
+        darkMode={darkMode}
+        />
+      </div>
+        <div className="flex items-center space-x-2 w-full sm:w-auto justify-between sm:justify-end">
+          <button 
+            onClick={handlePrevMonth}
+            className={`p-2 rounded-full ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            aria-label="Previous period"
+          >
+            <FiChevronLeft className="text-xl" />
+          </button>
+          
+          <div className="flex items-center min-w-24 justify-center">
+            <FiCalendar className="mr-2 text-indigo-500" />
+            <span className="font-semibold text-sm sm:text-base">{getTimeRangeText()}</span>
+          </div>
+          
+          <button 
+            onClick={handleNextMonth}
+            className={`p-2 rounded-full ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            aria-label="Next period"
+          >
+            <FiChevronRight className="text-xl" />
+          </button>
         </div>
-        
-        <button 
-          onClick={handleNextMonth}
-          className={`p-2 rounded-full ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
-          aria-label="Next period"
-        >
-          <FiChevronRight className="text-xl" />
-        </button>
+        <div className='block md:hidden'>
+        <DashboardViewToggle 
+        activeView={activeView}
+        setActiveView={setActiveView}
+        darkMode={darkMode}
+        />
       </div>
     </div>
   );
