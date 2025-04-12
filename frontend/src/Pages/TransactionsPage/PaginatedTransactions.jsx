@@ -160,4 +160,3 @@ export function GeneratePaginatedTransactions({ isLoading, paginatedTransactions
     </div>
   )
 }
-
