@@ -10,7 +10,6 @@ export default function Sidebar({
   handleViewModeChange, 
   darkMode, 
   setIsAddModalOpen,
-  getFormattedDateForDisplay
 }) {
   const monthNames = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -27,8 +26,8 @@ export default function Sidebar({
             }`}>
               <button 
                 onClick={handlePrev}
-                className={`p-2 rounded-full ${
-                  darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
+                className={`p-2 rounded-full duration-150 ${
+                  darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-400'
                 }`}
               >
                 &lt;
@@ -43,7 +42,7 @@ export default function Sidebar({
               <button 
                 onClick={handleNext}
                 className={`p-2 rounded-full ${
-                  darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
+                  darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-400'
                 }`}
               >
                 &gt;
