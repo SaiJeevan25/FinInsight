@@ -36,8 +36,7 @@ export default function Dashboard() {
 
         const data = await response.json();
         if (!response.ok) throw new Error(data.error || "Failed to fetch user data");
-
-        setUser(data); // Store user data in state
+        setUser(data);
       } catch (err) {
         setError(err.message);
       } finally {
