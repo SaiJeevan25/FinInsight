@@ -17,7 +17,7 @@ export default function Sidebar({
     "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
   ];
   return (
-    <div className={` ${sidebarOpen ? 'translate-x-0' : '-translate-x-74'} fixed lg:sticky lg:top-0 left-0  px-4 rounded-lg shadow-sm   flex flex-col shadow-indigo-500 justify-evenly max-h-[calc(7rem+4.5rem)] min-h-[15rem] lg:min-h-[19rem] ${darkMode ? 'bg-gray-900 text-white ' : 'bg-white text-gray-900'} transition-all duration-300 z-20 lg:translate-x-0 my-[1.43rem] mx-3`}>
+    <div className={` ${sidebarOpen ? 'translate-x-2' : '-translate-x-74'} fixed lg:sticky lg:top-0 left-0 py-2 px-4 rounded-lg shadow-sm   flex flex-col shadow-indigo-500 justify-evenly max-h-[calc(7rem+4.5rem)] min-h-[19rem] lg:min-h-[25rem]  ${darkMode ? 'bg-gray-900 text-white ' : 'bg-white text-gray-900'} transition-all duration-300 z-20 lg:translate-x-0 my-[1.43rem] mx-4`}>
       <div className="space-y-4">
         {/* Date/Month/Year Navigator */}
           <div className="space-y-2">
@@ -53,7 +53,7 @@ export default function Sidebar({
         {/* View Mode Options */}
         <div className="space-y-3">
             <h3 className="text-lg font-medium">View Mode</h3>
-            <div className={`grid grid-cols-3 gap-2 p-1 rounded-lg ${
+            <div className={`flex flex-col  gap-2 p-1 w-full rounded-lg ${
               darkMode ? 'bg-gray-800' : 'bg-gray-200'
             }`}>
               {["Daily", "Month", "Year"].map((mode) => (
@@ -74,7 +74,7 @@ export default function Sidebar({
       </div>
 
       {/* Add Transaction Button */}
-      <div className="hidden lg:block " >
+      <div className="hidden lg:block mt-4" >
         <Button text="+ Add Transaction" func={() => setIsAddModalOpen(true)} className="w-full" />
       </div>
     </div>

@@ -12,7 +12,9 @@ import {
   FiTruck,
   FiMonitor,
   FiEdit,
-  FiTrash2
+  FiTrash2,
+  FiChevronLeft,
+  FiChevronRight
 } from "react-icons/fi";
 import Sidebar from "./TransactionsPage/Sidebar";
 import SummaryCards from "./TransactionsPage/SummaryCards";
@@ -41,10 +43,14 @@ export default function TransactionsPage() {
   const [expenseTotal, setExpenseTotal] = useState(0);
   const [savingsTotal, setSavingsTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [order, setOrder] = useState(false); // false indicates Ascending order
+  const [order, setOrder] = useState(false);
   const [dateVisibility, setDateVisibility] = useState(false);
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
   const [transactionToDelete, setTransactionToDelete] = useState(null);
+  
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [transactionsPerPage, setTransactionsPerPage] = useState(10);
 
   // Fetch transactions from backend
   const fetchTransactions = async () => {
@@ -69,6 +75,8 @@ export default function TransactionsPage() {
       });
       const data = await res.json();
       setTransactions(data);
+      // Reset to first page when new data is loaded
+      setCurrentPage(1);
     } catch (error) {
       console.error("Failed to fetch transactions:", error);
     } finally {
@@ -80,7 +88,7 @@ export default function TransactionsPage() {
 
   useEffect(() => {
     fetchTransactions();
-  }, [viewMode, currentDate, searchTerm, filterType, selectedCategory]);
+  }, [viewMode, currentDate, isAddModalOpen, searchTerm, filterType, selectedCategory]);
 
 
   // Calculate totals whenever transactions change
@@ -136,6 +144,7 @@ export default function TransactionsPage() {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+    setCurrentPage(1); // Reset to first page on search
   };
 
   const toggleFilterMenu = () => {
@@ -148,6 +157,7 @@ export default function TransactionsPage() {
       setSelectedCategory("");
     }
     setIsFilterMenuOpen(false);
+    setCurrentPage(1); // Reset to first page on filter change
   };
 
   const filteredTransactions = useMemo(() => {
@@ -162,7 +172,13 @@ export default function TransactionsPage() {
       .sort((a, b) => order ? (new Date(b.date) - new Date(a.date)) : (new Date(a.date) - new Date(b.date)));
   }, [transactions, searchTerm, filterType, selectedCategory, order]);
 
-  // Function to add a new transaction
+  const paginatedTransactions = useMemo(() => {
+    const indexOfLastTransaction = currentPage * transactionsPerPage;
+    const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
+    return filteredTransactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+  }, [filteredTransactions, currentPage, transactionsPerPage]);
+  const totalPages = Math.ceil(filteredTransactions.length / transactionsPerPage);
+
   const addTransaction = async (newTransaction) => {
     try {
       const response = await fetch("http://localhost:8000/api/transactions", {
@@ -180,13 +196,13 @@ export default function TransactionsPage() {
 
       const result = await response.json();
       console.log("Transaction added:", result);
-      fetchTransactions(); // Refresh the transactions list
+      fetchTransactions(); 
     } catch (error) {
       console.error("Error adding transaction:", error);
     }
   };
 
-  // Function to edit a transaction
+
   const editTransaction = async (updatedTransaction) => {
     try {
       const response = await fetch(`http://localhost:8000/api/transactions/${updatedTransaction.id}`, {
@@ -204,18 +220,16 @@ export default function TransactionsPage() {
 
       const result = await response.json();
       console.log("Transaction updated:", result);
-      fetchTransactions(); // Refresh the transactions list
+      fetchTransactions(); 
       setIsEditModalOpen(false);
     } catch (error) {
       console.error("Error updating transaction:", error);
     }
   };
 
-  // Function to delete a transaction
+
   const deleteTransaction = async (id) => {
     try {
-      // Show some loading state if needed
-      // setIsLoading(true);
       console.log(id)
       const response = await fetch(`http://localhost:8000/api/transactions/${id}`, {
         method: "DELETE",
@@ -223,20 +237,19 @@ export default function TransactionsPage() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || "Failed to delete transaction");
       }
-  
+
       console.log("Transaction deleted:", id);
-      
+
       setIsDeleteConfirmOpen(false);
       setTransactionToDelete(null);
-      
-      // Refresh the transactions list
+
       await fetchTransactions();
-      
+
     } catch (error) {
       console.error("Error deleting transaction:", error);
       alert("Failed to delete transaction: " + error.message);
@@ -245,21 +258,18 @@ export default function TransactionsPage() {
     }
   };
 
-  // Function to handle edit button click
   const handleEditClick = (transaction) => {
     setCurrentTransaction(transaction);
     console.log(transaction)
     setIsEditModalOpen(true);
   };
 
-  // Function to handle delete button click
   const handleDeleteClick = (transaction) => {
     setTransactionToDelete(transaction);
     console.log(transaction)
     setIsDeleteConfirmOpen(true);
   };
 
-  // Function to handle view mode change
   const handleViewModeChange = (mode) => {
     if (mode === "Daily") {
       setDateVisibility(false);
@@ -269,7 +279,6 @@ export default function TransactionsPage() {
     setViewMode(mode);
   };
 
-  // Get appropriate icon for transaction category
   const getCategoryIcon = (category) => {
     switch (category.toLowerCase()) {
       case 'food': return <FiCoffee />;
@@ -303,15 +312,21 @@ export default function TransactionsPage() {
                 <div className={`h-3 w-32 rounded mt-2 ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
               </div>
             </div>
-            <div className={`h-6 w-16 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+            <div className="flex gap-2">
+              <div className={`h-6 w-16 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+              <div className={`h-6 w-16 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}></div>
+            </div>
           </div>
         </div>
       ))}
     </div>
   );
 
-  // Delete Confirmation Modal
-  
+  // Function to handle transactions per page change
+  const handleTransactionsPerPageChange = (e) => {
+    setTransactionsPerPage(Number(e.target.value));
+    setCurrentPage(1); 
+  };
 
   return (
     <div className="flex flex-col h-full mt- overflow-hidden">
@@ -363,12 +378,33 @@ export default function TransactionsPage() {
             dateVisibility={dateVisibility}
           />
 
+          {/* Transactions Per Page Selector */}
+          <div className="flex justify-end mb-3">
+            <div className={`flex items-center ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              <span className="mr-2 text-sm">Show</span>
+              <select
+                value={transactionsPerPage}
+                onChange={handleTransactionsPerPageChange}
+                className={`rounded-md text-sm px-2 py-1 ${
+                  darkMode 
+                    ? 'bg-gray-700 border-gray-600 text-white' 
+                    : 'bg-white border-gray-300 text-gray-700'
+                } border focus:outline-none focus:ring-1 focus:ring-indigo-500`}
+              >
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={15}>15</option>
+                <option value={20}>20</option>
+              </select>
+            </div>
+          </div>
+
           {/* Transactions List with Loading State */}
           {isLoading ? (
             <TransactionSkeleton />
-          ) : filteredTransactions.length > 0 ? (
+          ) : paginatedTransactions.length > 0 ? (
             <div className="space-y-3">
-              {filteredTransactions.map((transaction) => (
+              {paginatedTransactions.map((transaction) => (
                 <div
                   key={transaction.id}
                   className={`p-4 rounded-lg shadow-md
@@ -393,23 +429,21 @@ export default function TransactionsPage() {
                         {String(transaction.amount).replace(/[^\d.-]/g, '')}
                       </div>
                       <div className="flex gap-2">
-                        <button 
+                        <button
                           onClick={() => handleEditClick(transaction)}
-                          className={`p-2 rounded-full transition-colors ${
-                            darkMode 
-                              ? 'hover:bg-gray-700 text-gray-300 hover:text-white' 
+                          className={`p-2 rounded-full transition-colors ${darkMode
+                              ? 'hover:bg-gray-700 text-gray-300 hover:text-white'
                               : 'hover:bg-gray-200 text-gray-500 hover:text-gray-700'
-                          }`}
+                            }`}
                         >
                           <FiEdit className="text-lg" />
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleDeleteClick(transaction)}
-                          className={`p-2 rounded-full transition-colors ${
-                            darkMode
+                          className={`p-2 rounded-full transition-colors ${darkMode
                               ? 'hover:bg-red-900 text-gray-300 hover:text-red-300'
                               : 'hover:bg-red-100 text-gray-500 hover:text-red-600'
-                          }`}
+                            }`}
                         >
                           <FiTrash2 className="text-lg" />
                         </button>
@@ -418,6 +452,70 @@ export default function TransactionsPage() {
                   </div>
                 </div>
               ))}
+              
+              {/* Pagination Controls */}
+              <div className="flex justify-between items-center mt-6 pb-4">
+                <div className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                  Showing {paginatedTransactions.length > 0 
+                    ? (currentPage - 1) * transactionsPerPage + 1 
+                    : 0} - {Math.min(currentPage * transactionsPerPage, filteredTransactions.length)} of {filteredTransactions.length} transactions
+                </div>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className={`p-2 rounded-md ${
+                      currentPage === 1
+                        ? `${darkMode ? 'bg-gray-700 text-gray-500' : 'bg-gray-200 text-gray-400'}`
+                        : `${darkMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`
+                    }`}
+                  >
+                    <FiChevronLeft />
+                  </button>
+                  
+                  {/* Page numbers */}
+                  {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                    let pageNum;
+                    if (totalPages <= 5) {
+                      pageNum = i + 1;
+                    } else if (currentPage <= 3) {
+                      pageNum = i + 1;
+                    } else if (currentPage >= totalPages - 2) {
+                      pageNum = totalPages - 4 + i;
+                    } else {
+                      pageNum = currentPage - 2 + i;
+                    }
+                    
+                    return (
+                      pageNum > 0 && pageNum <= totalPages && (
+                        <button
+                          key={pageNum}
+                          onClick={() => setCurrentPage(pageNum)}
+                          className={`w-8 h-8 flex items-center justify-center rounded-md ${
+                            currentPage === pageNum
+                              ? `${darkMode ? 'bg-indigo-600 text-white' : 'bg-indigo-500 text-white'}`
+                              : `${darkMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`
+                          }`}
+                        >
+                          {pageNum}
+                        </button>
+                      )
+                    );
+                  })}
+                  
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages || totalPages === 0}
+                    className={`p-2 rounded-md ${
+                      currentPage === totalPages || totalPages === 0
+                        ? `${darkMode ? 'bg-gray-700 text-gray-500' : 'bg-gray-200 text-gray-400'}`
+                        : `${darkMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`
+                    }`}
+                  >
+                    <FiChevronRight />
+                  </button>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-64">
