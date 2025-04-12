@@ -87,7 +87,7 @@ const renderActiveShape = (props) => {
 
 const CategoryList = ({ data, activeIndex, onHover, darkMode }) => {
   return (
-    <div className="grid grid-cols-2 gap-2 mt-4">
+    <div className="flex flex-col  shadow p-3 justify-between rounded-lg shadow-gray-400">
       {data.map((entry, index) => (
         <div
           key={`legend-${index}`}
@@ -103,12 +103,12 @@ const CategoryList = ({ data, activeIndex, onHover, darkMode }) => {
             className="w-4 h-4 rounded-full mr-2" 
             style={{ backgroundColor: COLORS[index % COLORS.length] }}
           />
-          <span className={`text-sm ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-            {entry.category}
-          </span>
-          <span className={`ml-auto text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-            {entry.percentage.toFixed(1)}%
-          </span>
+            <span className={`text-sm mr-2 ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>
+              {entry.category}
+            </span>
+            <span className={`ml-auto text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+              {entry.percentage.toFixed(1)}%
+            </span>
         </div>
       ))}
     </div>
@@ -132,12 +132,12 @@ export default function PieChartComponent({ data, title, darkMode }) {
   };
 
   return (
-    <div className={`p-6 rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg transition-all`}>
+    <div className={`p-6 rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'}  transition-all`}>
       <h3 className={`text-xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-800'}`}>
         {title}
       </h3>
       
-      <div className="h-[30rem] flex flex-col">
+      <div className="h-[30rem] flex flex-col gap-2 md:flex-row">
         {formattedData.length === 0 ? (
           <div className={`flex-1 flex items-center justify-center ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             No data available
@@ -149,9 +149,9 @@ export default function PieChartComponent({ data, title, darkMode }) {
                 <PieChart>
                   <Pie
                     data={formattedData}
-                    cx="50%"
+                    cx="40%"
                     cy="50%"
-                    outerRadius="80%"
+                    outerRadius="75%"
                     paddingAngle={2}
                     dataKey="amount"
                     nameKey="category"
@@ -167,7 +167,7 @@ export default function PieChartComponent({ data, title, darkMode }) {
                       <Cell 
                         key={`cell-${index}`} 
                         fill={COLORS[index % COLORS.length]}
-                        stroke={darkMode ? '#1F2937' : '#fff'}
+                        stroke={darkMode ? '#fff' : '#000'}
                         strokeWidth={activeIndex === index ? 3 : 1}
                       />
                     ))}
@@ -179,7 +179,7 @@ export default function PieChartComponent({ data, title, darkMode }) {
                       backgroundColor: darkMode ? '#1F2937' : '#FFFFFF',
                       borderColor: darkMode ? '#374151' : '#E5E7EB',
                       borderRadius: '0.5rem',
-                      color: darkMode ? '#FFFFFF' : '#000000',
+                      color: darkMode ? '#fff' : '#000000',
                       boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
                     }}
                   />
