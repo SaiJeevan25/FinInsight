@@ -84,10 +84,10 @@ export default function SearchFilterBar({
       <div>
           <button
             onClick={() => setOrder(prevOrder => !prevOrder)}
-            className={`px-4 py-3 rounded-lg flex items-center gap-2 duration-300 shadow-sm shadow-black 
+            className={`px-4 py-2 rounded-lg flex items-center gap-2 duration-300 shadow-sm shadow-black 
                 ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'}`}
           >
-            Date {order ? <FiArrowDown /> : <FiArrowUp />}
+           {order ? 'Newest' : 'Oldest'}
           </button>
       </div> 
       }
