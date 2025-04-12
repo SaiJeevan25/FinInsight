@@ -7,6 +7,9 @@ from routes.user_routes import user_bp
 from routes.transaction_routes import transaction_bp
 from routes.stats_routes import stats_bp  # Add this import
 
+from dotenv import load_dotenv
+load_dotenv()
+
 app = Flask(__name__)
 app.config.from_object(Config)
 
@@ -28,6 +31,7 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(transaction_bp)
 app.register_blueprint(stats_bp)  # Add this line to register the stats blueprint
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)

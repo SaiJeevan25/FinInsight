@@ -5,6 +5,7 @@ import {
   FiMapPin, FiTrendingDown, FiClock, FiActivity, FiArrowDown, FiChevronDown, FiChevronRight
 } from "react-icons/fi";
 
+
 export default function AIInsights({ insights, darkMode }) {
   const [visibleInsights, setVisibleInsights] = useState([]);
   const [activeView, setActiveView] = useState('summary');
@@ -12,88 +13,76 @@ export default function AIInsights({ insights, darkMode }) {
     spending: true,
     savings: true,
     cashflow: false,
-    goals: false,
-    tips: true
+    anomalies: false,
+    recommendations: true
   });
 
-  const spendingInsights = {
-    title: "Spending Behavior Insights",
-    icon: <FiShoppingBag className="text-lg" />,
-    items: [
-      { icon: <FiPieChart />, title: "Top Categories", description: "You spent the most on Food (₹6,000) this month." },
-      { icon: <FiTrendingUp />, title: "Trends", description: "Your transport expenses increased by 20% compared to last month." },
-      { icon: <FiCalendar />, title: "High-Spend Days", description: "Most of your spending happens on weekends." },
-      { icon: <FiAlertTriangle />, title: "Unusual Transactions", description: "You had an unusually high transaction on April 5 – ₹15,000.", severity: "warning" }
-    ]
+  const mapInsightTypeToIcon = (type) => {
+    switch(type) {
+      case 'spending': return <FiShoppingBag />;
+      case 'savings': return <FiDollarSign />;
+      case 'cashflow': return <FiBarChart2 />;
+      case 'anomaly': return <FiAlertTriangle />;
+      case 'recommendation': return <FiTarget />;
+      default: return <FiActivity />;
+    }
   };
 
-  const savingsInsights = {
-    title: "Saving Opportunities",
-    icon: <FiDollarSign className="text-lg" />,
-    items: [
-      { icon: <FiBarChart2 />, title: "Monthly Comparison", description: "If you reduce dining out by 10%, you can save ₹1,200/month." },
-      { icon: <FiCreditCard />, title: "Recurring Subscriptions", description: "You are paying ₹499/month to Netflix. Do you still use it?", severity: "warning" },
-      { icon: <FiTarget />, title: "Budget Suggestions", description: "Based on your data, you should set a food budget of ₹5,000." }
-    ]
-  };
-
-  const cashflowInsights = {
-    title: "Cash Flow Analysis",
-    icon: <FiBarChart2 className="text-lg" />,
-    items: [
-      { icon: <FiBarChart2 />, title: "Overview", description: "Income: ₹45,000 | Expenses: ₹32,000" },
-      { icon: <FiTrendingUp />, title: "Cash Flow Health Score", description: "Your cash flow is healthy — income is consistently greater than expenses.", severity: "success" }
-    ]
-  };
-
-  const personalizedTips = {
-    title: "Personalized Tips",
-    icon: <FiZap className="text-lg" />,
-    items: [
-      { icon: <FiDollarSign />, title: "Food Ordering", description: "You've ordered food 12 times this month. Try cooking at home 2 extra days/week to save ₹1,000." },
-      { icon: <FiDollarSign />, title: "Transport", description: "Consider using public transport 3x/week — you could save ₹500/month." }
-    ]
-  };
-  const anomalyAlerts =
-  {
-    title: "Unusual Activity",
-    icon: <FiAlertTriangle className="text-lg text-yellow-500" />,
-    items: [
-      {
-        icon: <FiActivity />, title: "Spending Spike",
-        description: "You spent ₹9,000 on Shopping on Apr 5 — that's 3x your usual average for that day."
+  const organizeInsights = (insights) => {
+    const organized = {
+      spending: {
+        title: "Spending Insights",
+        icon: <FiShoppingBag className="text-lg" />,
+        items: []
       },
-      {
-        icon: <FiMapPin />, title: "New Merchant",
-        description: "First-time transaction at Swiggy Instamart: ₹1,100 on Apr 2. Just checking — was this you?"
-      }
-    ]
-  };
-
-  const goalTracking =
-  {
-    title: "Goal & Budget Tracking",
-    icon: <FiTarget className="text-lg text-green-500" />,
-    items: [
-      {
-        icon: <FiTrendingUp />, title: "Food Budget", description: "You’ve used 82% of your ₹6,000 food budget this month. Try to stay within target."
+      savings: {
+        title: "Savings Insights",
+        icon: <FiDollarSign className="text-lg" />,
+        items: []
       },
-      {
-        icon: <FiTrendingDown />, title: "Savings Goal", description: "You’ve saved ₹3,200 so far — 64% of your ₹5,000 monthly goal."
+      cashflow: {
+        title: "Cash Flow Analysis",
+        icon: <FiBarChart2 className="text-lg" />,
+        items: []
+      },
+      anomalies: {
+        title: "Unusual Activity",
+        icon: <FiAlertTriangle className="text-lg text-yellow-500" />,
+        items: []
+      },
+      recommendations: {
+        title: "Recommendations",
+        icon: <FiTarget className="text-lg text-green-500" />,
+        items: []
       }
-    ]
+    };
+
+    insights.forEach(insight => {
+      const item = {
+        icon: mapInsightTypeToIcon(insight.type),
+        title: insight.title,
+        description: insight.description,
+        severity: insight.severity,
+        action: insight.action
+      };
+
+      if (insight.type.includes('spend') || insight.type.includes('expense')) {
+        organized.spending.items.push(item);
+      } else if (insight.type.includes('sav')) {
+        organized.savings.items.push(item);
+      } else if (insight.type.includes('cash') || insight.type.includes('income')) {
+        organized.cashflow.items.push(item);
+      } else if (insight.type.includes('anomaly') || insight.severity === 'warning') {
+        organized.anomalies.items.push(item);
+      } else {
+        organized.recommendations.items.push(item);
+      }
+    });
+
+    return Object.values(organized).filter(section => section.items.length > 0);
   };
 
-
-  const allInsightSections = [
-    spendingInsights,
-    savingsInsights,
-    cashflowInsights,
-    anomalyAlerts,
-    personalizedTips,
-    goalTracking
-
-  ];
+  const allInsightSections = organizeInsights(insights || []);
 
 
   const getDisplayedInsights = () => {

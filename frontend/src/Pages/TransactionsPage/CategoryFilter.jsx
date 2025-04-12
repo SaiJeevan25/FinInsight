@@ -35,17 +35,17 @@ export default function CategoryFilter({
                     setIsFilterMenuOpen(false); // Close the Type dropdown
                 }}
                 className={`px-4 py-3 duration-300 shadow-sm shadow-black rounded-lg flex items-center gap-2 
-        ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'}`}
+        ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-300'}`}
             >
                 <span>{selectedCategory || "Select Category"}</span>
             </button>
 
             {/* Dropdown Menu */}
             {isOpen && (
-                <div className={`absolute right-0 mt-2 px-1 pb-1 pt-0.5 w-44 rounded-lg shadow-lg z-10 
+                <div className={`absolute right-0 top-15  w-44 rounded-lg shadow-lg z-10 
         ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-200 text-gray-900'} 
         max-h-[250px] overflow-y-auto duration-300 shadow-sm shadow-black border-gray-600`}>
-                    <ul>
+                    <ul className="space-y-1 m-1">
                         {categories.map((category) => (
                             <li key={category}
                                 className={`px-4 py-2 mt-0.5 cursor-pointer capitalize rounded-lg 

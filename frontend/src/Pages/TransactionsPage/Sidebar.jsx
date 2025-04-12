@@ -9,46 +9,73 @@ export default function Sidebar({
   viewMode, 
   handleViewModeChange, 
   darkMode, 
-  setIsAddModalOpen 
+  setIsAddModalOpen,
+  getFormattedDateForDisplay
 }) {
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
+  const monthNames = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+  ];
   return (
-    <div className={` ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'} fixed lg:sticky lg:top-0 left-0 w-56 p-5 rounded-lg shadow-sm  shadow-black flex flex-col justify-between max-h-[calc(7rem+4.5rem)] min-h-[18rem] lg:min-h-[23rem] ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} transition-all duration-300 z-20 lg:translate-x-0 my-[1.43rem] mx-4`}>
-      <div>
+    <div className={` ${sidebarOpen ? 'translate-x-2' : '-translate-x-74'} fixed lg:sticky lg:top-0 left-0 py-2 px-4 rounded-lg shadow-sm   flex flex-col shadow-indigo-500 justify-evenly max-h-[calc(7rem+4.5rem)] min-h-[19rem] lg:min-h-[25rem]  ${darkMode ? 'bg-gray-900 text-white ' : 'bg-white text-gray-900'} transition-all duration-300 z-20 lg:translate-x-0 my-[1.43rem] mx-4`}>
+      <div className="space-y-4">
         {/* Date/Month/Year Navigator */}
-        <div className="flex items-center justify-between mb-6">
-          <FiChevronLeft className="cursor-pointer text-xl hover:text-indigo-500" onClick={handlePrev} />
-          <div className="flex items-center gap-1">
-            <FiCalendar className="text-indigo-500" />
-            <p style={{ }} className="text-sm md:text-md lg:text-lg text-center  font-semibold">
+          <div className="space-y-2">
+            <h3 className="text-lg font-medium">Date</h3>
+            <div className={`flex items-center justify-between p-2 rounded-lg ${
+              darkMode ? 'bg-gray-800' : 'bg-gray-200'
+            }`}>
+              <button 
+                onClick={handlePrev}
+                className={`p-2 rounded-full ${
+                  darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
+                }`}
+              >
+                &lt;
+              </button>
+              <p style={{ }} className="text-sm md:text-md lg:text-lg text-center  font-semibold">
               {viewMode === "Daily"
                 ? `${currentDate.getDate()} ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`
                 : viewMode === "Month"
                 ? `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`
                 : `${currentDate.getFullYear()}`}
-            </p>
+              </p>
+              <button 
+                onClick={handleNext}
+                className={`p-2 rounded-full ${
+                  darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
+                }`}
+              >
+                &gt;
+              </button>
+            </div>
           </div>
-          <FiChevronRight className="cursor-pointer text-xl hover:text-indigo-500" onClick={handleNext} />
-        </div>
-
         {/* View Mode Options */}
-        <ul className="space-y-3 text-lg font-medium " style={{}} >
-          {["Daily", "Month", "Year"].map(mode => (
-            <li
-              key={mode}
-              className={`cursor-pointer p-2 rounded-lg ${viewMode === mode ? `${darkMode ? 'bg-indigo-600' : 'bg-indigo-500'} text-white` : 'hover:bg-indigo-500 hover:text-white'}`}
-              onClick={() => handleViewModeChange(mode)}
-            >
-              {mode}
-            </li>
-          ))}
-        </ul>
+        <div className="space-y-3">
+            <h3 className="text-lg font-medium">View Mode</h3>
+            <div className={`flex flex-col  gap-2 p-1 w-full rounded-lg ${
+              darkMode ? 'bg-gray-800' : 'bg-gray-200'
+            }`}>
+              {["Daily", "Month", "Year"].map((mode) => (
+                <button
+                  key={mode}
+                  onClick={() => handleViewModeChange(mode)}
+                  className={`py-2 px-3 rounded-lg text-center text-sm transition-colors ${
+                    viewMode === mode 
+                      ? `${darkMode ? 'bg-indigo-600 text-white' : 'bg-indigo-500 text-white'}`
+                      : `${darkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-200'}`
+                  }`}
+                >
+                  {mode}
+                </button>
+              ))}
+            </div>
+          </div>
       </div>
 
       {/* Add Transaction Button */}
-      <div className="hidden lg:block " >
-        <Button text="+ Add Transaction" func={() => setIsAddModalOpen(true)} className="w-full mt-2" />
+      <div className="hidden lg:block mt-4" >
+        <Button text="+ Add Transaction" func={() => setIsAddModalOpen(true)} className="w-full" />
       </div>
     </div>
   );

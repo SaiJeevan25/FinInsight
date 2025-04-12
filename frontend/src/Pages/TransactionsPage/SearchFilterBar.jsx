@@ -21,7 +21,7 @@ export default function SearchFilterBar({
   }, []);
 
   return (
-    <div className="mb-5 flex gap-1.5 md:gap-3 text-xs md:text-lg items-center  rounded-xl">
+    <div className="mb-5 flex flex-col md:flex-row gap-1.5 md:gap-3 text-xs md:text-lg md;items-center duration-300 rounded-xl">
       {/* Search Bar */}
       <div className={`relative flex-grow rounded-lg overflow-hidden shadow-sm shadow-black ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}>
         <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
@@ -30,10 +30,10 @@ export default function SearchFilterBar({
           placeholder="Search transactions..."
           value={searchTerm}
           onChange={handleSearch}
-          className={`w-full p-3 pl-10 pr-3 outline-none ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-200 text-gray-900'}`}
+          className={`w-full p-3 pl-10 md:pl-12 pr-3 outline-none ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-900'}`}
         />
       </div>
-
+      <div className="flex gap-2 justify-center">
       {/* Filter by Type */}
       <div className="relative" ref={filterMenuRef}>
         <button
@@ -41,7 +41,7 @@ export default function SearchFilterBar({
             setIsFilterMenuOpen(!isFilterMenuOpen);
           }}
           className={`px-4 py-3 rounded-lg duration-300 shadow-sm shadow-black flex items-center gap-2 
-          ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'}`}
+          ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-300'}`}
         >
           <FiFilter />
           <span>{filterType === "all" ? "All" : filterType === "income" ? "Income" : "Expenses"}</span>
@@ -51,8 +51,8 @@ export default function SearchFilterBar({
         {isFilterMenuOpen && (
           <div className={`absolute shadow-lg shadow-black  right-0 mt-2 w-40 rounded-lg  z-10 
           ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-200 text-gray-900'} 
-          max-h-[200px] overflow-y-auto  border-gray-300 dark:border-gray-600`}>
-            <ul>
+          max-h-[200px] overflow-y-auto  border-gray-200 dark:border-gray-600`}>
+            <ul className="space-y-1 m-1">
               {["all", "income", "expense"].map(type => (
                 <li
                   key={type}
@@ -87,10 +87,11 @@ export default function SearchFilterBar({
             className={`px-4 py-3 rounded-lg flex items-center gap-2 duration-300 shadow-sm shadow-black 
                 ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'}`}
           >
-            Date {order ? <FiArrowDown /> : <FiArrowUp />}
+           {order ? 'Newest' : 'Oldest'}
           </button>
       </div> 
       }
+      </div>
     </div>
   );
 } 

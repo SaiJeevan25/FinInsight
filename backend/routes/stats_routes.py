@@ -3,50 +3,36 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from database import get_user_transactions_collection
 from datetime import datetime, timedelta
 from collections import defaultdict
+from .insights import FinancialInsightsGenerator
+import asyncio
+
 
 stats_bp = Blueprint('stats', __name__)
-
-def generate_ai_insights(summary_data, trends_data, category_breakdown):
-    """Generate AI insights based on financial data"""
-    insights = []
+async def generate_ai_insights(summary_data, trends_data, category_breakdown, income_breakdown, start_date, end_date, prev_start_date, prev_end_date):
+    """Generate AI insights using LLM"""
+    insights_generator = FinancialInsightsGenerator()
     
-    # Savings rate insight
-    savings_rate = summary_data['savingsRate']
-    if savings_rate > 50:
-        insights.append({
-            "type": "achievement",
-            "title": "Savings Milestone",
-            "description": f"Excellent savings rate of {savings_rate:.1f}%! Keep it up.",
-            "severity": "success"
-        })
-    elif savings_rate < 20:
-        insights.append({
-            "type": "warning",
-            "title": "Low Savings Rate",
-            "description": f"Your savings rate is {savings_rate:.1f}%. Consider reducing expenses.",
-            "severity": "warning"
-        })
+    financial_data = {
+        "current_period": {
+            "start_date": start_date.strftime('%Y-%m-%d'),
+            "end_date": end_date.strftime('%Y-%m-%d'),
+            "income": summary_data['income'],
+            "expenses": summary_data['expenses'],
+            "savings": summary_data['savings'],
+            "savings_rate": summary_data['savingsRate']
+        },
+        "previous_period": {
+            "start_date": prev_start_date.strftime('%Y-%m-%d'),
+            "end_date": (start_date - timedelta(days=1)).strftime('%Y-%m-%d'),
+            "income": trends_data.get('prev_income', 0),
+            "expenses": trends_data.get('prev_expenses', 0),
+            "savings": trends_data.get('prev_savings', 0)
+        },
+        "category_breakdown": category_breakdown,
+        "income_breakdown": income_breakdown
+    }
     
-    # Expense change insight
-    if trends_data['expenseChange'] > 10:
-        insights.append({
-            "type": "anomaly",
-            "title": "Spending Increase",
-            "description": f"Expenses increased by {trends_data['expenseChange']:.1f}% from last period.",
-            "severity": "warning"
-        })
-    
-    # Largest expense category insight
-    if category_breakdown:
-        largest_category = max(category_breakdown, key=lambda x: x['amount'])
-        insights.append({
-            "type": "observation",
-            "title": "Largest Expense",
-            "description": f"{largest_category['category']} accounts for {largest_category['percentage']:.1f}% of expenses.",
-            "severity": "info"
-        })
-    
-    return insights
+    return await insights_generator.generate_insights(financial_data)
 
 @stats_bp.route('/api/stats', methods=['GET'])
 @jwt_required()
@@ -182,7 +168,12 @@ def get_stats():
                 monthly_data["savings"].append(week_income - week_exp)
         
         # Generate AI insights
-        ai_insights = generate_ai_insights(
+# ... all your earlier code remains unchanged ...
+
+        # ✅ Generate AI insights (FIXED with asyncio.run)
+        print("➡️ Starting AI insights generation...")
+
+        ai_insights = asyncio.run(generate_ai_insights(
             {
                 "income": current_income,
                 "expenses": current_expenses,
@@ -190,13 +181,20 @@ def get_stats():
                 "savingsRate": current_savings_rate
             },
             {
-                "incomeChange": income_change,
-                "expenseChange": expense_change,
-                "savingsChange": savings_change
+                "prev_income": prev_income,
+                "prev_expenses": prev_expenses,
+                "prev_savings": prev_savings
             },
-            category_breakdown
-        )
-        
+            category_breakdown,
+            income_breakdown,
+            start_date,
+            end_date,
+            prev_start_date,
+            (start_date - timedelta(days=1))
+        ))
+
+        print("✅ AI insights generated successfully:", ai_insights)
+
         return jsonify({
             "summary": {
                 "income": current_income,
@@ -210,13 +208,15 @@ def get_stats():
                 "savingsChange": round(savings_change, 2)
             },
             "categoryBreakdown": category_breakdown,  
-            "incomeBreakdown": income_breakdown,     # Added income breakdown
+            "incomeBreakdown": income_breakdown,
             "monthlyData": monthly_data,
-            "aiInsights": ai_insights
+            "aiInsights": ai_insights  # ✅ sending to frontend
         }), 200
-        
+
     except Exception as e:
+        print("❌ Error in stats route:", str(e))
         return jsonify({
             "error": "Internal server error",
             "message": str(e)
         }), 500
+
