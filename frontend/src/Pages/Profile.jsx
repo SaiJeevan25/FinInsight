@@ -81,12 +81,9 @@ export default function ProfilePage(user) {
 
   return (
     <div className="flex flex-col h-full p-4 md:p-6 gap-6 mt-4">
-      {/* Show ProfilePopUp only when a message exists */}
       {message && <ProfilePopUp message={message} setMessage={setMessage} />}
 
-      {/* Main Profile Content */}
       <div className="flex flex-col lg:flex-row gap-6">
-        {/* Profile Details Card */}
         <div
           className={`flex-1 p-6 rounded-lg shadow-md shadow-gray-600 ${
             darkMode ? "bg-gray-800" : "bg-gray-100"
@@ -96,7 +93,7 @@ export default function ProfilePage(user) {
             <h2 className="text-2xl font-bold">Profile Details</h2>
             <button
               onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
-              className={`px-4 py-2 rounded-lg flex items-center gap-2 transition ${
+              className={`px-4 py-2 rounded-lg flex items-center shadow-md shadow-gray-900 gap-2 transition ${
                 darkMode
                   ? "bg-indigo-600 hover:bg-indigo-700"
                   : "bg-indigo-500 hover:bg-indigo-600"
@@ -163,16 +160,6 @@ export default function ProfilePage(user) {
                 <label className="font-semibold">Email:</label>
               </div>
               <span className="flex-1">{email}</span>
-              {/* {isEditing ? (
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={`flex-1 p-2 rounded-lg ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'} border`}
-                />
-              ) : (
-                <span className="flex-1">{email}</span>
-              )} */}
             </div>
 
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
@@ -228,8 +215,6 @@ export default function ProfilePage(user) {
           </div>
         </div>
 
-        
-        {/* Financial Summary Card */}
         <div className={`flex-1 p-6 rounded-lg shadow-md shadow-gray-600 ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold flex items-center gap-2">

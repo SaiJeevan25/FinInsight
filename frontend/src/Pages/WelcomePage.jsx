@@ -1,7 +1,7 @@
 import { useTheme } from "../Components/ThemeContext";
 
 import Button from "../Components/Button";
-import BarAnimation from "../Components/Animations/barAnimation";
+import BarAnimation from "../Components/Animations/BarAnimation";
 import Logo from "../Components/Logo";
 import BgToggle from "../Components/BgToggle";
 
