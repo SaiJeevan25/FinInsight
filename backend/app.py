@@ -5,7 +5,8 @@ from config import Config
 from routes.auth_routes import auth_bp
 from routes.user_routes import user_bp
 from routes.transaction_routes import transaction_bp
-from routes.stats_routes import stats_bp  # Add this import
+from routes.stats_routes import stats_bp 
+from routes.otp_routes import otp_blueprint
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -30,7 +31,8 @@ jwt = JWTManager(app)
 app.register_blueprint(auth_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(transaction_bp)
-app.register_blueprint(stats_bp)  # Add this line to register the stats blueprint
+app.register_blueprint(stats_bp)
+app.register_blueprint(otp_blueprint)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../Components/ThemeContext';
-import BarAnimation from '../Components/Animations/barAnimation';
+import BarAnimation from '../Components/Animations/BarAnimation';
 import Logo from '../Components/Logo';
 import Button from '../Components/Button';
 import BgToggle from '../Components/BgToggle';

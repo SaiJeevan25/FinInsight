@@ -28,8 +28,8 @@ export default function BarAnimation(props) {
 
 
     return (
-        <div>
-            <div className="absolute inset-0 flex items-end justify-center gap-2 opacity-20">
+        <div className=''>
+            <div className="absolute inset-0 flex items-end justify-center gap-2  opacity-20">
                 {bars.map((height, index) => (
                     <motion.div
                         key={index}
@@ -41,7 +41,7 @@ export default function BarAnimation(props) {
             </div>
 
 
-            <div className='absolute inset-0'>
+            <div className='absolute overflow-hidden inset-0 '>
                 {points.map((point, i) => (
                     <motion.div
                         key={i}

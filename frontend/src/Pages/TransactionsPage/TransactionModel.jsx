@@ -159,21 +159,6 @@ const TransactionModal = ({ isOpen, onClose, onSave }) => {
             </select>
           </div>
 
-          {/* {transactionData.type === "expense" ? (<div className="mb-4">
-            <label className="block mb-2 font-medium">Payment Methods</label>
-            <select
-              name="paymentMethod"
-              value={transactionData.category}
-              onChange={null}
-              className={`w-full p-2 border rounded-md ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
-            ><option disabled selected>Select Payment Type:</option>
-               { paymentTypes.map(method=> (
-                  <option key={method} value={method}>{method}</option>
-                ) 
-                )}
-            </select>
-          </div>) : null} */}
-
           <div className="mb-6">
             <label className="block mb-2 font-medium">Date</label>
             <input
