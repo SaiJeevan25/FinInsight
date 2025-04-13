@@ -6,7 +6,7 @@ export default function DeleteConfirmation({ isOpen, onClose, onConfirm, transac
     if (!isOpen) return null;
 
     return (
-      <div className="fixed inset-0 backdrop-blur-xs bg-opacity-50 z-50 flex items-center justify-center p-4">
+      <div className="fixed inset-0 bg-black/70 bg-opacity-70 z-50 flex items-center justify-center p-4">
         <div className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'} rounded-lg shadow-xl p-6 w-full max-w-md`}>
           <h2 className="text-xl font-bold mb-4">Confirm Delete</h2>
           <p className="mb-6">Are you sure you want to delete the transaction "{transaction?.title}"?</p>

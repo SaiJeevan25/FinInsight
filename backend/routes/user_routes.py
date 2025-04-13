@@ -34,6 +34,8 @@ def update_profile():
         return jsonify({"error": "No changes made"}), 400
 
     return jsonify({"message": "Profile updated successfully"}), 200
+
+
 @user_bp.route('/api/user/financial-summary', methods=['GET'])
 @jwt_required()
 def financial_summary():
