@@ -181,7 +181,7 @@ export default function StatsPage() {
         );
       case "insights":
         return (
-          <div className="w-full max-w-3xl mx-auto">
+          <div className="w-full max-w-5xl mx-auto">
             <AIInsights insights={aiInsights} darkMode={darkMode} />
           </div>
         );
