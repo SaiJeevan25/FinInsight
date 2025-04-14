@@ -5,17 +5,20 @@ import TransactionModal from "./TransactionsPage/TransactionModel";
 import {
   FiPlus,
   FiMenu,
-  FiDollarSign,
+  FiTruck,
+  FiMonitor,
   FiCoffee,
   FiShoppingBag,
   FiHome,
-  FiTruck,
-  FiMonitor,
-  FiEdit,
-  FiTrash2,
-  FiChevronLeft,
-  FiChevronRight
+  FiDollarSign,
+  FiFilm,
+  FiBook,
+  FiGift,
+  FiBriefcase,
+  FiStar,
+  FiPieChart
 } from "react-icons/fi";
+import { FaHeartbeat } from 'react-icons/fa';
 import Sidebar from "./TransactionsPage/Sidebar";
 import SummaryCards from "./TransactionsPage/SummaryCards";
 import TransactionSkeleton from "./TransactionsPage/TransactionSkeleton";
@@ -200,8 +203,8 @@ export default function TransactionsPage() {
     }
   };
 
-
   const editTransaction = async (updatedTransaction) => {
+    setIsLoading(true);
     try {
       const response = await fetch(`http://localhost:8000/api/transactions/${updatedTransaction.id}`, {
         method: "PUT",
@@ -213,15 +216,20 @@ export default function TransactionsPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to update transaction");
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to update transaction");
       }
 
-      const result = await response.json();
-      console.log("Transaction updated:", result);
-      fetchTransactions();
+      console.log("Transaction updated:", updatedTransaction.id);
       setIsEditModalOpen(false);
+      setCurrentTransaction(null);
+      await fetchTransactions();
+
     } catch (error) {
       console.error("Error updating transaction:", error);
+      alert("Failed to update transaction: " + error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -281,13 +289,21 @@ export default function TransactionsPage() {
     switch (category.toLowerCase()) {
       case 'food': return <FiCoffee />;
       case 'shopping': return <FiShoppingBag />;
-      case 'salary':
-      case 'income':
-      case 'interest':
-      case 'freelance': return <FiDollarSign />;
-      case 'rent': return <FiHome />;
       case 'transport': return <FiTruck />;
       case 'utilities': return <FiMonitor />;
+      case 'rent': return <FiHome />;
+      case 'entertainment': return <FiFilm />;
+      case 'health': return <FaHeartbeat />;
+      case 'education': return <FiBook />;
+      case 'other': return <FiGift />;
+      case 'salary': return <FiBriefcase />;
+      case 'freelance': return <FiDollarSign />;
+      case 'interest': return <FiPieChart />;
+      case 'investments': return <FiPieChart />;
+      case 'allowance': return <FiGift />;
+      case 'bonus': return <FiStar />;
+      case 'petty cash': return <FiDollarSign />;
+  
       default: return <span className="text-lg font-bold">₹</span>;
     }
   };
@@ -355,8 +371,8 @@ export default function TransactionsPage() {
             transactionsPerPage={transactionsPerPage}
           />
 
-          <GeneratePaginatedTransactions 
-            isLoading={isLoading} 
+          <GeneratePaginatedTransactions
+            isLoading={isLoading}
             paginatedTransactions={paginatedTransactions}
             getCategoryIcon={getCategoryIcon}
             handleEditClick={handleEditClick}
