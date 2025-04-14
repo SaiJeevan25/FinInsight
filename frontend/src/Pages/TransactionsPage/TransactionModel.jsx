@@ -4,7 +4,7 @@ import Button from "../../Components/Button";
 import { useTheme } from "../../Components/ThemeContext";
 import { FiCalendar } from "react-icons/fi";
 
-const TransactionModal = ({ isOpen, onClose, onSave }) => {
+export default function TransactionModal({ isOpen, onClose, onSave, transaction, isEditing }) {
   const { darkMode } = useTheme();
   const [transactionData, setTransactionData] = useState({
     title: "",
@@ -26,21 +26,38 @@ const TransactionModal = ({ isOpen, onClose, onSave }) => {
 
   const paymentTypes = [
     "UPI", "Credit Card", "Debit Card", "Cash", "Net Banking", "Other"
-  ]
+  ];
 
   useEffect(() => {
-    if (transactionData.type === "expense") {
-      setTransactionData(prev => ({
-        ...prev,
-        category: "Food"
-      }));
-    } else {
-      setTransactionData(prev => ({
-        ...prev,
-        category: "Salary"
-      }));
+    if (isEditing && transaction) {
+      const cleanAmount = String(transaction.amount).replace(/[^\d.-]/g, '');
+      
+      setTransactionData({
+        id: transaction.id, 
+        title: transaction.title || "",
+        amount: cleanAmount || "",
+        category: transaction.category || "",
+        type: transaction.type || "expense",
+        date: transaction.date || new Date().toISOString().split('T')[0]
+      });
     }
-  }, [transactionData.type]);
+  }, [isEditing, transaction]);
+
+  useEffect(() => {
+    if (!isEditing) {
+      if (transactionData.type === "expense") {
+        setTransactionData(prev => ({
+          ...prev,
+          category: "Food"
+        }));
+      } else {
+        setTransactionData(prev => ({
+          ...prev,
+          category: "Salary"
+        }));
+      }
+    }
+  }, [transactionData.type, isEditing]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,7 +85,7 @@ const TransactionModal = ({ isOpen, onClose, onSave }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="absolute inset-0 bg-black opacity-70" onClick={onClose}></div>
-      <div className={`relative w-full max-w-md p-6 rounded-lg  shadow-sm ${darkMode ? 'bg-gray-800 shadow-gray-200  text-white' : 'bg-white shadow-black text-gray-900'}`}>
+      <div className={`relative w-full max-w-md p-6 rounded-lg shadow-sm ${darkMode ? 'bg-gray-800 shadow-gray-200 text-white' : 'bg-white shadow-black text-gray-900'}`}>
         <button
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
           onClick={onClose}
@@ -76,7 +93,9 @@ const TransactionModal = ({ isOpen, onClose, onSave }) => {
           <FiX size={24} />
         </button>
 
-        <h2 className="text-xl font-bold mb-4">Add New Transaction</h2>
+        <h2 className="text-xl font-bold mb-4">
+          {isEditing ? 'Edit Transaction' : 'Add New Transaction'}
+        </h2>
 
         {/* Transaction Type Tabs */}
         <div className="flex mb-6 border rounded-md overflow-hidden">
@@ -145,9 +164,8 @@ const TransactionModal = ({ isOpen, onClose, onSave }) => {
               value={transactionData.category}
               onChange={handleChange}
               className={`w-full p-2 border rounded-md ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
-            ><option disabled selected>Select Category</option>
+            >
               {transactionData.type === "expense" ? (
-
                 expenseCategories.map(category => (
                   <option key={category} value={category}>{category}</option>
                 ))
@@ -173,9 +191,8 @@ const TransactionModal = ({ isOpen, onClose, onSave }) => {
           </div>
 
           <div className="flex justify-end space-x-4">
-
             <Button
-              text="Save Transaction"
+              text={isEditing ? "Update Transaction" : "Save Transaction"}
               type="submit"
               className={transactionData.type === "expense"
                 ? "bg-red-500 hover:bg-red-600"
@@ -187,5 +204,3 @@ const TransactionModal = ({ isOpen, onClose, onSave }) => {
     </div>
   );
 };
-
-export default TransactionModal;
