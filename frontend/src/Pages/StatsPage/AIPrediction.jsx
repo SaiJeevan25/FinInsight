@@ -13,7 +13,7 @@ export default function AIPrediction({ }) {
     likely: {
       totalIncome: 85000,
       totalExpenses: 65000,
-      confidenceLevel: '84',
+      confidenceLevel: '47',
       incomeBreakdown: [
         { category: "Salary", amount: 70000, percentage: 82.35 },
         { category: "Freelance", amount: 10000, percentage: 11.76 },
@@ -153,7 +153,7 @@ export default function AIPrediction({ }) {
   return (
     <div className="space-y-6">
       <div className={`flex justify-center mb-6`}>
-        <div className={`inline-flex rounded-xl p- ${darkMode ? 'bg-gray-800' : 'bg-gray-00'}`}>
+        <div className={`inline-flex rounded-xl p- ${darkMode ? 'bg-gray-800' : 'bg-gray-200'}`}>
           {['likely', 'best', 'worst'].map((scenario) => (
             <button
               key={scenario}
@@ -171,25 +171,23 @@ export default function AIPrediction({ }) {
         </div>
       </div>
 
-      {/* Prediction Header */}
       <div className={`p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-700' : 'bg-white'}`}>
         <div className="flex items-center justify-between mb-4">
           <h3 className={`text-lg font-bold ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>
             Next Month Prediction
           </h3>
-          <div className='flex gap-2'>
-            <div className="relative px-54 bg-gray-500 py-1 rounded-xl">
+          <div className='flex items-center gap-2'>
+            <div className="relative px-54 bg-gray-500 py-0 h-2 rounded-xl">
               <div
-                className="absolute top-0 left-0 bg-green-500 h-full rounded-xl"
+                className={`absolute top-0 left-0 h-full rounded-xl ${currentScenario.confidenceLevel > 80 ? "bg-green-500" : currentScenario.confidenceLevel > 50 ? 'bg-orange-500' : 'bg-red-500' }  `}
                 style={{ width: getConfidenceWidth(currentScenario.confidenceLevel) }}
               />
 
             </div>
-            Confidence - {getConfidenceWidth(currentScenario.confidenceLevel)}
+            Confidence - <p>{getConfidenceWidth(currentScenario.confidenceLevel)}</p> 
           </div>
         </div>
 
-        {/* Income & Expense Overview */}
         <div className="grid grid-cols-1  md:grid-cols-2 gap-6">
           <div className={`p-4 flex flex-col items-center rounded-lg ${darkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
             <div className="flex items-center mb-2">

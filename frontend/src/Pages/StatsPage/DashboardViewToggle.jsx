@@ -9,7 +9,7 @@ export default function DashboardViewToggle({ activeView, setActiveView, darkMod
   ];
 
   return (
-    <div className={`inline-block shadow shadow-black font-bold text-sm md:text-md rounded-xl p-2  ${
+    <div className={`inline-block shadow font-bold text-sm md:text-md rounded-xl p-2  ${
       darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-gray-200 border border-gray-200'
     }`}>
       <div className="flex gap-3 duration-150">

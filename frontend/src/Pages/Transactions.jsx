@@ -387,13 +387,6 @@ export default function TransactionsPage() {
         </div>
       </div>
 
-      {/* Mobile Add Button */}
-      <button
-        className="fixed bottom-6 right-6 bg-indigo-500 text-white p-4 rounded-full shadow-lg lg:hidden z-30"
-        onClick={() => setIsAddModalOpen(true)}
-      >
-        <FiPlus className="text-2xl" />
-      </button>
 
       {/* Add Transaction Modal */}
       {isAddModalOpen && (

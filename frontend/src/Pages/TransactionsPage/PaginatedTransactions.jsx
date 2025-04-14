@@ -43,45 +43,50 @@ export function GeneratePaginatedTransactions({ isLoading, paginatedTransactions
             {paginatedTransactions.map((transaction) => (
               <div
                 key={transaction.id}
-                className={`p-4 rounded-lg shadow-md
+                className={`p-2 sm:p-4 rounded-lg shadow-md
                           ${darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-50'}
                           ${transaction.type === 'income' ? 'border-l-4 border-blue-500' : 'border-l-4 border-red-500'}`}
               >
-                <div className="flex items-center justify-between">
+                <div className="flex sm:items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className={`p-3 rounded-full ${transaction.type === 'income'
+                    <div className={`p-3 text-xs sm:text-lg rounded-full ${transaction.type === 'income'
                       ? `${darkMode ? 'bg-blue-900 text-blue-300' : 'bg-blue-100 text-blue-600'}`
                       : `${darkMode ? 'bg-red-900 text-red-300' : 'bg-red-100 text-red-600'}`}`}>
                       {transaction.icon || getCategoryIcon(transaction.category)}
                     </div>
                     <div>
-                      <h3 className="font-medium">{transaction.title}</h3>
-                      <p className="text-sm text-gray-500">{transaction.category} • {transaction.date}</p>
+                      <h3 className="text-sm sm:text-lg gap-1 text-bold">{transaction.title}</h3>
+                      <p className="hidden sm:block text-sm text-gray-500">{transaction.category} • {transaction.date}</p>
+                      <div className='flex flex-col gap- text-xs sm:hidden text-gray-500'>
+                        <p>{transaction.category}</p>
+                        <p>{transaction.date}</p>
+
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className={`font-bold ${transaction.type === 'income' ? 'text-blue-500' : 'text-red-500'}`}>
+                  <div className="flex items-center gap-4 sm:gap-10">
+                    <div className={`font-bold text-xs md:text-lg ${transaction.type === 'income' ? 'text-blue-500' : 'text-red-500'}`}>
                       {transaction.type === 'income' ? '+' : '-'} ₹
                       {String(transaction.amount).replace(/[^\d.-]/g, '')}
                     </div>
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleEditClick(transaction)}
-                        className={`p-2 rounded-full transition-colors ${darkMode
-                          ? 'hover:bg-gray-700 text-gray-300 hover:text-white'
-                          : 'hover:bg-gray-200 text-gray-500 hover:text-gray-700'
+                        className={`p-2  rounded-full  transition-colors ${darkMode
+                          ? 'hover:bg-gray-200 text-gray-300 bg-gray-700 hover:text-gray-700'
+                          : 'hover:bg-gray-400 text-gray-500 bg-gray-200 hover:text-indigo-500'
                           }`}
                       >
-                        <FiEdit2 className="text-lg" />
+                        <FiEdit2 className="text-sm sm:text-lg" />
                       </button>
                       <button
                         onClick={() => handleDeleteClick(transaction)}
                         className={`p-2 rounded-full transition-colors ${darkMode
-                          ? 'hover:bg-red-900 text-gray-300 hover:text-red-300'
-                          : 'hover:bg-red-100 text-gray-500 hover:text-red-600'
+                          ? 'hover:bg-red-900 text-gray-300 bg-gray-700 hover:text-red-300'
+                          : 'hover:bg-red-100 text-gray-500 bg-gray-200 hover:text-red-600'
                           }`}
                       >
-                        <FiTrash2 className="text-lg" />
+                        <FiTrash2 className="text-sm sm:text-lg" />
                       </button>
                     </div>
                   </div>
@@ -89,8 +94,7 @@ export function GeneratePaginatedTransactions({ isLoading, paginatedTransactions
               </div>
             ))}
 
-            {/* Pagination Controls */}
-            <div className="flex justify-between items-center mt-6 pb-4">
+            <div className="flex flex-col-reverse gap-2 md:gap-0 md:flex-row justify-between items-center mt-6 pb-4">
               <div className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 Showing {paginatedTransactions.length > 0
                   ? (currentPage - 1) * transactionsPerPage + 1
@@ -108,7 +112,6 @@ export function GeneratePaginatedTransactions({ isLoading, paginatedTransactions
                   <FiChevronLeft />
                 </button>
 
-                {/* Page numbers */}
                 {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
                   let pageNum;
                   if (totalPages <= 5) {
