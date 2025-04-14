@@ -1,29 +1,6 @@
 import React from 'react';
 import { FiPieChart, FiDollarSign } from "react-icons/fi";
 
-// Sample data for expenses
-const sampleExpenseData = [
-  { category: "Housing", amount: 15000, percentage: 30 },
-  { category: "Food", amount: 8000, percentage: 16 },
-  { category: "Transportation", amount: 6000, percentage: 12 },
-  { category: "Utilities", amount: 4000, percentage: 8 },
-  { category: "Entertainment", amount: 5000, percentage: 10 },
-  { category: "Shopping", amount: 7000, percentage: 14 },
-  { category: "Others", amount: 5000, percentage: 10 }
-];
-
-// Sample data for income
-const sampleIncomeData = [
-  { category: "Salary", amount: 50000, percentage: 70 },
-  { category: "Freelance", amount: 8000, percentage: 11 },
-  { category: "Interest", amount: 1000, percentage: 1 },
-  { category: "Investments", amount: 5000, percentage: 7 },
-  { category: "Allowance", amount: 3000, percentage: 4 },
-  { category: "Bonus", amount: 4000, percentage: 6 },
-  { category: "Petty Cash", amount: 500, percentage: 1 },
-  { category: "Other", amount: 0, percentage: 0 }
-];
-
 // Helper to format currency
 const formatCurrency = (amount) => {
   return `₹${amount.toLocaleString('en-IN', {
@@ -32,7 +9,6 @@ const formatCurrency = (amount) => {
   })}`;
 };
 
-// Helper function to get color for category
 function getColorForCategory(index, isIncome = false) {
   const expenseColors = [
     '#4F46E5', // indigo
@@ -61,8 +37,8 @@ function getColorForCategory(index, isIncome = false) {
 }
 
 export default function Breakdown({ 
-  categoryBreakdown = sampleExpenseData, 
-  incomeBreakdown = sampleIncomeData, 
+  categoryBreakdown,
+  incomeBreakdown , 
   darkMode = false 
 }) {
   // Calculate total income if percentages are not provided
@@ -80,9 +56,9 @@ export default function Breakdown({
   });
   
   return (
-    <div className={`flex flex-col md:flex-row justify-evenly items-center md:items-stretch  gap-5 md:gap-0`}>
+    <div className={`flex flex-col md:flex-row  justify-evenly items-center md:items-stretch  gap-6 md:gap-3`}>
       {/* Expense Breakdown */}
-      <div className={`p-6 rounded-lg w-[20rem] md:w-[35rem] shadow-md ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-800'}`}>
+      <div className={`p-6 rounded-lg  w-[20rem] md:w-[35rem] shadow-md ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-800'}`}>
         <div className="flex justify-between items-center mb-6">
           <h3 className="font-bold text-lg">Expense Breakdown</h3>
           <FiPieChart className="text-indigo-500" />
@@ -113,7 +89,7 @@ export default function Breakdown({
           )}
         </div>
       </div>
-      
+      <div></div>
       {/* Income Breakdown */}
       <div className={`p-6 rounded-lg shadow-md w-[20rem] md:w-[35rem]  ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-800'}`}>
         <div className="flex justify-between items-center mb-6">
