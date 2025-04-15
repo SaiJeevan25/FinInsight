@@ -33,11 +33,8 @@ export default function Login() {
       if (!response.ok) {
         throw new Error(data.error || 'Login failed');
       }
-      
-      // Store token in localStorage
+    
       localStorage.setItem('token', data.token);
-      
-      // Store user data if needed
       localStorage.setItem('user', JSON.stringify(data.user));
       
       // Redirect to dashboard

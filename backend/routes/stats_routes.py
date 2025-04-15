@@ -210,7 +210,7 @@ def get_stats():
             "categoryBreakdown": category_breakdown,  
             "incomeBreakdown": income_breakdown,
             "monthlyData": monthly_data,
-            "aiInsights": ai_insights  # ✅ sending to frontend
+            "aiInsights":  ai_insights 
         }), 200
 
     except Exception as e:

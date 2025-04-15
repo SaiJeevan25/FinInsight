@@ -104,7 +104,7 @@ export default function AIInsights({ insights, darkMode }) {
   const getSeverityColor = (severity, isDark) => {
     if (!severity) return isDark ? "text-gray-300" : "text-gray-700";
     if (severity === "success") return isDark ? "text-green-400" : "text-green-600";
-    if (severity === "warning") return isDark ? "text-yellow-500" : "text-yellow-700";
+    if (severity === "warning") return isDark ? "text-orange-500" : "text-yellow-700";
     if (severity === "danger") return isDark ? "text-red-400" : "text-red-600";
     return isDark ? "text-blue-400" : "text-blue-600";
   };
@@ -112,7 +112,7 @@ export default function AIInsights({ insights, darkMode }) {
   const getSeverityBgColor = (severity, isDark) => {
     if (!severity) return "";
     if (severity === "success") return isDark ? "bg-green-600/30" : "bg-green-100";
-    if (severity === "warning") return isDark ? "bg-yellow-600/50" : "bg-yellow-200";
+    if (severity === "warning") return isDark ? "bg-orange-500/50" : "bg-yellow-200";
     if (severity === "danger") return isDark ? "bg-red-600/30" : "bg-red-100";
     return isDark ? "bg-blue-600/30" : "bg-blue-100";
   };
@@ -152,7 +152,7 @@ export default function AIInsights({ insights, darkMode }) {
               <FiActivity className="mr-2 text-sm" />
               Current
             </button>
-            <button
+            {/* <button
               className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all flex items-center ${
                 activeView === 'prediction' 
                   ? `${darkMode ? 'bg-indigo-600' : 'bg-indigo-500'} text-white` 
@@ -162,7 +162,7 @@ export default function AIInsights({ insights, darkMode }) {
             >
               <FiClock className="mr-2 text-sm" />
               Forecast
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
@@ -230,8 +230,8 @@ export default function AIInsights({ insights, darkMode }) {
                               {item.action && (
                                 <button className={`mt-3 text-xs px-4 py-1.5 rounded-lg font-medium transition-all ${
                                   darkMode 
-                                    ? 'bg-indigo-600 hover:bg-indigo-700 text-white' 
-                                    : 'bg-indigo-500 hover:bg-indigo-600 text-white'
+                                    ? 'bg-gray-200 hover:bg-indigo-700 text-gray-800'   
+                                    : 'bg-gray-600 hover:bg-indigo-600 text-gray-100'
                                 }`}>
                                   {item.action}
                                 </button>
@@ -247,9 +247,10 @@ export default function AIInsights({ insights, darkMode }) {
             </div>
           </>
         ) : (
-          <div className="  rounded-xl shadow-sm overflow-hidden">
-            <AIPrediction />
-          </div>
+          // <div className="  rounded-xl shadow-sm overflow-hidden">
+          //   <AIPrediction />
+          // </div>
+          ""
         )}
       </div>
     </div>

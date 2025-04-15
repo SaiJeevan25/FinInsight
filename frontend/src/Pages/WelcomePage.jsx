@@ -11,10 +11,7 @@ export default function WelcomePage() {
   return (
     <div className={`relative flex flex-col lg:flex-row justify-center items-center h-screen overflow-hidden duration-300 px-6 ${darkMode ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white' : 'bg-white text-gray-900'}`}>
       <div className='absolute z-20 top-4 w-full flex items-center justify-between px-4'>
-            {/* Left-aligned Title */}
             <Logo />
-
-            {/* Right-aligned Button */}
             <BgToggle />
         </div>
       <BarAnimation />

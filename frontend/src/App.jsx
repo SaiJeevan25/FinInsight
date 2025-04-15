@@ -7,6 +7,7 @@ import Dashboard from "./Pages/Dashboard";
 import ForgotPassword from "./Pages/ForgotPassword";
 import NotFound from './Pages/NotFound';
 import { ThemeProvider } from "./Components/ThemeContext";
+import Test123 from "./Components/Test123"
 
 
 
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/test" element={<Test123 />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
