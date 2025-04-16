@@ -178,14 +178,14 @@ export default function AIPrediction({ }) {
             Next Month Prediction
           </h3>
           <div className='flex gap-2'>
-            <div className="relative px-54 bg-gray-500 py-2 rounded-xl">
+            <div className="relative px-54 bg-gray-500 py-1 rounded-xl">
               <div
-                className="absolute bg-green-500 h-full rounded-xl"
+                className="absolute top-0 left-0 bg-green-500 h-full rounded-xl"
                 style={{ width: getConfidenceWidth(currentScenario.confidenceLevel) }}
               />
 
             </div>
-            Confidence - {getConfidenceWidth(currentScenario.confidenceLevel)}%
+            Confidence - {getConfidenceWidth(currentScenario.confidenceLevel)}
           </div>
         </div>
 
