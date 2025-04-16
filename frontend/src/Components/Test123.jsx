@@ -37,20 +37,32 @@ export default function Test123() {
 
           <div className="absolute left-0 top-0  bg-gray-900/50 rounded-4xl h-full w-full " />
 
+          <img
+            src="/symbol.svg"
+            alt="Background"
+            className="absolute inset-0 w-18 top-5 left-5 h-6 object-cover rounded-4xl z-20"
+          />
+
           <div className="absolute bottom-5 left-5 right-5 leading-none flex flex-col text-white z-10">
             <div className={`flex flex-row justify-between items-center px-6 py-4 transition-all duration-1000 delay-1000 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
               <div className="flex flex-col p-2  rounded-4xl text-white">
-                <p className="text-3xl ">Connect. Learn. Grow</p>
+                <div className='flex flex-row items-center gap-3'>
+                  <p className="text-3xl ">Connect</p>
+                  <div className="w-2 h-2 bg-orange-500 rounded-full" />
+                  <p className="text-3xl ">Learn</p>
+                  <div className="w-2 h-2 bg-orange-500 rounded-full" />
+                  <p className="text-3xl ">Grow</p>                
+                </div>
                 <p className="text-xl">Transform your skills through collaboration.</p>
               </div>
               <div className="flex flex-row gap-2 text-white z-50 text-xl">
-                <div className="flex items-center gap-3 px-3 border border-white rounded-2xl w-[430px]">
-                  <div className="w-3 h-3 bg-white rounded-full" />
+                <div className="flex items-center gap-3 px-3 border-[1.5px] border-gray-200 rounded-2xl w-[440px]">
+                  <div className="mx-2 w-5 h-4 bg-white rounded-full" />
                   <input
                     type="text"
                     name="email"
                     placeholder="Enter Your Email _"
-                    className="w-full p-2 bg-transparent text-lg text-white focus:outline-0"
+                    className="w-full p-2 bg-transparent text-xl text-white  focus:outline-0"
                   />
                 </div>
                 <button
