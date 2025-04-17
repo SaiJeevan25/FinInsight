@@ -4,7 +4,7 @@ import TimeRangeSelector from "./StatsPage/TimeRangeSelector";
 import SummaryCards from "./StatsPage/SummaryCards";
 import DynamicTrends from "./StatsPage/DynamicTrends";
 import AIInsights from "./StatsPage/AIInsights";
-import DashboardViewToggle from "./StatsPage/DashboardViewToggle";
+
 import Breakdown from "./StatsPage/Breakdown";
 
 const monthNames = ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Sept", "October", "Nov", "Dec"];
@@ -20,51 +20,6 @@ export default function StatsPage() {
   const [aiInsights, setAiInsights] = useState([]);
   const [error, setError] = useState(null);
 
-  // Sample data for fallback
-  const sampleData = {
-    summary: {
-      income: 72000,
-      expenses: 48200,
-      savings: 23800,
-      savingsRate: 33.06
-    },
-    trends: {
-      incomeChange: 5.2,
-      expenseChange: -3.8,
-      savingsChange: 12.4
-    },
-    categoryBreakdown: [
-      { category: "Rent", amount: 22000, percentage: 45.6 },
-      { category: "Food", amount: 12500, percentage: 25.9 },
-      { category: "Shopping", amount: 10200, percentage: 21.2 },
-      { category: "Transport", amount: 3500, percentage: 7.3 }
-    ],
-    incomeBreakdown: [
-      { category: "Salary", amount: 50000, percentage: 69.4 },
-      { category: "Freelance", amount: 15000, percentage: 20.8 },
-      { category: "Investments", amount: 7000, percentage: 9.7 }
-    ],
-    monthlyData: {
-      income: Array(12).fill(0).map((_, i) => 50000 + i * 2000),
-      expenses: Array(12).fill(0).map((_, i) => 40000 + i * 1000),
-      savings: Array(12).fill(0).map((_, i) => 10000 + i * 1000)
-    }
-  };
-
-  const sampleInsights = [
-    {
-      type: "achievement",
-      title: "Savings Increased",
-      description: "Your savings rate improved by 12.4% compared to last period",
-      severity: "success"
-    },
-    {
-      type: "observation",
-      title: "High Rent Percentage",
-      description: "Your rent accounts for 45.6% of total expenses",
-      severity: "warning"
-    }
-  ];
 
   useEffect(() => {
     const fetchStatsData = async () => {
