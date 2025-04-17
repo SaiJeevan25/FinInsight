@@ -9,15 +9,15 @@ export default function DashboardViewToggle({ activeView, setActiveView, darkMod
   ];
 
   return (
-    <div className={`inline-block shadow shadow-black font-bold text-sm md:text-md rounded-xl p-2  ${
+    <div className={`inline-block shadow font-bold text-sm md:text-md rounded-xl p-2  ${
       darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-gray-200 border border-gray-200'
     }`}>
-      <div className="flex gap-3 duration-150">
+      <div className="flex gap-3 ">
         {views.map((view) => (
           <button
             key={view.id}
             onClick={() => setActiveView(view.id)}
-            className={`flex items-center px-4 py-2 rounded-lg transition-all duration-300 ${
+            className={`flex items-center px-4 py-2 cursor-pointer rounded-lg transition-all  ${
               activeView === view.id
                 ? darkMode
                   ? 'bg-gray-300 text-indigo-600 font-medium shadow-sm ring-1 ring-indigo-500'

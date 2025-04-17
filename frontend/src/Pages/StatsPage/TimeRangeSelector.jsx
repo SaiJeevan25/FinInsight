@@ -5,8 +5,6 @@ import DashboardViewToggle from "./DashboardViewToggle";
 export default function TimeRangeSelector({
   timeRange,
   setTimeRange,
-  currentMonthIndex,
-  currentYear,
   handlePrevMonth,
   handleNextMonth,
   getTimeRangeText,
@@ -16,12 +14,12 @@ export default function TimeRangeSelector({
 }) {
   return (
     <div className="flex flex-col p-2 sm:flex-row justify-between gap-4 items-center mb-4">
-      <div className={`flex space-x-4 w-full ${darkMode ? 'bg-gray-800' : 'bg-gray-300'} p-2 rounded-xl sm:w-auto`}>
+      <div className={`flex space-x-4 w-full ${darkMode ? 'bg-gray-800' : 'bg-gray-200'} p-2 rounded-xl sm:w-auto`}>
         {["month", "quarter", "year"].map((range) => (
           <button
             key={range}
             onClick={() => setTimeRange(range)}
-            className={`px-3 py-2 cursor-pointer duration-300  shadow-black rounded-lg capitalize flex-1 sm:flex-none text-sm ${timeRange === range
+            className={`px-3 py-2 cursor-pointer duration-300   rounded-lg capitalize flex-1 sm:flex-none text-sm ${timeRange === range
                 ? `bg-indigo-500 text-white shadow-sm`
                 : `${darkMode ? ' text-gray-200 ' : ' text-gray-700 '}`
               }`}

@@ -11,12 +11,9 @@ export default function WelcomePage() {
   return (
     <div className={`relative flex flex-col lg:flex-row justify-center items-center h-screen overflow-hidden duration-300 px-6 ${darkMode ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white' : 'bg-white text-gray-900'}`}>
       <div className='absolute z-20 top-4 w-full flex items-center justify-between px-4'>
-            {/* Left-aligned Title */}
-            <Logo />
-
-            {/* Right-aligned Button */}
-            <BgToggle />
-        </div>
+        <Logo />
+        <BgToggle />
+      </div>
       <BarAnimation />
 
       <div className={`flex flex-col gap-10 items-center justify-center mt-7 backdrop-blur-md p-6 rounded-xl bg-gray-100 shadow-xl   ${darkMode ? 'bg-gray-800 text-white shadow-gray-600' : 'bg-white shadow-black text-gray-900'}`}>
@@ -28,8 +25,10 @@ export default function WelcomePage() {
             AI-Powered Financial Clarity
           </p>
         </div>
-        <p className={`text-lg text-center text-gray-700 max-w-xl ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-          FinInsight uses AI to categorize expenses from bank statements and receipts. Track spending trends with interactive charts and personalized insights. Securely access reports across devices for smarter budgeting.
+        <p className={`text-lg px-4 text-justify text-gray-700 max-w-xl ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          Seamlessly track your transactions and stay in control of your finances.
+          Discover spending patterns through vibrant, interactive <span className="text-indigo-500">charts</span> and <span className="text-indigo-500">visual dashboards. </span>
+          Experience the power of <span className="text-indigo-500">AI-driven</span> insights tailored to help you save smarter and plan better.
         </p>
         <div>
           <p className="flex flex-col justify-center items-center text-2xl text-indigo-500 font-extrabold">Get Started For Free</p>

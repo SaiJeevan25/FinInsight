@@ -166,8 +166,8 @@ export default function TransactionsPage() {
       .filter(transaction => {
         const matchesSearch = transaction.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           transaction.category?.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesFilter = filterType === "all" || transaction.type === filterType;
-        const matchesCategory = selectedCategory === "All" || selectedCategory === "" || transaction.category === selectedCategory;
+        const matchesFilter = filterType === "all" || transaction.type.toLowerCase() === filterType.toLowerCase();
+        const matchesCategory = selectedCategory === "All" || selectedCategory === "" || transaction.category.toLowerCase() === selectedCategory.toLowerCase();
         return matchesSearch && matchesFilter && matchesCategory;
       })
       .sort((a, b) => order ? (new Date(b.date) - new Date(a.date)) : (new Date(a.date) - new Date(b.date)));
@@ -387,13 +387,6 @@ export default function TransactionsPage() {
         </div>
       </div>
 
-      {/* Mobile Add Button */}
-      <button
-        className="fixed bottom-6 right-6 bg-indigo-500 text-white p-4 rounded-full shadow-lg lg:hidden z-30"
-        onClick={() => setIsAddModalOpen(true)}
-      >
-        <FiPlus className="text-2xl" />
-      </button>
 
       {/* Add Transaction Modal */}
       {isAddModalOpen && (
