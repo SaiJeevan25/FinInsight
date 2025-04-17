@@ -166,8 +166,8 @@ export default function TransactionsPage() {
       .filter(transaction => {
         const matchesSearch = transaction.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           transaction.category?.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesFilter = filterType === "all" || transaction.type === filterType;
-        const matchesCategory = selectedCategory === "All" || selectedCategory === "" || transaction.category === selectedCategory;
+        const matchesFilter = filterType === "all" || transaction.type.toLowerCase() === filterType.toLowerCase();
+        const matchesCategory = selectedCategory === "All" || selectedCategory === "" || transaction.category.toLowerCase() === selectedCategory.toLowerCase();
         return matchesSearch && matchesFilter && matchesCategory;
       })
       .sort((a, b) => order ? (new Date(b.date) - new Date(a.date)) : (new Date(a.date) - new Date(b.date)));

@@ -1,0 +1,1402 @@
+[
+    {
+        "title": "Monthly Salary",
+        "amount": 325000,
+        "category": "Salary",
+        "type": "income",
+        "date": "2025-01-01"
+    },
+    {
+        "title": "Freelance Project (Web Dev)",
+        "amount": 18500,
+        "category": "Freelance",
+        "type": "income",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Stock Dividends",
+        "amount": 7250,
+        "category": "Investments",
+        "type": "income",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Bonus (Q4 Performance)",
+        "amount": 25000,
+        "category": "Bonus",
+        "type": "income",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "Interest (Savings Account)",
+        "amount": 3200,
+        "category": "Interest",
+        "type": "income",
+        "date": "2025-01-30"
+    },
+    {
+        "title": "YouTube Ad Revenue",
+        "amount": 4800,
+        "category": "Freelance",
+        "type": "income",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "Consulting Fee",
+        "amount": 12000,
+        "category": "Freelance",
+        "type": "income",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "Rental Income",
+        "amount": 15000,
+        "category": "Other",
+        "type": "income",
+        "date": "2025-01-01"
+    },
+    {
+        "title": "Cashback (Credit Card)",
+        "amount": 1250,
+        "category": "Other",
+        "type": "income",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Referral Bonus",
+        "amount": 5000,
+        "category": "Bonus",
+        "type": "income",
+        "date": "2025-01-18"
+    },
+    {
+        "title": "Sold Old Furniture",
+        "amount": 6500,
+        "category": "Other",
+        "type": "income",
+        "date": "2025-01-12"
+    },
+    {
+        "title": "Survey Reward",
+        "amount": 800,
+        "category": "Other",
+        "type": "income",
+        "date": "2025-01-07"
+    },
+    {
+        "title": "Affiliate Marketing",
+        "amount": 3400,
+        "category": "Freelance",
+        "type": "income",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "Reimbursement (Office Travel)",
+        "amount": 5600,
+        "category": "Other",
+        "type": "income",
+        "date": "2025-01-28"
+    },
+    {
+        "title": "Old Books Resale",
+        "amount": 2200,
+        "category": "Other",
+        "type": "income",
+        "date": "2025-01-14"
+    },
+    {
+        "title": "BigBasket Monthly Groceries",
+        "amount": 12500,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-02"
+    },
+    {
+        "title": "Dinner (Barbeque Nation)",
+        "amount": 3200,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-12"
+    },
+    {
+        "title": "Swiggy (Office Lunch)",
+        "amount": 450,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-17"
+    },
+    {
+        "title": "Zomato (Pizza Order)",
+        "amount": 620,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-03"
+    },
+    {
+        "title": "Local Kirana Store",
+        "amount": 850,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-04"
+    },
+    {
+        "title": "Starbucks Coffee",
+        "amount": 350,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Domino's Pizza",
+        "amount": 780,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-08"
+    },
+    {
+        "title": "Breakfast (Idli-Dosa)",
+        "amount": 220,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-06"
+    },
+    {
+        "title": "MTR Ready-to-Eat",
+        "amount": 650,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-09"
+    },
+    {
+        "title": "Nature's Basket (Organic)",
+        "amount": 3400,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-11"
+    },
+    {
+        "title": "Biryani Takeaway",
+        "amount": 550,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-13"
+    },
+    {
+        "title": "Office Cafeteria",
+        "amount": 180,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-14"
+    },
+    {
+        "title": "Tea/Snacks (Daily)",
+        "amount": 120,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Sweet Shop (Gulab Jamun)",
+        "amount": 300,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-16"
+    },
+    {
+        "title": "Swiggy (Dinner)",
+        "amount": 720,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-18"
+    },
+    {
+        "title": "Local Bakery",
+        "amount": 250,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-19"
+    },
+    {
+        "title": "Fruits Vendor",
+        "amount": 400,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "Ice Cream Parlor",
+        "amount": 280,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-21"
+    },
+    {
+        "title": "Pani Puri Stall",
+        "amount": 100,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "Diet Supplements",
+        "amount": 1500,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-23"
+    },
+    {
+        "title": "Protein Powder",
+        "amount": 2200,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-24"
+    },
+    {
+        "title": "Chai Point",
+        "amount": 150,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "Nandini Milk Subscription",
+        "amount": 600,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-26"
+    },
+    {
+        "title": "Swiggy (Late Night)",
+        "amount": 380,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-27"
+    },
+    {
+        "title": "Local Fish Market",
+        "amount": 950,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-28"
+    },
+    {
+        "title": "Dairy Products",
+        "amount": 450,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-29"
+    },
+    {
+        "title": "Dry Fruits Purchase",
+        "amount": 1800,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-30"
+    },
+    {
+        "title": "Cake (Friend's Bday)",
+        "amount": 1200,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-31"
+    },
+    {
+        "title": "Restaurant (Anniversary)",
+        "amount": 4500,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "Food Delivery (Rainy Day)",
+        "amount": 890,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-07"
+    },
+    {
+        "title": "Office Team Lunch",
+        "amount": 2500,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-19"
+    },
+    {
+        "title": "Diet Coke (Monthly Stock)",
+        "amount": 600,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-03"
+    },
+    {
+        "title": "Grocery (Monthly Refill)",
+        "amount": 7500,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Biscuits & Snacks",
+        "amount": 350,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "Weekend Brunch",
+        "amount": 2100,
+        "category": "Food",
+        "type": "expense",
+        "date": "2025-01-24"
+    },
+    {
+        "title": "Myntra (Winter Wear)",
+        "amount": 6800,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Amazon (Earphones)",
+        "amount": 2200,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-18"
+    },
+    {
+        "title": "Flipkart (Smartwatch)",
+        "amount": 12500,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "Decathlon (Sports Gear)",
+        "amount": 4500,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-12"
+    },
+    {
+        "title": "Nykaa (Skincare)",
+        "amount": 3200,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-14"
+    },
+    {
+        "title": "Titan Watch Service",
+        "amount": 1500,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-16"
+    },
+    {
+        "title": "Shoes (Nike)",
+        "amount": 6500,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "Books (Amazon)",
+        "amount": 1800,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "Gift (Mom's Birthday)",
+        "amount": 5000,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "Phone Case",
+        "amount": 600,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-03"
+    },
+    {
+        "title": "Sunglasses (Ray-Ban)",
+        "amount": 8500,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-08"
+    },
+    {
+        "title": "Home Decor",
+        "amount": 3400,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-11"
+    },
+    {
+        "title": "Stationery",
+        "amount": 750,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-13"
+    },
+    {
+        "title": "Perfume (Davidoff)",
+        "amount": 4200,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-17"
+    },
+    {
+        "title": "Laptop Bag",
+        "amount": 2800,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-19"
+    },
+    {
+        "title": "Diwali Gifts",
+        "amount": 10000,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-21"
+    },
+    {
+        "title": "Handicraft Purchase",
+        "amount": 1500,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-23"
+    },
+    {
+        "title": "Saree (For Wife)",
+        "amount": 7500,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-26"
+    },
+    {
+        "title": "Kids' Toys",
+        "amount": 3200,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-28"
+    },
+    {
+        "title": "Festive Clothing",
+        "amount": 9000,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-30"
+    },
+    {
+        "title": "Power Bank",
+        "amount": 1800,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-04"
+    },
+    {
+        "title": "Smart Light Bulbs",
+        "amount": 2500,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-06"
+    },
+    {
+        "title": "Office Chair",
+        "amount": 12000,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-09"
+    },
+    {
+        "title": "Fitness Band",
+        "amount": 3500,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Winter Blanket",
+        "amount": 2800,
+        "category": "Shopping",
+        "type": "expense",
+        "date": "2025-01-27"
+    },
+    {
+        "title": "Uber Monthly Pass",
+        "amount": 3500,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-01"
+    },
+    {
+        "title": "Petrol Fillup",
+        "amount": 4200,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Ola Auto Ride",
+        "amount": 250,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-03"
+    },
+    {
+        "title": "Metro Recharge",
+        "amount": 1000,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Parking Fees",
+        "amount": 150,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-07"
+    },
+    {
+        "title": "Toll Tax",
+        "amount": 350,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-09"
+    },
+    {
+        "title": "Car Wash",
+        "amount": 300,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-11"
+    },
+    {
+        "title": "Airport Drop",
+        "amount": 1200,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-13"
+    },
+    {
+        "title": "Bus Ticket",
+        "amount": 50,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-14"
+    },
+    {
+        "title": "Tyre Replacement",
+        "amount": 6500,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-16"
+    },
+    {
+        "title": "Bike Service",
+        "amount": 2800,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-18"
+    },
+    {
+        "title": "Cab to Office",
+        "amount": 180,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "Railway Ticket",
+        "amount": 1200,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "EV Charging",
+        "amount": 450,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-24"
+    },
+    {
+        "title": "Spare Parts",
+        "amount": 3200,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-26"
+    },
+    {
+        "title": "Rapido Bike Ride",
+        "amount": 120,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-28"
+    },
+    {
+        "title": "Car Insurance EMI",
+        "amount": 4500,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-30"
+    },
+    {
+        "title": "Taxi (Late Night)",
+        "amount": 350,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-02"
+    },
+    {
+        "title": "Fuel (Highway Trip)",
+        "amount": 3800,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "Bicycle Repair",
+        "amount": 800,
+        "category": "Transport",
+        "type": "expense",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "Electricity Bill",
+        "amount": 5800,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "Airtel Postpaid",
+        "amount": 999,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "Gas Cylinder",
+        "amount": 1100,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Internet Bill",
+        "amount": 1200,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Water Bill",
+        "amount": 450,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "DTH Recharge",
+        "amount": 500,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "Mobile Recharge (Jio)",
+        "amount": 299,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-01"
+    },
+    {
+        "title": "Newspaper Subscription",
+        "amount": 350,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-03"
+    },
+    {
+        "title": "Landline Bill",
+        "amount": 250,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-07"
+    },
+    {
+        "title": "Amazon Prime",
+        "amount": 1499,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-12"
+    },
+    {
+        "title": "Google One Storage",
+        "amount": 210,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-18"
+    },
+    {
+        "title": "Society Maintenance",
+        "amount": 3500,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-28"
+    },
+    {
+        "title": "Cable TV",
+        "amount": 400,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-08"
+    },
+    {
+        "title": "VPN Subscription",
+        "amount": 1200,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-14"
+    },
+    {
+        "title": "Antivirus Renewal",
+        "amount": 1800,
+        "category": "Utilities",
+        "type": "expense",
+        "date": "2025-01-30"
+    },
+    {
+        "title": "Home Loan EMI",
+        "amount": 45000,
+        "category": "Rent",
+        "type": "expense",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Car Loan EMI",
+        "amount": 18000,
+        "category": "Rent",
+        "type": "expense",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "Credit Card Payment",
+        "amount": 25000,
+        "category": "Rent",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Rent (2BHK)",
+        "amount": 30000,
+        "category": "Rent",
+        "type": "expense",
+        "date": "2025-01-01"
+    },
+    {
+        "title": "Education Loan EMI",
+        "amount": 12000,
+        "category": "Rent",
+        "type": "expense",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "Personal Loan EMI",
+        "amount": 15000,
+        "category": "Rent",
+        "type": "expense",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "Bike Loan EMI",
+        "amount": 7500,
+        "category": "Rent",
+        "type": "expense",
+        "date": "2025-01-08"
+    },
+    {
+        "title": "Medical Loan EMI",
+        "amount": 9000,
+        "category": "Rent",
+        "type": "expense",
+        "date": "2025-01-12"
+    },
+    {
+        "title": "Home Renovation EMI",
+        "amount": 20000,
+        "category": "Rent",
+        "type": "expense",
+        "date": "2025-01-18"
+    },
+    {
+        "title": "Furniture EMI",
+        "amount": 6000,
+        "category": "Rent",
+        "type": "expense",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "Netflix Subscription",
+        "amount": 649,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-03"
+    },
+    {
+        "title": "PVR Movie Tickets",
+        "amount": 1800,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "Spotify Premium",
+        "amount": 119,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Concert Tickets",
+        "amount": 5000,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-12"
+    },
+    {
+        "title": "Disney+ Hotstar",
+        "amount": 1499,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Bowling Alley",
+        "amount": 1200,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-18"
+    },
+    {
+        "title": "Video Game Purchase",
+        "amount": 3500,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "Weekend Getaway",
+        "amount": 12000,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "Book Purchase",
+        "amount": 850,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-28"
+    },
+    {
+        "title": "Gaming In-App Purchase",
+        "amount": 500,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-30"
+    },
+    {
+        "title": "Cricket Match Tickets",
+        "amount": 3000,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "Karaoke Night",
+        "amount": 2500,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-14"
+    },
+    {
+        "title": "Theatre Play",
+        "amount": 1500,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-16"
+    },
+    {
+        "title": "Art Exhibition",
+        "amount": 800,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-19"
+    },
+    {
+        "title": "YouTube Premium",
+        "amount": 129,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-01"
+    },
+    {
+        "title": "Standup Comedy Show",
+        "amount": 2000,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-07"
+    },
+    {
+        "title": "Amusement Park",
+        "amount": 4500,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-09"
+    },
+    {
+        "title": "Music Festival",
+        "amount": 6500,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-11"
+    },
+    {
+        "title": "Gym Membership",
+        "amount": 2500,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-13"
+    },
+    {
+        "title": "Swimming Pool Entry",
+        "amount": 600,
+        "category": "Entertainment",
+        "type": "expense",
+        "date": "2025-01-17"
+    },
+    {
+        "title": "Apollo Pharmacy",
+        "amount": 1200,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-08"
+    },
+    {
+        "title": "Annual Health Checkup",
+        "amount": 8500,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "Dentist Visit",
+        "amount": 3500,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-12"
+    },
+    {
+        "title": "Eyeglasses",
+        "amount": 6500,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-18"
+    },
+    {
+        "title": "Health Insurance",
+        "amount": 12000,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Yoga Classes",
+        "amount": 3000,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Vitamin Supplements",
+        "amount": 2500,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "Physiotherapy",
+        "amount": 2000,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "COVID Test",
+        "amount": 1200,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "Ayurvedic Massage",
+        "amount": 3500,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-28"
+    },
+    {
+        "title": "Gym Trainer Fees",
+        "amount": 5000,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-30"
+    },
+    {
+        "title": "First Aid Kit",
+        "amount": 800,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-03"
+    },
+    {
+        "title": "Medical Lab Tests",
+        "amount": 4500,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-07"
+    },
+    {
+        "title": "Sports Injury",
+        "amount": 3200,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-14"
+    },
+    {
+        "title": "Sleep Therapy",
+        "amount": 6000,
+        "category": "Health",
+        "type": "expense",
+        "date": "2025-01-17"
+    },
+    {
+        "title": "Coursera Subscription",
+        "amount": 3499,
+        "category": "Education",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Kid's School Fees",
+        "amount": 15000,
+        "category": "Education",
+        "type": "expense",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Udemy Course",
+        "amount": 999,
+        "category": "Education",
+        "type": "expense",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "School Books",
+        "amount": 4500,
+        "category": "Education",
+        "type": "expense",
+        "date": "2025-01-12"
+    },
+    {
+        "title": "Tuition Fees",
+        "amount": 8000,
+        "category": "Education",
+        "type": "expense",
+        "date": "2025-01-18"
+    },
+    {
+        "title": "Workshop Registration",
+        "amount": 5000,
+        "category": "Education",
+        "type": "expense",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "Online Certification",
+        "amount": 2500,
+        "category": "Education",
+        "type": "expense",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "Stationery Supplies",
+        "amount": 1200,
+        "category": "Education",
+        "type": "expense",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "Maths Tutor",
+        "amount": 6000,
+        "category": "Education",
+        "type": "expense",
+        "date": "2025-01-28"
+    },
+    {
+        "title": "Education Donation",
+        "amount": 10000,
+        "category": "Education",
+        "type": "expense",
+        "date": "2025-01-30"
+    },
+    {
+        "title": "SIP Mutual Funds",
+        "amount": 25000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "PPF Contribution",
+        "amount": 12500,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "NPS Tier-1",
+        "amount": 15000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Gold ETF Purchase",
+        "amount": 20000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "Stock Market Buy",
+        "amount": 35000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "FD Renewal",
+        "amount": 50000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-30"
+    },
+    {
+        "title": "ELSS Tax Saver",
+        "amount": 30000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-03"
+    },
+    {
+        "title": "Crypto Purchase",
+        "amount": 15000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-07"
+    },
+    {
+        "title": "Real Estate Downpayment",
+        "amount": 100000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-12"
+    },
+    {
+        "title": "Corporate Bonds",
+        "amount": 50000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-18"
+    },
+    {
+        "title": "International Stocks",
+        "amount": 25000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "REIT Investment",
+        "amount": 30000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-28"
+    },
+    {
+        "title": "SGB (Sovereign Gold)",
+        "amount": 15000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-01"
+    },
+    {
+        "title": "Child Education Fund",
+        "amount": 20000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Retirement Corpus",
+        "amount": 40000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "Angel Investing",
+        "amount": 75000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Index Funds",
+        "amount": 18000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "Commodity Trading",
+        "amount": 25000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "P2P Lending",
+        "amount": 30000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-30"
+    },
+    {
+        "title": "ESOP Purchase",
+        "amount": 45000,
+        "category": "Investments",
+        "type": "expense",
+        "date": "2025-01-08"
+    },
+    {
+        "title": "Charity Donation",
+        "amount": 5000,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-14"
+    },
+    {
+        "title": "Gift (Friend's Wedding)",
+        "amount": 10000,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-20"
+    },
+    {
+        "title": "ATM Cash Withdrawal",
+        "amount": 10000,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-05"
+    },
+    {
+        "title": "Househelp Salary",
+        "amount": 8000,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-01"
+    },
+    {
+        "title": "Puja Expenses",
+        "amount": 5000,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-10"
+    },
+    {
+        "title": "Lost Wallet",
+        "amount": 3500,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-15"
+    },
+    {
+        "title": "Dry Cleaning",
+        "amount": 1200,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-18"
+    },
+    {
+        "title": "Pet Expenses",
+        "amount": 4500,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-22"
+    },
+    {
+        "title": "Late Fee (Credit Card)",
+        "amount": 1500,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-25"
+    },
+    {
+        "title": "Tax Consultant Fee",
+        "amount": 8000,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-28"
+    },
+    {
+        "title": "Diwali Tips",
+        "amount": 10000,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-30"
+    },
+    {
+        "title": "Parking Fine",
+        "amount": 500,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-03"
+    },
+    {
+        "title": "Repair (AC Service)",
+        "amount": 3500,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-07"
+    },
+    {
+        "title": "Passport Renewal",
+        "amount": 2000,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-12"
+    },
+    {
+        "title": "Miscellaneous Cash",
+        "amount": 3000,
+        "category": "Other",
+        "type": "expense",
+        "date": "2025-01-17"
+    }
+]

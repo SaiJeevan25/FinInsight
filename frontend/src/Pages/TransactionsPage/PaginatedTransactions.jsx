@@ -55,7 +55,7 @@ export function GeneratePaginatedTransactions({ isLoading, paginatedTransactions
                       {transaction.icon || getCategoryIcon(transaction.category)}
                     </div>
                     <div>
-                      <h3 className="text-sm sm:text-lg gap-1 text-bold">{transaction.title}</h3>
+                      <h3 className="text-sm sm:text-lg gap-1 font-medium">{transaction.title}</h3>
                       <p className="hidden sm:block text-sm text-gray-500">{transaction.category} • {transaction.date}</p>
                       <div className='flex flex-col gap- text-xs sm:hidden text-gray-500'>
                         <p>{transaction.category}</p>
