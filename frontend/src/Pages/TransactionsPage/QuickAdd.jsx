@@ -1,7 +1,7 @@
 import React from "react";
 import { FiZap } from "react-icons/fi";
 
-const QuickAdd = ({ predefinedTransactions, handleTypeChange, handleQuickAdd }) => {
+const QuickAdd = ({ predefinedTransactions, handleQuickAdd }) => {
   return (
     <div className="mb-4">
         <div className="flex gap-2 items-center ">

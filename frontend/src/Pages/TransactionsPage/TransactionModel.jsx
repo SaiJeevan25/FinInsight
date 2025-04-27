@@ -275,7 +275,6 @@ export default function TransactionModal({ isOpen, onClose, onSave, transaction,
             <div>
               <QuickAdd
                 predefinedTransactions={predefinedTransactions}
-                handleTypeChange={handleTypeChange}
                 handleQuickAdd={(quickTransaction) => {
                   setTransactionData({
                     ...quickTransaction,
