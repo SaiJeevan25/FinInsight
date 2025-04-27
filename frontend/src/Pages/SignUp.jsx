@@ -6,6 +6,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import Logo from '../Components/Logo';
 import Button from '../Components/Button';
 import BgToggle from '../Components/BgToggle';
+import Notification from '../Components/Notification';
 
 export default function SignUp() {
   const { darkMode } = useTheme();
@@ -35,6 +36,8 @@ export default function SignUp() {
     "Retired",
     "Other"
   ];
+
+
 
   const validateEmail = (email) => {
     const re = /\S+@\S+\.\S+/;
@@ -173,6 +176,21 @@ export default function SignUp() {
         <Logo />
         <BgToggle />
       </div>
+      {error && (
+        <Notification
+          type="error"
+          message={error}
+          onClose={() => setError('')}
+        />
+      )}
+
+      {success && (
+        <Notification
+          type="success"
+          message={success}
+          onClose={() => setSuccess('')}
+        />
+      )}
       <div className='hidden md:block absolute w-2xl h-full'>
         <BarAnimation />
       </div>
@@ -192,7 +210,7 @@ export default function SignUp() {
             "Empower Your Financial Future"
           </h1>
           <p className="mt-4 text-lg max-w-md">
-          Unlock powerful insights and tools to help you understand and improve your financial health.
+            Unlock powerful insights and tools to help you understand and improve your financial health.
           </p>
         </div>
       </div>
@@ -203,7 +221,7 @@ export default function SignUp() {
           ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
 
           <h2 className="text-2xl font-semibold text-center mb-3">Create an Account</h2>
-          
+
           <div className="flex flex-col items-center">
             <div className="w-full px-8">
               <GoogleLogin
@@ -215,13 +233,13 @@ export default function SignUp() {
               />
             </div>
           </div>
-          
+
           <div className="flex items-center my-6">
             <div className="flex-grow h-px bg-gray-400"></div>
             <span className="px-4 text-sm text-gray-500">OR SIGN UP WITH EMAIL</span>
             <div className="flex-grow h-px bg-gray-400"></div>
           </div>
-          
+
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
@@ -321,9 +339,7 @@ export default function SignUp() {
             </div>
 
             <Button type='submit' text={loading ? 'Signing Up...' : 'Sign Up'} style="w-full mt-4" disabled={loading} />
-            {error && <div className="text-center text-red-500 mt-2 text-sm">{error}</div>}
-            {success && <div className="text-center text-green-500 mt-2 text-sm">{success}</div>}
-            <p className="text-center mt-3 text-sm">
+            <p className="text-center mt-6 text-md">
               Already have an account? <span></span>
               <a href="/login" className="text-indigo-500 hover:underline">Login</a>
             </p>

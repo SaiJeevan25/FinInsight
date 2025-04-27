@@ -6,6 +6,7 @@ import BarAnimation from '../Components/Animations/BarAnimation';
 import Logo from '../Components/Logo';
 import Button from '../Components/Button';
 import BgToggle from '../Components/BgToggle';
+import Notification from '../Components/Notification';
 
 export default function Login() {
   const { darkMode } = useTheme();
@@ -75,6 +76,13 @@ export default function Login() {
         <Logo />
         <BgToggle />
       </div>
+      {error && (
+        <Notification
+          type="error"
+          message={error}
+          onClose={() => setError('')}
+        />
+      )}
 
       <div className='hidden md:block absolute w-2xl h-full'>
         <BarAnimation />
@@ -143,7 +151,7 @@ export default function Login() {
               className="w-full px-4 py-2 mt-2 bg-gray-600 text-white rounded-md focus:ring-2 focus:ring-indigo-400"
             />
             <Button type="submit" text={loading ? 'Logging in...' : 'Log In'} style="w-full mt-3" disabled={loading} />
-            {error && <p className="text-red-500 text-lg text-center my-2">{error}</p>}
+
             <p className="text-center mt-4">
               <a href="/forgot-password" className="text-indigo-500 hover:underline">Forgot Password ?</a>
             </p>
