@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../Components/ThemeContext';
 import BarAnimation from '../Components/Animations/BarAnimation';
 import Logo from '../Components/Logo';
 import Button from '../Components/Button';
 import BgToggle from '../Components/BgToggle';
+import Notification from '../Components/Notification';
 
 export default function Login() {
   const { darkMode } = useTheme();
@@ -18,7 +20,7 @@ export default function Login() {
     e.preventDefault();
     setError('');
     setLoading(true);
-    
+
     try {
       const response = await fetch('http://localhost:8000/api/auth/login', {
         method: 'POST',
@@ -27,17 +29,15 @@ export default function Login() {
         },
         body: JSON.stringify({ email, password }),
       });
-      
+
       const data = await response.json();
-      
+
       if (!response.ok) {
         throw new Error(data.error || 'Login failed');
       }
-    
+
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
-      
-      // Redirect to dashboard
       navigate('/dashboard');
     } catch (err) {
       setError(err.message);
@@ -46,6 +46,29 @@ export default function Login() {
     }
   };
 
+  const handleGoogleLogin = async (credentialResponse) => {
+    try {
+      const res = await fetch('http://localhost:8000/api/auth/google-callback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token: credentialResponse.credential }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Google login failed');
+
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      navigate('/dashboard');
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    }
+  };
+
+
   return (
     <div className={`h-screen flex flex-col md:grid md:grid-cols-2 font-poppins
       ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-200 text-black'}`}>
@@ -53,6 +76,13 @@ export default function Login() {
         <Logo />
         <BgToggle />
       </div>
+      {error && (
+        <Notification
+          type="error"
+          message={error}
+          onClose={() => setError('')}
+        />
+      )}
 
       <div className='hidden md:block absolute w-2xl h-full'>
         <BarAnimation />
@@ -66,7 +96,7 @@ export default function Login() {
           </h1>
           <p className={`mt-4 text-lg md:text-2xl text-gray-700 font-light 
             ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-            AI-Powered Financial Clarity
+            Financial Clarity Application
           </p>
           <p className='text-2xl'>-----</p>
 
@@ -82,10 +112,28 @@ export default function Login() {
       <div className="relative h-screen flex flex-col items-center shadow justify-center px-4 md:px-8">
         <div className={`relative w-full max-w-md p-8 bg-opacity-90 rounded-xl shadow-lg shadow-indigo-500
           ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
-          
-          <h2 className="text-3xl font-semibold text-center">Log In to Your Account</h2>
 
-          <form onSubmit={handleSubmit} className="mt-6">
+          <h2 className="text-3xl font-semibold text-center mb-7">Log In to Your Account</h2>
+
+          <div className="flex flex-col items-center">
+            <div className="w-full px-8 ">
+              <GoogleLogin
+                onSuccess={handleGoogleLogin}
+                onError={() => setError('Google Login Failed')}
+                scope="profile email"
+                responseType="token"
+                className="w-full rounded-lg"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center my-6">
+            <div className="flex-grow h-px bg-gray-400"></div>
+            <span className="px-4 text-sm text-gray-500">OR LOGIN WITH EMAIL</span>
+            <div className="flex-grow h-px bg-gray-400"></div>
+          </div>
+
+          <form onSubmit={handleSubmit}>
             <label htmlFor="email" className="block text-sm font-medium">Email:</label>
             <input
               type="email" id="email" name="email"
@@ -103,7 +151,7 @@ export default function Login() {
               className="w-full px-4 py-2 mt-2 bg-gray-600 text-white rounded-md focus:ring-2 focus:ring-indigo-400"
             />
             <Button type="submit" text={loading ? 'Logging in...' : 'Log In'} style="w-full mt-3" disabled={loading} />
-            {error && <p className="text-red-500 text-lg text-center my-2">{error}</p>}
+
             <p className="text-center mt-4">
               <a href="/forgot-password" className="text-indigo-500 hover:underline">Forgot Password ?</a>
             </p>

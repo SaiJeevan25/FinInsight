@@ -7,8 +7,8 @@ export default function CategoryFilter({
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
-    const incomeCategories = ["All", "Salary", "Freelance", "Interest", "Investments", "Allowance", "Bonus", "Petty Cash", "Other"];
-    const expenseCategories = ["All", "Food", "Shopping", "Transport", "Utilities", "Rent", "Entertainment", "Health", "Education", "Other"];
+    const incomeCategories = ["All", "Salary", "Freelance", "Interest", "Returns" , "Allowance", "Bonus", "Petty Cash", "Other"];
+    const expenseCategories = ["All", "Food", "Shopping", "Transport", "Utilities", "Investments", "Rent", "Entertainment", "Health", "Education", "Other"];
     const categories = filterType === "income" ? incomeCategories : expenseCategories;
 
     useEffect(() => {
