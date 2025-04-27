@@ -15,12 +15,12 @@ export default function TransactionModal({ isOpen, onClose, onSave, transaction,
   });
 
   const expenseCategories = [
-    "Food", "Shopping", "Transport", "Utilities", "Rent", "Entertainment",
+    "Food", "Shopping", "Transport", "Utilities", "Investments", "Rent", "Entertainment",
     "Health", "Education", "Other"
   ];
 
   const incomeCategories = [
-    "Salary", "Freelance", "Interest", "Investments", "Allowance", "Bonus",
+    "Salary", "Freelance", "Interest", "Returns", "Allowance", "Bonus",
     "Petty Cash", "Other"
   ];
 
@@ -85,7 +85,7 @@ export default function TransactionModal({ isOpen, onClose, onSave, transaction,
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="absolute inset-0 bg-black opacity-70" onClick={onClose}></div>
-      <div className={`relative w-full max-w-md p-6 rounded-lg shadow-sm ${darkMode ? 'bg-gray-800 shadow-gray-200 text-white' : 'bg-white shadow-black text-gray-900'}`}>
+      <div className={`relative w-full max-w-md p-6 rounded-lg  ${darkMode ? 'bg-gray-800  text-white' : 'bg-white text-gray-900'}`}>
         <button
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
           onClick={onClose}
@@ -98,7 +98,7 @@ export default function TransactionModal({ isOpen, onClose, onSave, transaction,
         </h2>
 
         {/* Transaction Type Tabs */}
-        <div className="flex mb-6 border rounded-md overflow-hidden">
+        <div className="flex mb-6  rounded-md overflow-hidden">
           <button
             type="button"
             onClick={() => handleTypeChange("expense")}

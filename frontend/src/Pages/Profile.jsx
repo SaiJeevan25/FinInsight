@@ -19,6 +19,20 @@ export default function ProfilePage(user) {
   const [totalExpenses, setTotalExpenses] = useState("₹0.00");
   const [totalSavings, setTotalSavings] = useState("₹0.00");
 
+  const occupationOptions = [
+    "Student",
+    "Engineer",
+    "Doctor",
+    "Teacher",
+    "Business Owner",
+    "Finance Professional",
+    "IT Professional",
+    "Freelancer",
+    "Retired",
+    "Other"
+  ];
+
+
   useEffect(() => {
     const fetchFinancialSummary = async () => {
       setIsLoading(true);
@@ -79,25 +93,24 @@ export default function ProfilePage(user) {
   };
 
 
+
   return (
     <div className="flex flex-col h-full p-4 md:p-6 gap-6 mt-4">
       {message && <ProfilePopUp message={message} setMessage={setMessage} />}
 
       <div className="flex flex-col lg:flex-row gap-6">
         <div
-          className={`flex-1 p-6 rounded-lg shadow-md shadow-gray-600 ${
-            darkMode ? "bg-gray-800" : "bg-gray-100"
-          }`}
+          className={`flex-1 p-6 rounded-lg shadow-md shadow-gray-600 ${darkMode ? "bg-gray-800" : "bg-gray-100"
+            }`}
         >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">Profile Details</h2>
             <button
               onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
-              className={`px-4 py-2 rounded-lg flex items-center shadow-md shadow-gray-900 gap-2 transition ${
-                darkMode
-                  ? "bg-indigo-600 hover:bg-indigo-700"
-                  : "bg-indigo-500 hover:bg-indigo-600"
-              } text-white`}
+              className={`px-4 py-2 rounded-lg flex items-center shadow-md shadow-gray-900 gap-2 transition ${darkMode
+                ? "bg-indigo-600 hover:bg-indigo-700"
+                : "bg-indigo-500 hover:bg-indigo-600"
+                } text-white`}
             >
               {isEditing ? (
                 <>
@@ -122,11 +135,10 @@ export default function ProfilePage(user) {
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className={`flex-1 p-2 rounded-lg ${
-                    darkMode
-                      ? "bg-gray-700 border-gray-600"
-                      : "bg-white border-gray-300"
-                  } border`}
+                  className={`flex-1 p-2 rounded-lg ${darkMode
+                    ? "bg-gray-700 border-gray-600"
+                    : "bg-white border-gray-300"
+                    } border`}
                 />
               ) : (
                 <span className="flex-1">{firstName}</span>
@@ -143,11 +155,10 @@ export default function ProfilePage(user) {
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className={`flex-1 p-2 rounded-lg ${
-                    darkMode
-                      ? "bg-gray-700 border-gray-600"
-                      : "bg-white border-gray-300"
-                  } border`}
+                  className={`flex-1 p-2 rounded-lg ${darkMode
+                    ? "bg-gray-700 border-gray-600"
+                    : "bg-white border-gray-300"
+                    } border`}
                 />
               ) : (
                 <span className="flex-1">{lastName}</span>
@@ -170,9 +181,8 @@ export default function ProfilePage(user) {
               {isEditing ? (
                 <div className="flex">
                   <p
-                    className={`w-2/8 px-3 py-1 mt-1 ${
-                      darkMode ? "text-white" : "text-black"
-                    } rounded-md`}
+                    className={`w-2/8 px-3 py-1 mt-1 ${darkMode ? "text-white" : "text-black"
+                      } rounded-md`}
                   >
                     +91
                   </p>
@@ -180,11 +190,10 @@ export default function ProfilePage(user) {
                     type="text"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className={`flex-1 p-2 rounded-lg ${
-                      darkMode
-                        ? "bg-gray-700 border-gray-600"
-                        : "bg-white border-gray-300"
-                    } border`}
+                    className={`flex-1 p-2 rounded-lg ${darkMode
+                      ? "bg-gray-700 border-gray-600"
+                      : "bg-white border-gray-300"
+                      } border`}
                   />
                 </div>
               ) : (
@@ -195,19 +204,21 @@ export default function ProfilePage(user) {
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
               <div className="flex items-center gap-2 w-32">
                 <FiBriefcase className="text-indigo-500" />
-                <label className="font-semibold">Occupation:</label>
+                <label htmlFor="occupation" className="font-semibold">Occupation:</label>
               </div>
               {isEditing ? (
-                <input
-                  type="text"
+                <select
+                  id="occupation"
+                  name="occupation"
                   value={occupation}
                   onChange={(e) => setOccupation(e.target.value)}
-                  className={`flex-1 p-2 rounded-lg ${
-                    darkMode
-                      ? "bg-gray-700 border-gray-600"
-                      : "bg-white border-gray-300"
-                  } border`}
-                />
+                  className="w-full px-3 py-1.5 mt-1 bg-gray-600 text-white rounded-md focus:ring-2 focus:ring-indigo-400"
+                >
+                  <option value="" disabled>Select your occupation</option>
+                  {occupationOptions.map((option) => (
+                    <option key={option} value={option}>{option}</option>
+                  ))}
+                </select>
               ) : (
                 <span className="flex-1">{occupation}</span>
               )}
@@ -224,25 +235,23 @@ export default function ProfilePage(user) {
             <div className="flex gap-2">
               <button
                 onClick={() => setTimePeriod('month')}
-                className={`px-3 py-1 text-sm rounded-lg ${
-                  timePeriod === 'month'
-                    ? 'bg-indigo-500 text-white'
-                    : darkMode
+                className={`px-3 py-1 text-sm rounded-lg ${timePeriod === 'month'
+                  ? 'bg-indigo-500 text-white'
+                  : darkMode
                     ? 'bg-gray-700 text-gray-300'
                     : 'bg-gray-200 text-gray-700'
-                }`}
+                  }`}
               >
                 This Month
               </button>
               <button
                 onClick={() => setTimePeriod('all')}
-                className={`px-3 py-1 text-sm rounded-lg ${
-                  timePeriod === 'all'
-                    ? 'bg-indigo-500 text-white'
-                    : darkMode
+                className={`px-3 py-1 text-sm rounded-lg ${timePeriod === 'all'
+                  ? 'bg-indigo-500 text-white'
+                  : darkMode
                     ? 'bg-gray-700 text-gray-300'
                     : 'bg-gray-200 text-gray-700'
-                }`}
+                  }`}
               >
                 All Time
               </button>
