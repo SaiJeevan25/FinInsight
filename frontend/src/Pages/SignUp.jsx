@@ -167,7 +167,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className={`relative min-h-[calc(100vh+1rem)] flex flex-col md:grid md:grid-cols-2 font-poppins 
+    <div className={`relative min-h-[calc(100vh+1rem)] flex flex-col py-10 md:grid md:grid-cols-2 font-poppins 
       ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-200 text-black'}`}>
       <div className='absolute z-20 top-4 w-full flex items-center justify-between px-4'>
         <Logo />
@@ -176,10 +176,10 @@ export default function SignUp() {
       <div className='hidden md:block absolute w-2xl h-full'>
         <BarAnimation />
       </div>
-      <div className="hidden md:flex flex-col justify-center items-center text-center p-6 overflow-hidden">
-        <div className={`backdrop-blur-2xl p-4 rounded-2xl shadow-lg shadow-indigo-500 ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
+      <div className="hidden md:flex flex-col justify-center items-center text-center  overflow-hidden">
+        <div className={`backdrop-blur-2xl p-8 rounded-2xl shadow-lg shadow-indigo-500 ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
           <div className="text-center pb-2">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-indigo-500">
+            <h1 className="text-3xl md:text-4xl lg:text-6xl font-extrabold text-indigo-500">
               Fin<span className={`${darkMode ? 'text-gray-400' : "text-gray-700"}`}>Insight</span>
             </h1>
             <p className={`mt-2 text-lg md:text-xl text-gray-700 font-light ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -188,18 +188,18 @@ export default function SignUp() {
             <p className='text-xl'>-----</p>
           </div>
 
-          <h1 className="text-xl font-bold leading-tight">
+          <h1 className="text-2xl font-bold leading-tight">
             "Empower Your Financial Future"
           </h1>
-          <p className="mt-2 text-base max-w-md">
+          <p className="mt-4 text-lg max-w-md">
           Unlock powerful insights and tools to help you understand and improve your financial health.
           </p>
         </div>
       </div>
 
       {/* Right Side - Signup Form */}
-      <div className="relative flex flex-col items-center  justify-center px-3 py-4 md:px-6">
-        <div className={`relative w-full max-w- p-6 bg-opacity-90 rounded-xl shadow-lg shadow-indigo-500  
+      <div className="relative flex flex-col items-center  justify-center px-3 py-8 md:px-8">
+        <div className={`relative w-full max-w-lg p-6 bg-opacity-90 rounded-xl shadow-lg shadow-indigo-500  
           ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
 
           <h2 className="text-2xl font-semibold text-center mb-3">Create an Account</h2>
