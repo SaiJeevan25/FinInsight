@@ -3,9 +3,11 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from database import users_collection
 from utils.security import hash_password, verify_password
 import time
+import requests
 from routes.otp_routes import otp_store
 
 auth_bp = Blueprint('auth', __name__)
+GOOGLE_TOKEN_INFO_URL = "https://oauth2.googleapis.com/tokeninfo"
 
 # Signup route
 @auth_bp.route('/api/auth/signup', methods=['POST'])
@@ -58,6 +60,57 @@ def login():
         "phone": user['phone'],
         "occupation": user['occupation'],
     }}), 200
+
+@auth_bp.route('/api/auth/google-callback', methods=['POST'])
+def google_callback():
+    data = request.get_json()
+    token = data.get('token')
+
+    if not token:
+        return jsonify({"error": "Token is required"}), 400
+
+    try:
+        # Verify token with Google
+        response = requests.get(GOOGLE_TOKEN_INFO_URL, params={'id_token': token})
+        user_info = response.json()
+
+        if response.status_code != 200 or 'email' not in user_info:
+            return jsonify({"error": "Invalid Google token"}), 400
+
+        email = user_info['email']
+        first_name = user_info.get('given_name', '')
+        last_name = user_info.get('family_name', '')
+
+        # Find or create user
+        user = users_collection.find_one({"email": email})
+
+        if not user:
+            new_user = {
+                "firstName": first_name,
+                "lastName": last_name,
+                "email": email,
+                "phone": '',  
+                "occupation": '',
+                "password": '',  
+            }
+            users_collection.insert_one(new_user)
+            user = new_user
+
+        # Create your app JWT
+        access_token = create_access_token(identity=email)
+
+        return jsonify({
+            "token": access_token,
+            "user": {
+                "firstName": user['firstName'],
+                "lastName": user['lastName'],
+                "email": user['email'],
+                "phone": user.get('phone', ''),
+                "occupation": user.get('occupation', '')
+            }
+        }), 200
+    except Exception as e:
+        return jsonify({"error": "Server error", "details": str(e)}), 500
 
 @auth_bp.route('/api/auth/reset-password', methods=['POST'])
 def reset_password():

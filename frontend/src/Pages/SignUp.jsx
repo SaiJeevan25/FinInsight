@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../Components/ThemeContext';
-import BarAnimation from '../Components/Animations/barAnimation';
+import BarAnimation from '../Components/Animations/BarAnimation';
+import { GoogleLogin } from '@react-oauth/google';
 import Logo from '../Components/Logo';
 import Button from '../Components/Button';
 import BgToggle from '../Components/BgToggle';
@@ -21,6 +22,7 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Rest of your code remains the same
   const occupationOptions = [
     "Student",
     "Engineer",
@@ -45,6 +47,7 @@ export default function SignUp() {
   };
 
   const handleSubmit = async (e) => {
+    // Your existing submit handler code
     e.preventDefault();
     setError('');
     setSuccess('');
@@ -52,13 +55,13 @@ export default function SignUp() {
 
     // Debug values
     console.log({
-      firstName, 
-      lastName, 
-      email, 
-      phone, 
-      occupation, 
-      otherOccupation, 
-      password, 
+      firstName,
+      lastName,
+      email,
+      phone,
+      occupation,
+      otherOccupation,
+      password,
       confirmPassword
     });
 
@@ -135,14 +138,36 @@ export default function SignUp() {
         navigate('/login');
       }, 1500);
     } catch (err) {
-      setError("Hello");
+      setError("Error: ", err);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleGoogleLogin = async (credentialResponse) => {
+    try {
+      const res = await fetch('http://localhost:8000/api/auth/google-callback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token: credentialResponse.credential }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Google login failed');
+
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      navigate('/dashboard');
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    }
+  };
+
   return (
-    <div className={`relative h-screen flex flex-col md:grid md:grid-cols-2 font-poppins overflow-hidden
+    <div className={`relative min-h-[calc(100vh+1rem)] flex flex-col md:grid md:grid-cols-2 font-poppins 
       ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-200 text-black'}`}>
       <div className='absolute z-20 top-4 w-full flex items-center justify-between px-4'>
         <Logo />
@@ -164,21 +189,40 @@ export default function SignUp() {
           </div>
 
           <h1 className="text-xl font-bold leading-tight">
-            "Your Journey Starts Here"
+            "Empower Your Financial Future"
           </h1>
           <p className="mt-2 text-base max-w-md">
-            Build. Learn. Achieve. Join us today and unlock exclusive features tailored just for you!
+          Unlock powerful insights and tools to help you understand and improve your financial health.
           </p>
         </div>
       </div>
 
       {/* Right Side - Signup Form */}
-      <div className="relative flex flex-col items-center h-screen justify-center px-3 py-4 md:px-6">
-        <div className={`relative w-full max-w-md p-6 bg-opacity-90 rounded-xl shadow-lg shadow-indigo-500 overflow-y-auto max-h-screen
+      <div className="relative flex flex-col items-center  justify-center px-3 py-4 md:px-6">
+        <div className={`relative w-full max-w- p-6 bg-opacity-90 rounded-xl shadow-lg shadow-indigo-500  
           ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
 
-          <h2 className="text-2xl font-semibold text-center">Create an Account</h2>
-          <form onSubmit={handleSubmit} className="mt-3">
+          <h2 className="text-2xl font-semibold text-center mb-3">Create an Account</h2>
+          
+          <div className="flex flex-col items-center">
+            <div className="w-full px-8">
+              <GoogleLogin
+                onSuccess={handleGoogleLogin}
+                onError={() => setError('Google Login Failed')}
+                scope="profile email"
+                responseType="token"
+                className="w-full"
+              />
+            </div>
+          </div>
+          
+          <div className="flex items-center my-6">
+            <div className="flex-grow h-px bg-gray-400"></div>
+            <span className="px-4 text-sm text-gray-500">OR SIGN UP WITH EMAIL</span>
+            <div className="flex-grow h-px bg-gray-400"></div>
+          </div>
+          
+          <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label htmlFor="firstname" className="block text-sm font-medium">First Name:</label>
@@ -276,10 +320,10 @@ export default function SignUp() {
               </div>
             </div>
 
-            <Button type='submit' text={loading ? 'Signing Up...' : 'Sign Up'} style="w-full mt-3" disabled={loading} />
+            <Button type='submit' text={loading ? 'Signing Up...' : 'Sign Up'} style="w-full mt-4" disabled={loading} />
             {error && <div className="text-center text-red-500 mt-2 text-sm">{error}</div>}
             {success && <div className="text-center text-green-500 mt-2 text-sm">{success}</div>}
-            <p className="text-center mt-2 text-sm">
+            <p className="text-center mt-3 text-sm">
               Already have an account? <span></span>
               <a href="/login" className="text-indigo-500 hover:underline">Login</a>
             </p>
