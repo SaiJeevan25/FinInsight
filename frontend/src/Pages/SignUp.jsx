@@ -198,7 +198,14 @@ export default function SignUp() {
         <div className={`backdrop-blur-2xl p-8 rounded-2xl shadow-lg shadow-indigo-500 ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
           <div className="text-center pb-2">
             <h1 className="text-3xl md:text-4xl lg:text-6xl font-extrabold text-indigo-500">
-              Fin<span className={`${darkMode ? 'text-gray-400' : "text-gray-700"}`}>Insight</span>
+            <span className={`bg-clip-text text-transparent ${
+                  darkMode ? 'bg-gradient-to-r from-indigo-400 to-indigo-500' : 'bg-gradient-to-r from-indigo-600 to-indigo-400'
+                }`}>
+                  Fin
+                </span>
+                <span className={darkMode ? 'text-gray-200' : 'text-gray-900'}>
+                  Insight
+                </span>
             </h1>
             <p className={`mt-2 text-lg md:text-xl text-gray-700 font-light ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               AI-Powered Financial Clarity

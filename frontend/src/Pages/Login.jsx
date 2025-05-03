@@ -91,8 +91,15 @@ export default function Login() {
       <div className="hidden md:flex flex-col justify-center items-center text-center p-12 overflow-hidden">
         <div className={`backdrop-blur-2xl p-6 rounded-2xl shadow-lg shadow-indigo-500 border-b-2 
           ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-indigo-500">
-            Fin<span className={`${darkMode ? 'text-gray-400' : "text-gray-700"}`}>Insight</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold ">
+          <span className={`bg-clip-text text-transparent ${
+                  darkMode ? 'bg-gradient-to-r from-indigo-400 to-indigo-500' : 'bg-gradient-to-r from-indigo-600 to-indigo-400'
+                }`}>
+                  Fin
+                </span>
+                <span className={darkMode ? 'text-gray-200' : 'text-gray-900'}>
+                  Insight
+                </span>
           </h1>
           <p className={`mt-4 text-lg md:text-2xl text-gray-700 font-light 
             ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -116,13 +123,12 @@ export default function Login() {
           <h2 className="text-3xl font-semibold text-center mb-7">Log In to Your Account</h2>
 
           <div className="flex flex-col items-center">
-            <div className="w-full px-8 ">
+            <div className="w-full hover:bg-black/40 rounded-lg z-50 hover:shadow-md shadow-gray-300 duration-200">
               <GoogleLogin
                 onSuccess={handleGoogleLogin}
                 onError={() => setError('Google Login Failed')}
                 scope="profile email"
                 responseType="token"
-                className="w-full rounded-lg"
               />
             </div>
           </div>
