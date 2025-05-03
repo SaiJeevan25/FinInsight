@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { RouterProvider, useNavigate } from 'react-router-dom';
 import { useTheme } from '../Components/ThemeContext';
 import BarAnimation from '../Components/Animations/BarAnimation';
+import RupeeCoinAnimation from '../Components/Animations/RupeeCoinAnimation';
 import { GoogleLogin } from '@react-oauth/google';
 import Logo from '../Components/Logo';
 import Button from '../Components/Button';
@@ -171,7 +172,10 @@ export default function SignUp() {
 
   return (
     <div className={`relative min-h-[calc(100vh+1rem)] flex flex-col py-10 md:grid md:grid-cols-2 font-poppins 
-      ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-200 text-black'}`}>
+      ${darkMode
+        ? 'bg-black text-white'
+        : 'bg-gradient-to-br from-white via-gray-300 to-indigo-200 text-gray-900'
+      }`}>
       <div className='absolute z-20 top-4 w-full flex items-center justify-between px-4'>
         <Logo />
         <BgToggle />
@@ -194,25 +198,24 @@ export default function SignUp() {
       <div className='hidden md:block absolute w-2xl h-full'>
         <BarAnimation />
       </div>
-      <div className="hidden md:flex flex-col justify-center items-center text-center  overflow-hidden">
+      <div className="hidden md:flex flex-col justify-center mt-[-3rem] items-center text-center  overflow-hidden">
         <div className={`backdrop-blur-2xl p-8 rounded-2xl shadow-lg shadow-indigo-500 ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
           <div className="text-center pb-2">
             <h1 className="text-3xl md:text-4xl lg:text-6xl font-extrabold text-indigo-500">
-            <span className={`bg-clip-text text-transparent ${
-                  darkMode ? 'bg-gradient-to-r from-indigo-400 to-indigo-500' : 'bg-gradient-to-r from-indigo-600 to-indigo-400'
+              <span className={`bg-clip-text text-transparent ${darkMode ? 'bg-gradient-to-r from-indigo-400 to-indigo-500' : 'bg-gradient-to-r from-indigo-600 to-indigo-400'
                 }`}>
-                  Fin
-                </span>
-                <span className={darkMode ? 'text-gray-200' : 'text-gray-900'}>
-                  Insight
-                </span>
+                Fin
+              </span>
+              <span className={darkMode ? 'text-gray-200' : 'text-gray-900'}>
+                Insight
+              </span>
             </h1>
             <p className={`mt-2 text-lg md:text-xl text-gray-700 font-light ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               AI-Powered Financial Clarity
             </p>
             <p className='text-xl'>-----</p>
           </div>
-
+                <RupeeCoinAnimation />
           <h1 className="text-2xl font-bold leading-tight">
             "Empower Your Financial Future"
           </h1>

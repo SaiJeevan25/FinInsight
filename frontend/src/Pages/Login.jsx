@@ -3,6 +3,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../Components/ThemeContext';
 import BarAnimation from '../Components/Animations/BarAnimation';
+import RupeeCoinAnimation from '../Components/Animations/RupeeCoinAnimation';
 import Logo from '../Components/Logo';
 import Button from '../Components/Button';
 import BgToggle from '../Components/BgToggle';
@@ -71,7 +72,10 @@ export default function Login() {
 
   return (
     <div className={`h-screen flex flex-col md:grid md:grid-cols-2 font-poppins
-      ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-200 text-black'}`}>
+      ${darkMode
+        ? 'bg-black text-white'
+        : 'bg-gradient-to-br from-white via-gray-300 to-indigo-200 text-gray-900'
+      }`}>
       <div className='absolute z-20 top-4 w-full flex items-center justify-between px-4'>
         <Logo />
         <BgToggle />
@@ -92,21 +96,20 @@ export default function Login() {
         <div className={`backdrop-blur-2xl p-6 rounded-2xl shadow-lg shadow-indigo-500 border-b-2 
           ${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-900'}`}>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold ">
-          <span className={`bg-clip-text text-transparent ${
-                  darkMode ? 'bg-gradient-to-r from-indigo-400 to-indigo-500' : 'bg-gradient-to-r from-indigo-600 to-indigo-400'
-                }`}>
-                  Fin
-                </span>
-                <span className={darkMode ? 'text-gray-200' : 'text-gray-900'}>
-                  Insight
-                </span>
+            <span className={`bg-clip-text text-transparent ${darkMode ? 'bg-gradient-to-r from-indigo-400 to-indigo-500' : 'bg-gradient-to-r from-indigo-600 to-indigo-400'
+              }`}>
+              Fin
+            </span>
+            <span className={darkMode ? 'text-gray-200' : 'text-gray-900'}>
+              Insight
+            </span>
           </h1>
           <p className={`mt-4 text-lg md:text-2xl text-gray-700 font-light 
             ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             Financial Clarity Application
           </p>
           <p className='text-2xl'>-----</p>
-
+            <RupeeCoinAnimation />
           <h1 className="text-2xl font-bold leading-tight">
             "Welcome Back"
           </h1>

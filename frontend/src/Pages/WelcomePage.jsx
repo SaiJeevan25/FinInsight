@@ -4,6 +4,7 @@ import { Star } from "lucide-react";
 
 import Button from "../Components/Button";
 import BarAnimation from "../Components/Animations/BarAnimation";
+import FloatingRupeeCoins from "../Components/Animations/FloatingRupeeCoins";
 import Logo from "../Components/Logo";
 import BgToggle from "../Components/BgToggle";
 
@@ -22,7 +23,7 @@ export default function WelcomePage() {
     <div className={`relative h-screen overflow-hidden duration-500 ${
       darkMode 
         ? 'bg-black text-white' 
-        : 'bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 text-gray-900'
+        : 'bg-gradient-to-br from-white via-gray-300 to-indigo-200 text-gray-900'
     }`}>
       <div className="absolute z-20 top-6 w-full flex items-center justify-between px-8">
         <Logo />
@@ -32,6 +33,9 @@ export default function WelcomePage() {
       <div className={`absolute w-[800px] h-[800px] rounded-full blur-3xl opacity-20 -top-1/4 -right-1/4 ${
         darkMode ? 'bg-indigo-600' : 'bg-indigo-400'
       }`} />
+      
+      {/* Floating Rupee Coins animation in the background */}
+      <FloatingRupeeCoins />
       
       <BarAnimation />
 
@@ -63,7 +67,6 @@ export default function WelcomePage() {
                 AI-Powered Financial Clarity
               </p>
             </div>
-
 
             <p className={`mt-6 text-lg text-center max-w-xl mx-auto ${
               darkMode ? 'text-gray-300' : 'text-gray-700'

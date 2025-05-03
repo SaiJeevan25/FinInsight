@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { FiX, FiCoffee, FiShoppingCart, FiTruck, FiHome, FiDollarSign } from "react-icons/fi";
+import { FiX } from "react-icons/fi";
 import Button from "../../Components/Button";
 import { useTheme } from "../../Components/ThemeContext";
-import QuickAdd from "./QuickAdd";
+import { FiCalendar } from "react-icons/fi";
 
 export default function TransactionModal({ isOpen, onClose, onSave, transaction, isEditing }) {
   const { darkMode } = useTheme();
@@ -11,12 +11,8 @@ export default function TransactionModal({ isOpen, onClose, onSave, transaction,
     amount: "",
     category: "Food",
     type: "expense",
-    date: new Date().toISOString().split('T')[0],
-    addons: []
+    date: new Date().toISOString().split('T')[0]
   });
-  const [isQuickAddExpanded, setIsQuickAddExpanded] = useState(false);
-  const [selectedField, setSelectedField] = useState(null);
-  const [optionType, setOptionType] = useState('expense')
 
   const expenseCategories = [
     "Food", "Shopping", "Transport", "Utilities", "Investments", "Rent", "Entertainment",
@@ -28,56 +24,21 @@ export default function TransactionModal({ isOpen, onClose, onSave, transaction,
     "Petty Cash", "Other"
   ];
 
-  const predefinedTransactions = [
-    {
-      title: "Coffee",
-      amount: "150",
-      category: "Food",
-      type: "expense",
-      icon: <FiCoffee size={18} />
-    },
-    {
-      title: "Groceries",
-      amount: "1000",
-      category: "Shopping",
-      type: "expense",
-      icon: <FiShoppingCart size={18} />
-    },
-    {
-      title: "Fuel",
-      amount: "500",
-      category: "Transport",
-      type: "expense",
-      icon: <FiTruck size={18} />
-    },
-    {
-      title: "Rent",
-      amount: "15000",
-      category: "Rent",
-      type: "expense",
-      icon: <FiHome size={18} />
-    },
-    {
-      title: "Salary",
-      amount: "50000",
-      category: "Salary",
-      type: "income",
-      icon: <FiDollarSign size={18} />
-    }
+  const paymentTypes = [
+    "UPI", "Credit Card", "Debit Card", "Cash", "Net Banking", "Other"
   ];
 
   useEffect(() => {
     if (isEditing && transaction) {
       const cleanAmount = String(transaction.amount).replace(/[^\d.-]/g, '');
-
+      
       setTransactionData({
-        id: transaction.id,
+        id: transaction.id, 
         title: transaction.title || "",
         amount: cleanAmount || "",
         category: transaction.category || "",
         type: transaction.type || "expense",
-        date: transaction.date || new Date().toISOString().split('T')[0],
-        addons: transaction.addons || []
+        date: transaction.date || new Date().toISOString().split('T')[0]
       });
     }
   }, [isEditing, transaction]);
@@ -111,7 +72,6 @@ export default function TransactionModal({ isOpen, onClose, onSave, transaction,
       ...prev,
       type: type
     }));
-    setOptionType(type)
   };
 
   const handleSubmit = (e) => {
@@ -120,27 +80,12 @@ export default function TransactionModal({ isOpen, onClose, onSave, transaction,
     onClose();
   };
 
-
-
-
-  const focusField = (fieldName) => {
-    setSelectedField(fieldName);
-    // Auto-focus the input field
-    setTimeout(() => {
-      const element = document.querySelector(`[name="${fieldName}"]`);
-      if (element) {
-        element.focus();
-      }
-    }, 0);
-  };
-
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="absolute inset-0 bg-black opacity-70" onClick={onClose}></div>
-      <div className={`relative w-full ${isEditing ? 'max-w-md' : 'max-w-5xl'} p-6 rounded-lg ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}`}>
-
+      <div className={`relative w-full max-w-md p-6 rounded-lg  ${darkMode ? 'bg-gray-800  text-white' : 'bg-white text-gray-900'}`}>
         <button
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
           onClick={onClose}
@@ -152,143 +97,110 @@ export default function TransactionModal({ isOpen, onClose, onSave, transaction,
           {isEditing ? 'Edit Transaction' : 'Add New Transaction'}
         </h2>
 
-        <div className={`grid grid-cols-1 md:${isEditing ? 'grid-cols-1' : "grid-cols-2"} gap-6`}>
-          <div>
-            {/* Transaction Type Tabs */}
-            <div className="flex mb-6 rounded-md ">
-              <button
-                type="button"
-                onClick={() => handleTypeChange("expense")}
-                className={`flex-1 py-2 px-4 text-center font-medium transition-colors ${transactionData.type === "expense"
-                  ? darkMode
-                    ? "bg-red-600 text-white"
-                    : "bg-red-500 text-white"
-                  : darkMode
-                    ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                  }`}
-              >
-                Expense
-              </button>
-              <button
-                type="button"
-                onClick={() => handleTypeChange("income")}
-                className={`flex-1 py-2 px-4 text-center font-medium transition-colors ${transactionData.type === "income"
-                  ? darkMode
-                    ? "bg-green-600 text-white"
-                    : "bg-green-500 text-white"
-                  : darkMode
-                    ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                  }`}
-              >
-                Income
-              </button>
-            </div>
+        {/* Transaction Type Tabs */}
+        <div className="flex mb-6  rounded-md overflow-hidden">
+          <button
+            type="button"
+            onClick={() => handleTypeChange("expense")}
+            className={`flex-1 py-2 px-4 text-center font-medium transition-colors ${transactionData.type === "expense"
+                ? darkMode
+                  ? "bg-red-600 text-white"
+                  : "bg-red-500 text-white"
+                : darkMode
+                  ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+          >
+            Expense
+          </button>
+          <button
+            type="button"
+            onClick={() => handleTypeChange("income")}
+            className={`flex-1 py-2 px-4 text-center font-medium transition-colors ${transactionData.type === "income"
+                ? darkMode
+                  ? "bg-green-600 text-white"
+                  : "bg-green-500 text-white"
+                : darkMode
+                  ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+          >
+            Income
+          </button>
+        </div>
 
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label className="block mb-2 font-medium">Title</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={transactionData.title}
-                  onChange={handleChange}
-                  onClick={() => focusField("title")}
-                  className={`w-full p-2 border rounded-md ${selectedField === "title" ? "ring-2 ring-blue-500" : ""} ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
-                  required
-                />
-              </div>
-
-              <div className="mb-4">
-                <label className="block mb-2 font-medium">Amount</label>
-                <div className="relative">
-                  <span className="absolute left-3 top-2">₹</span>
-                  <input
-                    type="number"
-                    name="amount"
-                    value={transactionData.amount}
-                    onChange={handleChange}
-                    onClick={() => focusField("amount")}
-                    className={`w-full p-2 pl-8 border rounded-md ${selectedField === "amount" ? "ring-2 ring-blue-500" : ""} ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="mb-4">
-                <label className="block mb-2 font-medium">Category</label>
-                <select
-                  name="category"
-                  value={transactionData.category}
-                  onChange={handleChange}
-                  onClick={() => focusField("category")}
-                  className={`w-full p-2 border rounded-md ${selectedField === "category" ? "ring-2 ring-blue-500" : ""} ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
-                >
-                  {transactionData.type === "expense" ? (
-                    expenseCategories.map(category => (
-                      <option key={category} value={category}>{category}</option>
-                    ))
-                  ) : (
-                    incomeCategories.map(category => (
-                      <option key={category} value={category}>{category}</option>
-                    ))
-                  )}
-                </select>
-              </div>
-
-              <div className="mb-4">
-                <label className="block mb-2 font-medium">Date</label>
-                <input
-                  type="date"
-                  name="date"
-                  value={transactionData.date}
-                  onChange={handleChange}
-                  onClick={() => focusField("date")}
-                  max={new Date().toISOString().split('T')[0]}
-                  className={`w-full p-2 border rounded-md ${selectedField === "date" ? "ring-2 ring-blue-500" : ""} ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
-                  required
-                />
-              </div>
-
-              <div className="flex justify-end space-x-4">
-                <Button
-                  text={isEditing ? "Update Transaction" : "Save Transaction"}
-                  type="submit"
-                  className={transactionData.type === "expense"
-                    ? "bg-red-500 hover:bg-red-600"
-                    : "bg-green-500 hover:bg-green-600"}
-                />
-                {!isEditing && <Button
-                  text="Add Quick Add"
-                  type="submit"
-                  className={transactionData.type === "expense"
-                    ? "bg-red-500 hover:bg-red-600"
-                    : "bg-green-500 hover:bg-green-600"}
-                />}
-              </div>
-            </form>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block mb-2 font-medium">Title</label>
+            <input
+              type="text"
+              name="title"
+              value={transactionData.title}
+              onChange={handleChange}
+              className={`w-full p-2 border rounded-md ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
+              required
+            />
           </div>
 
-
-          {!isEditing && (
-            <div>
-              <QuickAdd
-                predefinedTransactions={predefinedTransactions}
-                handleQuickAdd={(quickTransaction) => {
-                  setTransactionData({
-                    ...quickTransaction,
-                    date: new Date().toISOString().split('T')[0],
-                    addons: transactionData.addons
-                  });
-                }}
-                optionType={optionType}
+          <div className="mb-4">
+            <label className="block mb-2 font-medium">Amount</label>
+            <div className="relative">
+              <span className="absolute left-3 top-2">₹</span>
+              <input
+                type="number"
+                name="amount"
+                value={transactionData.amount}
+                onChange={handleChange}
+                className={`w-full p-2 pl-8 border rounded-md ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
+                required
               />
             </div>
-          )}
+          </div>
 
-        </div>
+          <div className="mb-4">
+            <label className="block mb-2 font-medium">Category</label>
+            <select
+              name="category"
+              value={transactionData.category}
+              onChange={handleChange}
+              className={`w-full p-2 border rounded-md ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
+            >
+              {transactionData.type === "expense" ? (
+                expenseCategories.map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))
+              ) : (
+                incomeCategories.map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))
+              )}
+            </select>
+          </div>
+
+          <div className="mb-6">
+            <label className="block mb-2 font-medium">Date</label>
+            <input
+              type="date"
+              name="date"
+              value={transactionData.date}
+              onChange={handleChange}
+              max={new Date().toISOString().split('T')[0]}
+              className={`w-full p-2 border rounded-md ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}
+              required
+            />
+          </div>
+
+          <div className="flex justify-end space-x-4">
+            <Button
+              text={isEditing ? "Update Transaction" : "Save Transaction"}
+              type="submit"
+              className={transactionData.type === "expense"
+                ? "bg-red-500 hover:bg-red-600"
+                : "bg-green-500 hover:bg-green-600"}
+            />
+          </div>
+        </form>
       </div>
     </div>
   );
-}
+};
