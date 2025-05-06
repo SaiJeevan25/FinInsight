@@ -1,44 +1,35 @@
-# FinInsight 💰✨
+
+# FinInsight 
 **AI Powered Financial Clarity**
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Flask](https://img.shields.io/badge/Backend-Flask-blue)
-![React](https://img.shields.io/badge/Frontend-React-61dafb)
-![MongoDB](https://img.shields.io/badge/Database-MongoDB-4DB33D)
-![AI](https://img.shields.io/badge/AI-Gemini_1.5_Pro-yellowgreen)
+##  Overview  
+FinInsight is a full-stack AI-powered web application designed to help users manage their personal finances intelligently and securely. Users can add, edit, categorize, and track transactions, visualize financial trends, and receive personalized insights powered by Google's Gemini 1.5 Pro.
 
 ---
 
-## 🚀 Overview
+##  Tech Stack  
 
-**FinInsight** is a full-stack AI-powered web application designed to help users manage their finances intelligently and securely. Users can add, edit, categorise, and track transactions, visualise financial trends, and receive personalised insights powered by Google's **Gemini 1.5 Pro**.
-
----
-
-## 🖥️ Tech Stack
-
-**Frontend**:  
+**Frontend:**  
 - React 19  
 - TailwindCSS  
 - React Router DOM  
 - Chart.js / Recharts  
 - Framer Motion  
 
-**Backend**:  
+**Backend:**  
 - Flask  
 - Flask-JWT-Extended  
 - PyMongo  
 - RESTful APIs  
 - Google Generative AI SDK  
 
-**Database**:  
+**Database:**  
 - MongoDB Atlas  
 
 ---
 
-## 🌟 Features
-
--  JWT Authentication and OTP-based password recovery  
+##  Features  
+- JWT Authentication and OTP-based password recovery  
 - Real-time income & expense tracking  
 - Daily, Monthly, Yearly filters with sorting  
 - Financial charts & summaries (line, pie, cards)  
@@ -47,20 +38,88 @@
 
 ---
 
-## 📸 Screenshots
+##  Screenshots  
 
-> _Add your screenshots here by placing images in the `assets/` directory and referencing them as shown below._
+(Add your screenshots in the `assets/` folder and reference them below)
 
 | Dashboard | Transactions | AI Insights |
 |----------|--------------|-------------|
-| ![](assets/dashboard.png) | ![](assets/transactions.png) | ![](assets/ai-insights.png) |
+| ![dashboard](assets/dashboard.png) | ![transactions](assets/transactions.png) | ![ai-insights](assets/ai-insights.png) |
 
 ---
 
-## 🛠️ Installation
+## 🛠️ Installation  
 
-### Backend
+### Backend  
+```bash  
+cd backend  
+pip install -r requirements.txt  
+```
 
-```bash
-cd backend
-pip install -r requirements.txt
+Create a `.env` file inside `/backend`:
+
+```env
+MONGO_URI=your_mongodb_uri  
+JWT_SECRET_KEY=your_jwt_key  
+GOOGLE_API_KEY=your_google_api_key  
+```
+
+Run the backend:
+
+```bash  
+python app.py  
+```
+
+### Frontend  
+
+```bash  
+cd frontend  
+npm install  
+npm run dev  
+```
+
+---
+
+## 📁 Project Structure  
+
+```
+saijeevan25-fininsight/  
+├── backend/  
+│   ├── routes/, models/, utils/  
+├── frontend/  
+│   ├── src/  
+│   │   ├── Pages/, Components/, utils/  
+│   └── public/  
+```
+
+---
+
+## 🧠 AI Integration  
+
+The AI component uses Gemini 1.5 Pro to:  
+- Summarize spending patterns  
+- Suggest savings tips  
+- Detect anomalies in transactions  
+
+Implemented in:  
+- Frontend: `AIInsights.jsx`  
+- Backend: `insights.py`  
+
+---
+
+## 🔐 Environment Variables  
+
+```env
+MONGO_URI=your_mongodb_uri  
+JWT_SECRET_KEY=your_jwt_secret  
+GOOGLE_API_KEY=your_gemini_api_key  
+```
+
+---
+
+## 👥 Contributors  
+- Ashish Pathak – 160123737169  
+- Battiprolu Sai Jeevan – 160123737172  
+
+---
+
