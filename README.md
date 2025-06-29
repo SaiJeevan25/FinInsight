@@ -42,9 +42,35 @@ FinInsight is a full-stack AI-powered web application designed to help users man
 
 (Add your screenshots in the `assets/` folder and reference them below)
 
-| Dashboard | Transactions | AI Insights |
-|----------|--------------|-------------|
-| ![dashboard](assets/dashboard.png) | ![transactions](assets/transactions.png) | ![ai-insights](assets/ai-insights.png) |
+### Welcome Page
+![WelcomePage](assets/WelcomePage.png)
+
+### Login Page
+![Login](assets/Login.png)
+
+### SignUp Page
+![Sign Up](assets/SignUp.png)
+
+### Forgot Password Page
+![Forgot Password](assets/otp(1).png)
+![Forgot Password](assets/otp(2).png)
+
+### Transaction Page
+![Transactions](assets/Transactions.png)
+
+###Add Transaction 
+![Add Transaction](assets/AddTran.png)
+
+###Stats (Breakdown) 
+![Breakdown](assets/Stats(4).png)
+
+###Stats (Trends) 
+![Line Chart](assets/Stats(5).png)
+![Pie Chart (Income)](assets/Stats(3).png)
+![Pie Chart (Expense)](assets/Stats(2).png)
+
+###Stats (AI Insights) 
+![Ai Insights](assets/Stats(1).png)
 
 ---
 
