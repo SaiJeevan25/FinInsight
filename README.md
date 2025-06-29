@@ -118,8 +118,7 @@ GOOGLE_API_KEY=your_gemini_api_key
 ---
 
 ## 👥 Contributors  
-- Ashish Pathak – 160123737169  
-- Battiprolu Sai Jeevan – 160123737172  
-
+- Ashish Pathak   
+- Battiprolu Sai Jeevan 
 ---
 
