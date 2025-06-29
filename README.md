@@ -38,41 +38,65 @@ FinInsight is a full-stack AI-powered web application designed to help users man
 
 ---
 
-##  Screenshots  
+## 📸 Screenshots
 
-(Add your screenshots in the `assets/` folder and reference them below)
-
-### Welcome Page
-![WelcomePage](assets/WelcomePage.png)
-
-### Login Page
-![Login](assets/Login.png)
-
-### SignUp Page
-![Sign Up](assets/SignUp.png)
-
-### Forgot Password Page
-![Forgot Password](assets/otp(1).png)
-![Forgot Password](assets/otp(2).png)
-
-### Transaction Page
-![Transactions](assets/Transactions.png)
-
-###Add Transaction 
-![Add Transaction](assets/AddTran.png)
-
-###Stats (Breakdown) 
-![Breakdown](assets/Stats(4).png)
-
-###Stats (Trends) 
-![Line Chart](assets/Stats(5).png)
-![Pie Chart (Income)](assets/Stats(3).png)
-![Pie Chart (Expense)](assets/Stats(2).png)
-
-###Stats (AI Insights) 
-![Ai Insights](assets/Stats(1).png)
+Screenshots of various key pages from the application.
 
 ---
+
+### 🏠 Welcome Page  
+![Welcome Page](assets/WelcomePage.png)
+
+---
+
+### 🔐 Authentication Pages  
+
+**Login Page**  
+![Login](assets/Login.png)
+
+**Sign Up Page**  
+![Sign Up](assets/SignUp.png)
+
+**Forgot Password (OTP Verification)**  
+![OTP Step 1](assets/otp(1).png)  
+![OTP Step 2](assets/otp(2).png)
+
+---
+
+### 💵 Transactions  
+
+**Transactions Dashboard**  
+![Transactions](assets/Transactions.png)
+
+**Add Transaction Page**  
+![Add Transaction](assets/AddTran.png)
+
+---
+
+### 📊 Statistics  
+
+**Breakdown View**  
+![Breakdown](assets/Stats(4).png)
+
+**Trends View**  
+- Line Chart  
+  ![Line Chart](assets/Stats(5).png)
+
+- Income Pie Chart  
+  ![Pie Chart (Income)](assets/Stats(3).png)
+
+- Expense Pie Chart  
+  ![Pie Chart (Expense)](assets/Stats(2).png)
+
+---
+
+### 🧠 AI Insights  
+
+**AI-Powered Analysis**  
+![AI Insights](assets/Stats(1).png)
+
+---
+
 
 ## 🛠️ Installation  
 
