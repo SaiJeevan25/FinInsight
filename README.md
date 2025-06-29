@@ -52,8 +52,8 @@ FinInsight is a full-stack AI-powered web application designed to help users man
 ![Sign Up](assets/SignUp.png)
 
 ### Forgot Password Page
-![Forgot Password](assets/otp (1).png)
-![Forgot Password](assets/otp (2).png)
+![Forgot Password](assets/otp(1).png)
+![Forgot Password](assets/otp(2).png)
 
 ### Transaction Page
 ![Transactions](assets/Transactions.png)
@@ -65,12 +65,12 @@ FinInsight is a full-stack AI-powered web application designed to help users man
 ![Breakdown](assets/Stats(4).png)
 
 ###Stats (Trends) 
-![Line Chart](assets/Stats (5).png)
-![Pie Chart (Income)](assets/Stats (3).png)
-![Pie Chart (Expense)](assets/Stats (2).png)
+![Line Chart](assets/Stats(5).png)
+![Pie Chart (Income)](assets/Stats(3).png)
+![Pie Chart (Expense)](assets/Stats(2).png)
 
 ###Stats (AI Insights) 
-![Ai Insights](assets/Stats (1).png)
+![Ai Insights](assets/Stats(1).png)
 
 ---
 
