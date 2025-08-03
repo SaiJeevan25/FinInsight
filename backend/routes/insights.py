@@ -1,25 +1,23 @@
 import os
 import json
-import google.generativeai as genai
+import requests
+import asyncio
 from typing import List, Dict, Any
-from dotenv import load_dotenv
-load_dotenv()
-
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
 class FinancialInsightsGenerator:
     def __init__(self):
-        try:
-            self.model = genai.GenerativeModel("gemini-1.5-pro-latest")
-            print("✅ Initialized with model: gemini-1.5-pro-latest")
-        except Exception as e:
-            print(f"❌ Model initialization error: {e}")
-            self.model = genai.GenerativeModel("gemini-1.5-flash-latest")
-            print("⚠️ Falling back to model: gemini-1.5-flash-latest")
+        """Initialize generator with Gemini 2.0 Flash model"""
+        self.api_key = os.getenv("GEMINI_API_KEY")
+        if not self.api_key:
+            raise ValueError("❌ GEMINI_API_KEY not found in environment variables.")
+        
+        self.model = "gemini-2.0-flash"
+        self.endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent"
+        print(f"✅ Initialized with model: {self.model}")
 
     async def generate_insights(self, financial_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Generate structured financial insights using Gemini 2.0 Flash via HTTP API"""
         try:
-            # Build user prompt with specific categories requested
+            # 📝 Build the user prompt
             user_prompt = f"""
 You are a financial advisor AI. Analyze the following financial data and provide 7-10 clear insights covering:
 1. Spending Behavior (categories, trends)
@@ -61,29 +59,60 @@ Income Sources:
 {self._format_income_breakdown(financial_data['income_breakdown'])}
 """
 
-            response = self.model.generate_content(user_prompt)
-            content = response.text.strip()
+            # 📦 Payload matches curl structure
+            payload = {
+                "contents": [
+                    {
+                        "parts": [
+                            {"text": user_prompt}
+                        ]
+                    }
+                ]
+            }
 
+            # 🌐 Headers & request
+            headers = {
+                "Content-Type": "application/json",
+                "X-goog-api-key": self.api_key
+            }
+
+            response = requests.post(self.endpoint, headers=headers, json=payload)
+
+            # ✅ Handle API response
+            if response.status_code != 200:
+                print(f"❌ API Error {response.status_code}: {response.text}")
+                return []
+
+            data = response.json()
+
+            # 📤 Extract text from Gemini response
+            try:
+                content = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+            except (KeyError, IndexError):
+                print("❌ Response did not contain expected format.")
+                print(json.dumps(data, indent=2))
+                return []
+
+            # 📦 Parse JSON inside model response (if present)
             json_data = self._extract_json(content)
             if not json_data:
-                print("❌ No valid insights found in response")
+                print("❌ No valid JSON found in model output.")
                 return []
-                
+
             insights = json_data.get("insights", [])
             if not self._validate_insights(insights):
-                print("❌ Invalid insights structure received")
+                print("❌ Invalid insights structure.")
                 return []
-                
+
             return insights
 
         except Exception as e:
             print(f"❌ Error generating insights: {str(e)}")
-            if 'content' in locals():
-                print(f"Response content (first 500 chars): {content[:500]}")
             return []
 
+    # 🔍 Helper methods
     def _extract_json(self, content: str) -> Dict[str, Any]:
-        """Extract JSON from response with multiple fallback methods"""
+        """Extract JSON from AI response text"""
         try:
             return json.loads(content)
         except json.JSONDecodeError:
@@ -97,19 +126,19 @@ Income Sources:
         return {}
 
     def _validate_insights(self, insights: List[Dict[str, Any]]) -> bool:
-        """Validate the structure of insights"""
+        """Validate structure of insights"""
         if not isinstance(insights, list):
             return False
-            
+
         required_keys = {"title", "type", "description", "severity"}
         valid_types = {"spending", "savings", "cashflow", "anomaly", "goal", "tip"}
-        
+
         for insight in insights:
             if not isinstance(insight, dict):
                 return False
             if not required_keys.issubset(insight.keys()):
                 return False
-            if insight['type'] not in valid_types:
+            if insight["type"] not in valid_types:
                 return False
         return True
 
@@ -120,7 +149,7 @@ Income Sources:
         return "\n".join([f"- {i['category']}: {i['amount']} ({i['percentage']}%)" for i in income])
 
     def categorize_insights(self, insights: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
-        """Categorize insights into sections for UI display"""
+        """Organize insights by type for UI display"""
         categorized = {
             "spending": [],
             "savings": [],
@@ -129,20 +158,18 @@ Income Sources:
             "goals": [],
             "tips": []
         }
-
         for insight in insights:
-            insight_type = insight['type'].lower()
-            if insight_type == "spending":
+            t = insight["type"].lower()
+            if t == "spending":
                 categorized["spending"].append(insight)
-            elif insight_type == "savings":
+            elif t == "savings":
                 categorized["savings"].append(insight)
-            elif insight_type == "cashflow":
+            elif t == "cashflow":
                 categorized["cashflow"].append(insight)
-            elif insight_type == "anomaly":
+            elif t == "anomaly":
                 categorized["anomalies"].append(insight)
-            elif insight_type == "goal":
+            elif t == "goal":
                 categorized["goals"].append(insight)
-            elif insight_type == "tip":
+            elif t == "tip":
                 categorized["tips"].append(insight)
-
         return categorized
