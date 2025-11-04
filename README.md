@@ -171,5 +171,6 @@ GOOGLE_API_KEY=your_gemini_api_key
 - Ashish Pathak   
 - Battiprolu Sai Jeevan 
 ---
-<sup>1</sup>&frasl;<sub>2</sub>
+$\frac{1}{2}$
+
 
