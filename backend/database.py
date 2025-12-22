@@ -1,7 +1,12 @@
 from pymongo import MongoClient
 from config import Config
 
-client = MongoClient(Config.MONGO_URI)
+client = MongoClient(
+    Config.MONGO_URI,
+    tls=True,
+    tlsAllowInvalidCertificates=False,
+    serverSelectionTimeoutMS=5000
+)
 db = client['fininsight_db']
 users_collection = db['users_auth']
 
