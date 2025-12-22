@@ -2,11 +2,14 @@ from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from config import Config
+
 from routes.auth_routes import auth_bp
 from routes.user_routes import user_bp
 from routes.transaction_routes import transaction_bp
-from routes.stats_routes import stats_bp 
+from routes.stats_routes import stats_bp
 from routes.otp_routes import otp_blueprint
+
+from database import init_indexes  # ✅ IMPORTANT
 
 from dotenv import load_dotenv
 import os
@@ -16,7 +19,7 @@ load_dotenv()
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Configure CORS properly
+# Configure CORS
 CORS(
     app,
     resources={
@@ -39,8 +42,13 @@ app.register_blueprint(transaction_bp)
 app.register_blueprint(stats_bp)
 app.register_blueprint(otp_blueprint)
 
-# ✅ Get port from .env (fallback to 5000)
-PORT = int(os.getenv("PORT", 5000))
+# ✅ Create MongoDB indexes AFTER app starts
+@app.before_first_request
+def setup_database():
+    init_indexes()
+
+# ✅ Render-compatible port
+PORT = int(os.environ.get("PORT", 10000))
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=PORT)
+    app.run(host="0.0.0.0", port=PORT)
