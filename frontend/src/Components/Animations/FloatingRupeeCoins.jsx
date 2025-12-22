@@ -6,7 +6,7 @@ export default function FloatingRupeeCoins() {
   const [coins, setCoins] = useState([]);
   
   useEffect(() => {
-    // Create coins distributed around the screen edges
+    
     const newCoins = [
       // Top area
       {
@@ -43,14 +43,14 @@ export default function FloatingRupeeCoins() {
       {
         id: 3,
         x: 80,
-        y: 85, // Bottom
+        y: 85, 
         size: 46,
         speed: 0.1,
         rotationSpeed: 2,
         rotation: 135,
         position: 75,
       },
-      // Left side
+      
       {
         id: 4,
         x: 8, // Left edge
